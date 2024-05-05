@@ -1,0 +1,12 @@
+.background{
+	-fx-background-color: rgb(59, 59, 59);
+}
+
+.header{
+	-fx-background-color: rgb(241, 234, 234);
+}
+
+.app-name-label{
+	-fx-text-fill: black;
+	-fx-font-size: 16;
+}
