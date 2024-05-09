@@ -1,20 +1,21 @@
-package com.ds.darknesschat.utils;
+package com.ds.darknesschat.utils.appSettings.settingsReader;
 
-import com.ds.darknesschat.Test;
+import com.ds.darknesschat.Main;
 import com.ds.darknesschat.utils.log.Log;
 import org.jetbrains.annotations.Nullable;
 
+import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 import java.util.Objects;
 import java.util.Properties;
 
-import static com.ds.darknesschat.Constants.SETTINGS_PATH;
+import static com.ds.darknesschat.Constants.BUILT_IN_SETTINGS_PATH;
 
 public final class SettingsReader {
     private static @Nullable Object getValue(String key){
         try {
             Properties properties = new Properties();
-            InputStreamReader inputStreamReader = new InputStreamReader(Objects.requireNonNull(Test.class.getResourceAsStream(SETTINGS_PATH)));
+            InputStreamReader inputStreamReader = new InputStreamReader(Objects.requireNonNull(Main.class.getResourceAsStream(BUILT_IN_SETTINGS_PATH)));
 
             properties.load(inputStreamReader);
             Object result = properties.get(key);

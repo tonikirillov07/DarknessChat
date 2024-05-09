@@ -1,4 +1,4 @@
-package com.ds.darknesschat.utils;
+package com.ds.darknesschat.utils.appSettings.settingsReader;
 
 public final class SettingsKeys {
     public static final String APP_NAME = "app_name";

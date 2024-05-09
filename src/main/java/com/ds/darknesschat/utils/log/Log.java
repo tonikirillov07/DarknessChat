@@ -18,6 +18,8 @@ public final class Log {
     public static void error(@NotNull Exception e){
         logger.severe(e.toString());
         writeLogsIntoFile(e.toString());
+
+        e.printStackTrace();
     }
 
     private static void writeLogsIntoFile(String log){

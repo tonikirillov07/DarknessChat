@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="mainVbox" alignment="TOP_CENTER" prefHeight="957.0" prefWidth="906.0" styleClass="background" stylesheets="@styles/style.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.2-ea" fx:controller="com.ds.darknesschat.MainController">
+<VBox fx:id="mainVbox" alignment="TOP_CENTER" prefHeight="957.0" prefWidth="906.0" stylesheets="@styles/style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ds.darknesschat.MainController">
    <children>
-      <HBox fx:id="headerHbox" alignment="CENTER_LEFT" prefHeight="59.0" prefWidth="200.0" styleClass="header">
+      <HBox fx:id="headerHbox" alignment="CENTER" prefHeight="59.0" prefWidth="200.0" styleClass="header">
          <children>
-            <HBox alignment="CENTER">
+            <HBox alignment="CENTER_LEFT">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
                <children>
-                  <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="windowIcon" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@bitmaps/icons/window/main_icon.png" />
                      </image>
@@ -24,21 +26,37 @@
                   </ImageView>
                </children>
             </HBox>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
                <children>
                   <Label fx:id="appNameLabel" styleClass="app-name-label" text="Label" />
                </children>
             </HBox>
-            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
+            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" spacing="10.0">
                <children>
-                  <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="minimizeButtonImageView" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" styleClass="controls-buttons">
+                     <image>
+                        <Image url="@bitmaps/icons/others/minimize.png" />
+                     </image>
+                     <HBox.margin>
+                        <Insets bottom="20.0" />
+                     </HBox.margin>
+                  </ImageView>
+                  <ImageView fx:id="closeButtonImageView" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" styleClass="controls-buttons">
                      <image>
                         <Image url="@bitmaps/icons/others/close.png" />
                      </image>
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
                   </ImageView>
                </children>
             </HBox>
          </children>
       </HBox>
+      <VBox fx:id="contentVbox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS">
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </VBox>
    </children>
 </VBox>

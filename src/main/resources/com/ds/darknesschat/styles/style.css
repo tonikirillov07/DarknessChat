@@ -8,5 +8,142 @@
 
 .app-name-label{
 	-fx-text-fill: black;
-	-fx-font-size: 16;
+}
+
+.tile{
+	-fx-background-color: rgba(19, 19, 19, 0.75);
+	-fx-background-radius: 13px;
+}
+
+.header-label{
+	-fx-text-fill: white;
+}
+
+.text-field-parent{
+	-fx-background-radius: 13px;
+	-fx-border-radius: 13px;
+	-fx-border-width: 1.5;
+	-fx-background-color: rgba(105, 96, 96, 0.75);
+}
+
+.text-field-parent: hover{
+    -fx-border-color: #4B66F1;
+}
+
+.text-field{
+	-fx-text-fill: white;
+	-fx-focus-traversable: false;
+	-fx-background-radius: 13px;
+	-fx-background-color: transparent;
+}
+
+.context-menu{
+    -fx-background-color: rgba(19, 19, 19, 0.75);
+    -fx-background-radius: 13px;
+}
+
+.menu-item .label{
+    -fx-text-fill: white;
+}
+
+.button-next{
+	-fx-text-fill: black;
+	-fx-border-radius: 13px;
+    -fx-border-width: 1.5;
+	-fx-background-radius: 13px;
+}
+
+.button-next: hover{
+    -fx-border-color: #5B59C5;
+}
+
+.button{
+	-fx-cursor: hand;
+}
+
+.image-button: hover{
+    -fx-scale-x: 1.19;
+    -fx-scale-y: 1.19;
+}
+
+.image-button: pressed{
+    -fx-opacity: 0.78;
+}
+
+.controls-buttons{
+	-fx-cursor: hand;
+}
+
+.controls-buttons: hover{
+	-fx-scale-x: 1.25;
+	-fx-scale-y: 1.25;
+}
+
+.scroll-pane{
+    -fx-background-color: transparent;
+    -fx-background-radius: 13px;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+    -fx-background-radius: 13px;
+}
+
+.scroll-bar:vertical{
+    -fx-background-color:transparent;
+}
+
+.scroll-pane > .corner {
+     -fx-background-color: black;
+}
+
+.increment-button, .decrement-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.scroll-bar:vertical .track{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-radius: 0em;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: white;
+    -fx-background-radius: 5em;
+}
+
+.scroll-bar:horizontal .track{
+    -fx-background-color: black;
+    -fx-border-color: transparent;
+    -fx-background-radius: 0em;
+}
+
+.scroll-bar:horizontal .thumb {
+    -fx-background-color: white;
+    -fx-background-radius: 5em;
+}
+
+.check-box {
+    selected-box-color: #141414;
+    box-color: white;
+    mark-color: white;
+    -fx-cursor: hand;
+}
+
+.check-box:selected > .box {
+    -fx-background-color: white;
+}
+
+.check-box > .box {
+    -fx-background-color: #5b5fc7;
+}
+
+.check-box:selected > .box > .mark,
+.check-box:indeterminate  > .box > .mark {
+    -fx-background-color: #444791;
+}
+
+.check-box: hover{
+	-fx-underline: true;
 }
