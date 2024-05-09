@@ -33,6 +33,7 @@ public abstract class Page {
     }
 
     public void deleteDefaultPagePaddings(){
+        getContentVbox().setSpacing(0d);
         getContentVbox().setPadding(new Insets(0d, 0d, 0d, 0d));
         Log.info("Default padding to page were deleted!");
     }

@@ -43,4 +43,12 @@ public final class StringsConstants {
     public static final String DEVELOPER = "developer";
     public static final String VERSION = "version";
     public static final String APP_NAME = "app_name";
+    public static final String WRITE_YOUR_MESSAGE = "write_your_message";
+    public static final String SEND = "send";
+    public static final String WRITE_YOUR_CURRENT_PASSWORD = "write_your_current_password";
+    public static final String WRITE_NEW_PASSWORD = "write_new_password";
+    public static final String CHANGING_PASSWORD = "changing_password";
+    public static final String GENERATE_STRONG_PASSWORD = "generate_strong_password";
+    public static final String CHANGING_NAME = "changing_name";
+    public static final String WRITE_NEW_NAME = "write_new_name";
 }

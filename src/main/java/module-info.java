@@ -4,6 +4,7 @@ module com.ds.darknesschat {
     requires org.jetbrains.annotations;
     requires java.logging;
     requires java.desktop;
+    requires java.sql;
 
     opens com.ds.darknesschat to javafx.fxml;
     exports com.ds.darknesschat;

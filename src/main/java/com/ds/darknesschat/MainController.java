@@ -52,7 +52,7 @@ public class MainController {
             initControlButtons();
             initDrag();
             initPages();
-
+            
             Log.info("Window Header was initialized!");
         }catch (Exception e){
             Log.error(e);

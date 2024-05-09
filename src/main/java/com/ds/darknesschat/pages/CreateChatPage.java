@@ -15,7 +15,12 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
+import java.util.Random;
+
 public class CreateChatPage extends Page{
+    private AdditionalTextField chatPortTextField;
+    private Label currentChatIPLabel;
+
     protected CreateChatPage(Page prevoiusPage, VBox contentVbox, String title, boolean createStandardTile) {
         super(prevoiusPage, contentVbox, title, createStandardTile);
     }
@@ -28,11 +33,14 @@ public class CreateChatPage extends Page{
         initChatAddressLabel();
         initButtons();
         createDeveloperLabelInBottom();
+
+        currentChatIPLabel.setText(Utils.getLocalIP4Address() + ":" + chatPortTextField.getText());
     }
 
     private void initButtons() {
         try {
             AdditionalButton nextButton = new AdditionalButton(StringGetterWithCurrentLanguage.getString(StringsConstants.NEXT), 308d, 41d, new com.ds.darknesschat.utils.Color(164, 62, 62), new com.ds.darknesschat.utils.Color(255, 255, 255));
+            nextButton.addAction(this::openChatPage);
             VBox.setMargin(nextButton, new Insets(200d, 40d, 0, 40d));
             addNodeToTile(nextButton);
 
@@ -45,12 +53,23 @@ public class CreateChatPage extends Page{
         }
     }
 
+    private void openChatPage(){
+        try {
+            if (Utils.isFieldsIsNotEmpty(new AdditionalTextField[]{chatPortTextField})) {
+                new ChatPage(this, getContentVbox(), Utils.getLocalIP4Address() + ":" + chatPortTextField.getText(), true).open();
+            } else
+                chatPortTextField.setError();
+        }catch (Exception e){
+            Log.error(e);
+        }
+    }
+
     private void initChatAddressLabel() {
         try {
-            Label addressLabel = new Label(StringGetterWithCurrentLanguage.getString(StringsConstants.CURRENT_CHAT_IP) + "192.168.0.102: 2020");
-            addressLabel.setTextFill(Color.web("#0500FF"));
-            addressLabel.setFont(Font.loadFont(Main.class.getResourceAsStream(Constants.FONT_BOLD_ITALIC_PATH), 14d));
-            addNodeToTile(addressLabel);
+            currentChatIPLabel = new Label(StringGetterWithCurrentLanguage.getString(StringsConstants.CURRENT_CHAT_IP) + "192.168.0.102: 2020");
+            currentChatIPLabel.setTextFill(Color.web("#0500FF"));
+            currentChatIPLabel.setFont(Font.loadFont(Main.class.getResourceAsStream(Constants.FONT_BOLD_ITALIC_PATH), 14d));
+            addNodeToTile(currentChatIPLabel);
         }catch (Exception e){
             Log.error(e);
         }
@@ -58,10 +77,12 @@ public class CreateChatPage extends Page{
 
     private void initTextField() {
         try {
-            AdditionalTextField additionalPortTextField = new AdditionalTextField(308d, 49d, StringGetterWithCurrentLanguage.getString(StringsConstants.WRITE_YOUR_PORT), Utils.getImage("bitmaps/icons/others/digits.png"), false);
-            additionalPortTextField.setInputType(InputTypes.NUMERIC);
-            VBox.setMargin(additionalPortTextField, new Insets(50d, 40d, 30d, 40d));
-            addNodeToTile(additionalPortTextField);
+            chatPortTextField = new AdditionalTextField(308d, 49d, StringGetterWithCurrentLanguage.getString(StringsConstants.WRITE_YOUR_PORT), Utils.getImage("bitmaps/icons/others/digits.png"), false);
+            chatPortTextField.setInputType(InputTypes.NUMERIC);
+            chatPortTextField.getTextField().setText(String.valueOf(new Random().nextInt(1000, 99999)));
+            chatPortTextField.addOnTextTyping(currentText -> currentChatIPLabel.setText(Utils.getLocalIP4Address() + ":" + currentText));
+            VBox.setMargin(chatPortTextField, new Insets(50d, 40d, 30d, 40d));
+            addNodeToTile(chatPortTextField);
         }catch (Exception e){
             Log.error(e);
         }

@@ -9,7 +9,11 @@ import com.ds.darknesschat.utils.languages.StringsConstants;
 import com.ds.darknesschat.utils.log.Log;
 import javafx.geometry.Insets;
 import javafx.scene.layout.VBox;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.ds.darknesschat.Constants.ON_OFF_OPTIONS_LIST;
@@ -32,8 +36,22 @@ public class SettingsAppearancePage extends Page {
     private void createOptionsSwitchButtons() {
         addOptionButton(StringGetterWithCurrentLanguage.getString(StringsConstants.ANIMATIONS), currentValue -> {}, ON_OFF_OPTIONS_LIST, 0, true);
         addOptionButton(StringGetterWithCurrentLanguage.getString(StringsConstants.SOUNDS), currentValue -> {}, ON_OFF_OPTIONS_LIST, 0, false);
-        addOptionButton(StringGetterWithCurrentLanguage.getString(StringsConstants.OPACITY), currentValue -> {}, List.of("0.45", "0.86", "0.95","1"), 0, false);
+        addOptionButton(StringGetterWithCurrentLanguage.getString(StringsConstants.OPACITY), currentValue -> {}, findAppearanceValues(), 0, false);
         addOptionButton(StringGetterWithCurrentLanguage.getString(StringsConstants.BACKGROUND), currentValue -> {}, ON_OFF_OPTIONS_LIST, 0, false);
+    }
+
+    @Contract(pure = true)
+    private @NotNull List<String> findAppearanceValues(){
+        List<String> appearanceValuesList = new ArrayList<>();
+        DecimalFormat decimalFormat = new DecimalFormat("#.#");
+
+        for (double i = 0.12d; i < 1d; i+=0.1d) {
+            appearanceValuesList.add(decimalFormat.format(i));
+        }
+
+        appearanceValuesList.add(String.valueOf(1d));
+
+        return appearanceValuesList;
     }
 
     private void addOptionButton(String text, IOnSwitch onSwitch, List<String> switchValues, int startValue, boolean isFirst){

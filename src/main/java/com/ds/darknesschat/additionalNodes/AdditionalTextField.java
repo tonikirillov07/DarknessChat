@@ -5,6 +5,8 @@ import com.ds.darknesschat.Main;
 import com.ds.darknesschat.utils.InputTypes;
 import com.ds.darknesschat.utils.interfaces.IOnTextTyping;
 import com.ds.darknesschat.utils.log.Log;
+import com.ds.darknesschat.utils.sounds.Sounds;
+import com.ds.darknesschat.utils.sounds.SoundsConstants;
 import javafx.animation.TranslateTransition;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -31,7 +33,7 @@ public class AdditionalTextField extends HBox {
     private TextInputControl textField;
     private final Image fieldIcon;
     private final boolean isPasswordField;
-    public static final double DEFAULT_WIDTH = 343d;
+    public static final double DEFAULT_WIDTH = 340d;
     public static final double DEFAULT_HEIGHT = 49d;
     private IOnTextTyping onTextTyping;
 
@@ -67,6 +69,8 @@ public class AdditionalTextField extends HBox {
             translateTransition.setAutoReverse(true);
             translateTransition.setOnFinished(actionEvent -> addShadowEffect(Color.BLACK));
             translateTransition.play();
+
+            Sounds.playSound(SoundsConstants.ERROR_SOUND);
         }catch (Exception e){
             Log.error(e);
         }

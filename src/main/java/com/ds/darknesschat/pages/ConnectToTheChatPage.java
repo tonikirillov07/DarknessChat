@@ -17,9 +17,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
 public class ConnectToTheChatPage extends Page{
-    private AdditionalTextField additionalPortTextField;
+    private AdditionalTextField additionalChatAddressTextField;
 
-    protected ConnectToTheChatPage(Page prevoiusPage, VBox contentVbox, String title, boolean createStandardTile) {
+    public ConnectToTheChatPage(Page prevoiusPage, VBox contentVbox, String title, boolean createStandardTile) {
         super(prevoiusPage, contentVbox, title, createStandardTile);
     }
 
@@ -31,6 +31,13 @@ public class ConnectToTheChatPage extends Page{
         initCheckBox();
         initButtons();
         createDeveloperLabelInBottom();
+    }
+
+    public void setAddressValue(String addressValue){
+        if(additionalChatAddressTextField != null)
+            additionalChatAddressTextField.getTextField().setText(addressValue);
+        else
+            Log.error(new Exception("Field is null and value " + addressValue + " cannot be set"));
     }
 
     private void initButtons() {
@@ -50,11 +57,11 @@ public class ConnectToTheChatPage extends Page{
     }
 
     public void onConnectToTheChatButtonAction(){
-        if(additionalPortTextField != null){
-            if(Utils.isFieldIsNotEmpty(new AdditionalTextField[]{additionalPortTextField})){
+        if(additionalChatAddressTextField != null){
+            if(Utils.isFieldsIsNotEmpty(new AdditionalTextField[]{additionalChatAddressTextField})){
                 System.out.println(1);
             }else {
-                additionalPortTextField.setError();
+                additionalChatAddressTextField.setError();
             }
         }else{
             initTextField();
@@ -66,11 +73,11 @@ public class ConnectToTheChatPage extends Page{
             CheckBox checkBox = new CheckBox(StringGetterWithCurrentLanguage.getString(StringsConstants.REMEMBER_THIS_ADDRESS));
             checkBox.setFont(Font.loadFont(Main.class.getResourceAsStream(Constants.FONT_BOLD_ITALIC_PATH), 14d));
             checkBox.setTextFill(Color.WHITE);
-            VBox.setMargin(checkBox, new Insets(10d, 0d, 0, 40d));
+            VBox.setMargin(checkBox, new Insets(10d, 0d, 0, 48d));
 
             HBox checkBoxHbox = new HBox();
             checkBoxHbox.setAlignment(Pos.CENTER_LEFT);
-            VBox.setMargin(checkBoxHbox, new Insets(0d, 40d, 0, 40d));
+            VBox.setMargin(checkBoxHbox, new Insets(0d, 40d, 0, 48d));
             checkBoxHbox.getChildren().add(checkBox);
 
             addNodeToTile(checkBoxHbox);
@@ -81,9 +88,9 @@ public class ConnectToTheChatPage extends Page{
 
     private void initTextField() {
         try {
-            additionalPortTextField = new AdditionalTextField(308d, 49d, StringGetterWithCurrentLanguage.getString(StringsConstants.WRITE_CHAT_ADDRESS), Utils.getImage("bitmaps/icons/others/digits.png"), false);
-            VBox.setMargin(additionalPortTextField, new Insets(50d, 40d, 30d, 40d));
-            addNodeToTile(additionalPortTextField);
+            additionalChatAddressTextField = new AdditionalTextField(308d, 49d, StringGetterWithCurrentLanguage.getString(StringsConstants.WRITE_CHAT_ADDRESS), Utils.getImage("bitmaps/icons/others/digits.png"), false);
+            VBox.setMargin(additionalChatAddressTextField, new Insets(50d, 40d, 30d, 40d));
+            addNodeToTile(additionalChatAddressTextField);
         }catch (Exception e){
             Log.error(e);
         }

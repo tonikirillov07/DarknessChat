@@ -7,6 +7,7 @@ import com.ds.darknesschat.utils.interfaces.IOnAction;
 import com.ds.darknesschat.utils.log.Log;
 import com.ds.darknesschat.utils.sounds.Sounds;
 import com.ds.darknesschat.utils.sounds.SoundsConstants;
+import javafx.animation.FadeTransition;
 import javafx.animation.RotateTransition;
 import javafx.animation.TranslateTransition;
 import javafx.scene.Node;
@@ -17,11 +18,13 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.awt.*;
+import java.awt.datatransfer.StringSelection;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.net.InetAddress;
+import java.nio.charset.StandardCharsets;
+import java.util.*;
 import java.util.List;
-import java.util.Objects;
 
 import static com.ds.darknesschat.utils.appSettings.outsideSettings.OutsideSettingsKeys.APP_LANGUAGE;
 
@@ -73,7 +76,7 @@ public final class Utils {
         }
     }
 
-    public static boolean isFieldIsNotEmpty(AdditionalTextField[] textFields){
+    public static boolean isFieldsIsNotEmpty(AdditionalTextField[] textFields){
         try {
             List<AdditionalTextField> additionalTextFields = new ArrayList<>(Arrays.stream(textFields).toList());
             additionalTextFields.removeIf(Objects::isNull);
@@ -106,6 +109,18 @@ public final class Utils {
         return null;
     }
 
+    public static void addFadeTransitionToNode(Node node){
+        try{
+            FadeTransition fadeTransition = new FadeTransition(Duration.millis(80), node);
+            fadeTransition.setFromValue(0.1f);
+            fadeTransition.setToValue(1f);
+            fadeTransition.setAutoReverse(true);
+            fadeTransition.play();
+        }catch (Exception e) {
+            Log.error(e);
+        }
+    }
+
     public static void addRotateTranslationToNode(Node node){
         try {
             RotateTransition rotateTransition = new RotateTransition(Duration.millis(100), node);
@@ -128,5 +143,31 @@ public final class Utils {
             currentLanguageId++;
 
         OutsideSettingsManager.changeValue(APP_LANGUAGE, "languages/" + allLanguages.get(currentLanguageId));
+    }
+
+    public static @Nullable String getLocalIP4Address(){
+        try {
+            return InetAddress.getLocalHost().getHostAddress();
+        }catch (Exception e){
+            Log.error(e);
+        }
+
+        return null;
+    }
+
+    public static String encodeString(@NotNull String input){
+        return Base64.getEncoder().encodeToString(input.getBytes(StandardCharsets.UTF_8));
+    }
+
+    @Contract("_ -> new")
+    public static @NotNull String decodeString(@NotNull String input){
+        return new String(Base64.getDecoder().decode(input));
+    }
+
+    public static void copyStringToClipboard(String string){
+        Toolkit toolkit = Toolkit.getDefaultToolkit();
+        toolkit.getSystemClipboard().setContents(new StringSelection(string), null);
+
+        Log.info("String " + string + " copied in clipboard");
     }
 }

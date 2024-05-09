@@ -8,6 +8,8 @@ import com.ds.darknesschat.utils.Utils;
 import com.ds.darknesschat.utils.languages.StringGetterWithCurrentLanguage;
 import com.ds.darknesschat.utils.languages.StringsConstants;
 import com.ds.darknesschat.utils.log.Log;
+import com.ds.darknesschat.utils.sounds.Sounds;
+import com.ds.darknesschat.utils.sounds.SoundsConstants;
 import javafx.geometry.Insets;
 import javafx.scene.layout.VBox;
 import org.jetbrains.annotations.Nullable;
@@ -99,7 +101,7 @@ public class WelcomePage extends Page{
                     additionalTextField.setError();
             });
 
-            if (Utils.isFieldIsNotEmpty(additionalTextFieldList)) {
+            if (Utils.isFieldsIsNotEmpty(additionalTextFieldList)) {
                 if(isLogUpPage) {
                     if (repeatPasswordTextField.getText().equals(passwordTextField.getText())) {
                         isAllFine = true;
@@ -122,6 +124,8 @@ public class WelcomePage extends Page{
         if(checkAllFields(nameTextField, passwordTextField, repeatPasswordTextField)){
             ChatsPage chatsPage = new ChatsPage(this, getContentVbox(), StringGetterWithCurrentLanguage.getString(StringsConstants.RECENT_CHATS), false);
             chatsPage.open();
+        }else {
+            Sounds.playSound(SoundsConstants.ERROR_SOUND);
         }
     }
 }

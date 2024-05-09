@@ -126,7 +126,7 @@ public class ChatsPage extends Page{
 
             VBox scrollPaneContentVbox = createScrollPane(sidePanelVbox);
             assert scrollPaneContentVbox != null;
-            scrollPaneContentVbox.getChildren().add(new ChatTile(ChatTile.DEFAULT_WIDTH, ChatTile.DEFAULT_HEIGHT, "192.168.0.102:6565", scrollPaneContentVbox));
+            scrollPaneContentVbox.getChildren().add(new ChatTile(ChatTile.DEFAULT_WIDTH, ChatTile.DEFAULT_HEIGHT, "192.168.0.102:6565", scrollPaneContentVbox, this));
 
             createClearButton(sidePanelVbox, scrollPaneContentVbox);
         }catch (Exception e){

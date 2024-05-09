@@ -2,7 +2,11 @@ package com.ds.darknesschat.additionalNodes;
 
 import com.ds.darknesschat.Constants;
 import com.ds.darknesschat.Main;
+import com.ds.darknesschat.pages.ConnectToTheChatPage;
+import com.ds.darknesschat.pages.Page;
 import com.ds.darknesschat.utils.Utils;
+import com.ds.darknesschat.utils.languages.StringGetterWithCurrentLanguage;
+import com.ds.darknesschat.utils.languages.StringsConstants;
 import com.ds.darknesschat.utils.log.Log;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -19,7 +23,7 @@ public class ChatTile extends HBox {
     public static final double DEFAULT_WIDTH = 300d;
     public static final double DEFAULT_HEIGHT = 54d;
 
-    public ChatTile(double width, double height, String text, Pane parent) {
+    public ChatTile(double width, double height, String text, Pane parent, Page page) {
         this.width = width;
         this.height = height;
         this.text = text;
@@ -27,6 +31,16 @@ public class ChatTile extends HBox {
         
         init();
         animate();
+        addAction(page);
+    }
+
+    private void addAction(Page page) {
+        Utils.addActionToNode(this, () -> {
+            ConnectToTheChatPage connectToTheChatPage = new ConnectToTheChatPage(page, page.getContentVbox(), StringGetterWithCurrentLanguage.getString(StringsConstants.CONNECTING), true);
+            connectToTheChatPage.open();
+
+            connectToTheChatPage.setAddressValue(text);
+        });
     }
 
     private void init() {

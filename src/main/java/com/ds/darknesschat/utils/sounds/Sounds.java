@@ -10,8 +10,6 @@ import java.io.InputStream;
 public class Sounds {
     public static void playSound(String soundPath){
         try{
-            Log.info("Starting to play sound " + soundPath);
-
             InputStream inputStream = Main.class.getResourceAsStream(soundPath);
             assert inputStream != null;
             byte[] data = inputStream.readAllBytes();
@@ -27,8 +25,6 @@ public class Sounds {
             inputStream.close();
             byteArrayInputStream.close();
             audioInputStream.close();
-
-            Log.info("Playing sound " + soundPath + " ended");
         }catch (Exception e){
             Log.error(e);
         }
