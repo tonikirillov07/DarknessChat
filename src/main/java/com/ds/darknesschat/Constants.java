@@ -17,5 +17,6 @@ public final class Constants {
     public static final Color BLACK_COLOR = new Color(0, 0, 0);
     public static final Color TILE_COLOR = new Color(0.75f, 19, 19, 19);
     public static final long IGNORE_USER_AGREEMENT = -1;
+    public static final String NULL = "null";
     public static final List<String> ON_OFF_OPTIONS_LIST = List.of(Objects.requireNonNull(StringGetterWithCurrentLanguage.getString(StringsConstants.ON)), Objects.requireNonNull(StringGetterWithCurrentLanguage.getString(StringsConstants.OFF)));
 }

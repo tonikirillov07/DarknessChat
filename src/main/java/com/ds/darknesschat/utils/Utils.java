@@ -145,15 +145,19 @@ public final class Utils {
     }
 
     public static void changeCurrentLanguage(){
-        List<String> allLanguages = List.of(Objects.requireNonNull(new File("languages").list((dir, name) -> name.endsWith(".properties"))));
+        try {
+            List<String> allLanguages = List.of(Objects.requireNonNull(new File("languages").list((dir, name) -> name.endsWith(".properties"))));
 
-        int currentLanguageId = allLanguages.indexOf(new File(Objects.requireNonNull(OutsideSettingsManager.getValue(APP_LANGUAGE))).getName());
-        if((currentLanguageId + 1) == allLanguages.size()){
-            currentLanguageId = 0;
-        }else
-            currentLanguageId++;
+            int currentLanguageId = allLanguages.indexOf(new File(Objects.requireNonNull(OutsideSettingsManager.getValue(APP_LANGUAGE))).getName());
+            if ((currentLanguageId + 1) == allLanguages.size()) {
+                currentLanguageId = 0;
+            } else
+                currentLanguageId++;
 
-        OutsideSettingsManager.changeValue(APP_LANGUAGE, "languages/" + allLanguages.get(currentLanguageId));
+            OutsideSettingsManager.changeValue(APP_LANGUAGE, "languages/" + allLanguages.get(currentLanguageId));
+        }catch (Exception e){
+            Log.error(e);
+        }
     }
 
     public static @Nullable String getLocalIP4Address(){

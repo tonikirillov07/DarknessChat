@@ -5,10 +5,15 @@ import com.ds.darknesschat.Main;
 import com.ds.darknesschat.additionalNodes.AdditionalButton;
 import com.ds.darknesschat.additionalNodes.SettingsOption;
 import com.ds.darknesschat.additionalNodes.SettingsOptionButton;
+import com.ds.darknesschat.database.DatabaseService;
 import com.ds.darknesschat.pages.Page;
+import com.ds.darknesschat.pages.WelcomePage;
 import com.ds.darknesschat.pages.settingsPages.SettingsPage;
 import com.ds.darknesschat.user.User;
 import com.ds.darknesschat.utils.Utils;
+import com.ds.darknesschat.utils.appSettings.outsideSettings.OutsideSettingsKeys;
+import com.ds.darknesschat.utils.appSettings.outsideSettings.OutsideSettingsManager;
+import com.ds.darknesschat.utils.dialogs.ConfirmDialog;
 import com.ds.darknesschat.utils.languages.StringGetterWithCurrentLanguage;
 import com.ds.darknesschat.utils.languages.StringsConstants;
 import com.ds.darknesschat.utils.log.Log;
@@ -20,6 +25,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import org.jetbrains.annotations.Nullable;
 
+import static com.ds.darknesschat.Constants.NULL;
 import static com.ds.darknesschat.Constants.WHITE_COLOR;
 
 public class SettingsAccountPage extends Page {
@@ -43,9 +49,11 @@ public class SettingsAccountPage extends Page {
     private void createDeleteAccountButtonAndLogOut() {
         try{
             AdditionalButton additionalButtonDeleteAccount = new AdditionalButton(StringGetterWithCurrentLanguage.getString(StringsConstants.DELETE_ACCOUNT),  408d, 41d, new com.ds.darknesschat.utils.Color(187, 71, 71), WHITE_COLOR, getUser().getId());
+            additionalButtonDeleteAccount.addAction(this::deleteAccount);
             VBox.setMargin(additionalButtonDeleteAccount, new Insets(6d, 40d, 0, 40d));
 
             AdditionalButton additionalButtonLogOut = new AdditionalButton(StringGetterWithCurrentLanguage.getString(StringsConstants.LOG_OUT),  408d, 41d, new com.ds.darknesschat.utils.Color(47, 38, 38), WHITE_COLOR, getUser().getId());
+            additionalButtonLogOut.addAction(this::logOut);
             VBox.setMargin(additionalButtonLogOut, new Insets(6d, 40d, 0, 40d));
 
             addNodeToTile(additionalButtonDeleteAccount);
@@ -53,6 +61,22 @@ public class SettingsAccountPage extends Page {
         }catch (Exception e){
             Log.error(e);
         }
+    }
+
+    private void logOut(){
+        OutsideSettingsManager.changeValue(OutsideSettingsKeys.REMEMBERED_USER_PASSWORD, NULL);
+        openWelcomePage();
+    }
+
+    private void deleteAccount() {
+        if (ConfirmDialog.show(StringGetterWithCurrentLanguage.getString(StringsConstants.DO_YOU_REALLY_WANT_TO_DELETE_YOUR_ACCOUNT))) {
+            DatabaseService.deleteUser(getUser().getId());
+            openWelcomePage();
+        }
+    }
+
+    private void openWelcomePage(){
+        new WelcomePage(this, getContentVbox(), StringGetterWithCurrentLanguage.getString(StringsConstants.LETS_LOG_IN), true, false).open();
     }
 
     private void createOptionsButtons() {

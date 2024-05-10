@@ -34,4 +34,14 @@ public class User {
     public String getUserDateOfRegistration() {
         return userDateOfRegistration;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userName='" + userName + '\'' +
+                ", userPassword='" + userPassword + '\'' +
+                ", userDateOfRegistration='" + userDateOfRegistration + '\'' +
+                ", id=" + id +
+                '}';
+    }
 }

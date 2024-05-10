@@ -58,4 +58,8 @@ public final class StringsConstants {
     public static final String ENTERED_WRONG_PASSWORD = "entered_wrong_password";
     public static final String NEW_PASSWORD_CANT_BE_EQUALS_WITH_OLD = "new_password_cant_be_equals_with_old";
     public static final String NEW_NAME_CANT_BE_EQUALS_WITH_OLD = "new_name_cant_be_equals_with_old";
+    public static final String LANGUAGE_FIRST_TIME_CHANGING_MESSAGE = "language_first_time_changing_message";
+    public static final String DO_YOU_REALLY_WANT_TO_DELETE_YOUR_ACCOUNT = "do_you_really_want_to_delete_your_account";
+    public static final String INFO = "info";
+    public static final String CONFIRM = "confirm";
 }

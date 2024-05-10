@@ -1,6 +1,8 @@
 package com.ds.darknesschat;
 
 import com.ds.darknesschat.pages.WelcomePage;
+import com.ds.darknesschat.utils.appSettings.outsideSettings.OutsideSettingsKeys;
+import com.ds.darknesschat.utils.appSettings.outsideSettings.OutsideSettingsManager;
 import com.ds.darknesschat.utils.appSettings.settingsReader.SettingsKeys;
 import com.ds.darknesschat.utils.appSettings.settingsReader.SettingsReader;
 import com.ds.darknesschat.utils.Utils;
@@ -126,6 +128,8 @@ public class MainController {
 
     private void close(){
         try {
+            Log.info("Stopping app...");
+
             Platform.exit();
             System.exit(0);
         }catch (Exception e){

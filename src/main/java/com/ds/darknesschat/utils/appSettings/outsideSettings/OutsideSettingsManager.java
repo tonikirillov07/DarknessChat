@@ -30,10 +30,11 @@ public class OutsideSettingsManager {
         try {
             Properties properties = new Properties();
             FileInputStream fileInputStream = new FileInputStream(Constants.OUTSIDE_SETTINGS_PATH);
-            FileOutputStream fileOutputStream = new FileOutputStream(Constants.OUTSIDE_SETTINGS_PATH);
             properties.load(fileInputStream);
 
             properties.setProperty(key, newValue);
+
+            FileWriter fileOutputStream =new FileWriter(Constants.OUTSIDE_SETTINGS_PATH);
             properties.store(fileOutputStream, null);
 
             fileInputStream.close();

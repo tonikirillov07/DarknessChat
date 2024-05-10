@@ -62,10 +62,12 @@ public class ChatPage extends Page{
 
             AdditionalTextField messageAdditionalTextField = new AdditionalTextField(374d, 49d, StringGetterWithCurrentLanguage.getString(StringsConstants.WRITE_YOUR_MESSAGE),
                     Utils.getImage("bitmaps/icons/others/message.png"), false);
+            messageAdditionalTextField.addOnEnterKeyPressed(() -> sendMessage(messageAdditionalTextField));
             hBox.getChildren().add(messageAdditionalTextField);
 
             AdditionalButton sendButton = new AdditionalButton(StringGetterWithCurrentLanguage.getString(StringsConstants.SEND), 137d, 49d, new Color(164, 62, 62), WHITE_COLOR, getUser().getId());
             sendButton.addAction(() -> sendMessage(messageAdditionalTextField));
+
             AdditionalButton backButton = new AdditionalButton(StringGetterWithCurrentLanguage.getString(StringsConstants.BACK), 137d, 49d, WHITE_COLOR, BLACK_COLOR, getUser().getId());
             backButton.addAction(this::leaveTheChat);
 
@@ -81,7 +83,7 @@ public class ChatPage extends Page{
     @Contract(pure = true)
     private void sendMessage(@NotNull AdditionalTextField additionalTextField){
         if(!additionalTextField.getText().isEmpty()){
-            Label label = new Label(additionalTextField.getText());
+            Label label = new Label(getUser().getUserName() + ": " + additionalTextField.getText());
             label.setTextFill(javafx.scene.paint.Color.WHITE);
             label.setWrapText(true);
             label.setMaxWidth(756d);
@@ -91,7 +93,7 @@ public class ChatPage extends Page{
             Utils.addFadeTransitionToNode(label, getUser().getId());
             messagesScrollPane.setVvalue(1);
 
-            //additionalTextField.getTextField().clear();
+            additionalTextField.getTextField().clear();
         }else
             additionalTextField.setError(getUser().getId());
     }

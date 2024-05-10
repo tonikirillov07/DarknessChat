@@ -3,11 +3,13 @@ package com.ds.darknesschat.additionalNodes;
 import com.ds.darknesschat.Constants;
 import com.ds.darknesschat.Main;
 import com.ds.darknesschat.utils.InputTypes;
+import com.ds.darknesschat.utils.interfaces.IOnAction;
 import com.ds.darknesschat.utils.interfaces.IOnTextTyping;
 import com.ds.darknesschat.utils.log.Log;
 import com.ds.darknesschat.utils.sounds.Sounds;
 import com.ds.darknesschat.utils.sounds.SoundsConstants;
 import javafx.animation.TranslateTransition;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.PasswordField;
@@ -16,6 +18,8 @@ import javafx.scene.control.TextInputControl;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.paint.Color;
@@ -82,6 +86,13 @@ public class AdditionalTextField extends HBox {
     public void addOnTextTyping(IOnTextTyping onTextTyping){
         this.onTextTyping = onTextTyping;
         getTextField().setOnKeyTyped(keyEvent -> onTextTyping.onTextTyping(getText()));
+    }
+
+    public void addOnEnterKeyPressed(IOnAction onAction){
+        setOnKeyPressed(keyEvent -> {
+            if(keyEvent.getCode() == KeyCode.ENTER)
+                onAction.onAction();
+        });
     }
 
     public void setInputType(InputTypes inputType){

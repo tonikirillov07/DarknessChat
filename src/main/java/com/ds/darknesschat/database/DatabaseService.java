@@ -89,6 +89,35 @@ public class DatabaseService {
         }
     }
 
+    public static void setNull(String row, long userId){
+        try {
+            String changeCommand = "UPDATE " + TABLE_NAME + " SET " + row + " = null WHERE " + USER_ID_ROW + "= '" + userId + "'";
+            PreparedStatement preparedStatement = Objects.requireNonNull(getConnection()).prepareStatement(changeCommand);
+            int result = preparedStatement.executeUpdate();
+
+            Log.info("Setting row " + row + " to null ended with result " + result);
+
+            preparedStatement.close();
+        }catch (Exception e){
+            Log.error(e);
+        }
+    }
+
+    public static void deleteUser(long userId){
+        try{
+            String delete = "DELETE FROM " + TABLE_NAME + " WHERE " + USER_ID_ROW + "='" + userId + "'";
+
+            PreparedStatement preparedStatement = Objects.requireNonNull(getConnection()).prepareStatement(delete);
+            int result = preparedStatement.executeUpdate();
+
+            Log.info("User with id " + userId + " deleted with result " + result);
+
+            preparedStatement.close();
+        }catch (Exception e){
+            Log.error(e);
+        }
+    }
+
     public static boolean addUser(User user){
         try {
             String insert = "INSERT INTO " + TABLE_NAME + "(" + USER_NAME_ROW + "," + USER_PASSWORD_ROW + "," + USER_DATE_OF_REGISTRATION_ROW + ")" + " VALUES(?,?,?)";

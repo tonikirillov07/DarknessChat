@@ -4,6 +4,8 @@ import com.ds.darknesschat.Constants;
 import com.ds.darknesschat.Main;
 import com.ds.darknesschat.additionalNodes.AdditionalButton;
 import com.ds.darknesschat.additionalNodes.AdditionalTextField;
+import com.ds.darknesschat.database.DatabaseConstants;
+import com.ds.darknesschat.database.DatabaseService;
 import com.ds.darknesschat.user.User;
 import com.ds.darknesschat.utils.Utils;
 import com.ds.darknesschat.utils.languages.StringGetterWithCurrentLanguage;
@@ -17,11 +19,14 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
+import java.util.Objects;
+
 import static com.ds.darknesschat.Constants.BLACK_COLOR;
 import static com.ds.darknesschat.Constants.WHITE_COLOR;
 
 public class ConnectToTheChatPage extends Page{
     private AdditionalTextField additionalChatAddressTextField;
+    private CheckBox checkBox;
 
     public ConnectToTheChatPage(Page prevoiusPage, VBox contentVbox, String title, boolean createStandardTile, User user) {
         super(prevoiusPage, contentVbox, title, createStandardTile, user);
@@ -64,7 +69,12 @@ public class ConnectToTheChatPage extends Page{
     public void onConnectToTheChatButtonAction(){
         if(additionalChatAddressTextField != null){
             if(Utils.isFieldsIsNotEmpty(new AdditionalTextField[]{additionalChatAddressTextField})){
-                System.out.println(1);
+                if(checkBox.isSelected())
+                    DatabaseService.changeValue(DatabaseConstants.REMEMBERED_CHAT_ADDRESS_ROW, additionalChatAddressTextField.getText(), getUser().getId());
+                else
+                    DatabaseService.setNull(DatabaseConstants.REMEMBERED_CHAT_ADDRESS_ROW, getUser().getId());
+
+                new ChatPage(this, getContentVbox(), additionalChatAddressTextField.getText(), true, getUser()).open();
             }else {
                 additionalChatAddressTextField.setError(getUser().getId());
             }
@@ -75,9 +85,10 @@ public class ConnectToTheChatPage extends Page{
 
     private void initCheckBox() {
         try {
-            CheckBox checkBox = new CheckBox(StringGetterWithCurrentLanguage.getString(StringsConstants.REMEMBER_THIS_ADDRESS));
+            checkBox = new CheckBox(StringGetterWithCurrentLanguage.getString(StringsConstants.REMEMBER_THIS_ADDRESS));
             checkBox.setFont(Font.loadFont(Main.class.getResourceAsStream(Constants.FONT_BOLD_ITALIC_PATH), 14d));
             checkBox.setTextFill(Color.WHITE);
+            checkBox.setSelected(DatabaseService.getValue(DatabaseConstants.REMEMBERED_CHAT_ADDRESS_ROW, getUser().getId()) != null);
             VBox.setMargin(checkBox, new Insets(10d, 0d, 0, 48d));
 
             HBox checkBoxHbox = new HBox();
@@ -96,6 +107,11 @@ public class ConnectToTheChatPage extends Page{
             additionalChatAddressTextField = new AdditionalTextField(308d, 49d, StringGetterWithCurrentLanguage.getString(StringsConstants.WRITE_CHAT_ADDRESS), Utils.getImage("bitmaps/icons/others/digits.png"), false);
             VBox.setMargin(additionalChatAddressTextField, new Insets(50d, 40d, 30d, 40d));
             addNodeToTile(additionalChatAddressTextField);
+
+            String rememberedAddress = DatabaseService.getValue(DatabaseConstants.REMEMBERED_CHAT_ADDRESS_ROW, getUser().getId());
+            if(rememberedAddress != null)
+                additionalChatAddressTextField.getTextField().setText(rememberedAddress);
+
         }catch (Exception e){
             Log.error(e);
         }

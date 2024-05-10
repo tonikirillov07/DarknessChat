@@ -5,6 +5,9 @@ import com.ds.darknesschat.pages.Page;
 import com.ds.darknesschat.pages.settingsPages.usersSettings.SettingsAccountPage;
 import com.ds.darknesschat.user.User;
 import com.ds.darknesschat.utils.Utils;
+import com.ds.darknesschat.utils.appSettings.outsideSettings.OutsideSettingsKeys;
+import com.ds.darknesschat.utils.appSettings.outsideSettings.OutsideSettingsManager;
+import com.ds.darknesschat.utils.dialogs.InfoDialog;
 import com.ds.darknesschat.utils.interfaces.IOnAction;
 import com.ds.darknesschat.utils.languages.StringGetterWithCurrentLanguage;
 import com.ds.darknesschat.utils.languages.StringsConstants;
@@ -40,11 +43,18 @@ public class SettingsMainPage extends Page {
         SettingsOptionButton languageSettingsOptionButton = new SettingsOptionButton(SettingsOptionButton.DEFAULT_WIDTH, SettingsOptionButton.DEFAULT_HEIGHT, StringGetterWithCurrentLanguage.getString(StringsConstants.LANGUAGE) + " " + StringGetterWithCurrentLanguage.getString(StringsConstants.LANGUAGE_NAME), Utils.getImage("bitmaps/icons/others/language.png"),
                 SettingsOptionButton.DEFAULT_IMAGE_FIT_WIDTH, SettingsOptionButton.DEFAULT_IMAGE_FIT_HEIGHT, getUser().getId());
         VBox.setMargin(languageSettingsOptionButton, new Insets(5d, 40d, 0, 40d));
-        languageSettingsOptionButton.setOnAction(() -> {
-            Utils.changeCurrentLanguage();
-            reopen();
-        });
+        languageSettingsOptionButton.setOnAction(this::changeLanguage);
         addNodeToTile(languageSettingsOptionButton);
+    }
+
+    private void changeLanguage() {
+        Utils.changeCurrentLanguage();
+        reopen();
+
+        if(Boolean.parseBoolean(OutsideSettingsManager.getValue(OutsideSettingsKeys.CHANGING_APP_FIRST_TIME))){
+            InfoDialog.show(StringGetterWithCurrentLanguage.getString(StringsConstants.LANGUAGE_FIRST_TIME_CHANGING_MESSAGE));
+            OutsideSettingsManager.changeValue(OutsideSettingsKeys.CHANGING_APP_FIRST_TIME, "false");
+        }
     }
 
     private @NotNull String getSectionTitle(String sectionName){

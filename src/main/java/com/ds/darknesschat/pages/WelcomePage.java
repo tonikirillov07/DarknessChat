@@ -8,6 +8,8 @@ import com.ds.darknesschat.database.DatabaseService;
 import com.ds.darknesschat.user.User;
 import com.ds.darknesschat.utils.Color;
 import com.ds.darknesschat.utils.Utils;
+import com.ds.darknesschat.utils.appSettings.outsideSettings.OutsideSettingsKeys;
+import com.ds.darknesschat.utils.appSettings.outsideSettings.OutsideSettingsManager;
 import com.ds.darknesschat.utils.dialogs.ErrorDialog;
 import com.ds.darknesschat.utils.languages.StringGetterWithCurrentLanguage;
 import com.ds.darknesschat.utils.languages.StringsConstants;
@@ -36,6 +38,22 @@ public class WelcomePage extends Page{
         applyDefaultPagePaddings();
         initTile();
         createDeveloperLabelInBottom();
+        enterInAccountAuto();
+    }
+
+    private void enterInAccountAuto() {
+        try {
+            String rememberedLogin = OutsideSettingsManager.getValue(OutsideSettingsKeys.REMEMBERED_USER_LOGIN);
+            String rememberedPassword = OutsideSettingsManager.getValue(OutsideSettingsKeys.REMEMBERED_USER_PASSWORD);
+
+            assert rememberedLogin != null;
+            assert rememberedPassword != null;
+            if (!rememberedLogin.equals(NULL) & !rememberedPassword.equals(NULL)) {
+                openChatsPage(new User(Utils.decodeString(rememberedLogin), Utils.decodeString(rememberedLogin), DatabaseService.getValueWithWhereValue(DatabaseConstants.USER_DATE_OF_REGISTRATION_ROW, DatabaseConstants.USER_NAME_ROW, Utils.decodeString(rememberedLogin))));
+            }
+        }catch (Exception e){
+            Log.error(e);
+        }
     }
 
     private void initTile() {
@@ -73,6 +91,8 @@ public class WelcomePage extends Page{
                     Utils.getImage("bitmaps/icons/others/password.png"), true);
             VBox.setMargin(passwordTextField, new Insets(6, 50, 0, 50));
 
+            fillFieldsRememberedData(nameTextField, passwordTextField);
+
             addNodeToTile(nameTextField);
             addNodeToTile(passwordTextField);
 
@@ -98,6 +118,22 @@ public class WelcomePage extends Page{
 
             addNodeToTile(nextButton);
             addNodeToTile(anotherActionButton);
+        }catch (Exception e){
+            Log.error(e);
+        }
+    }
+
+    private void fillFieldsRememberedData(AdditionalTextField nameTextField, AdditionalTextField passwordTextField) {
+        try {
+            String rememberedLogin = OutsideSettingsManager.getValue(OutsideSettingsKeys.REMEMBERED_USER_LOGIN);
+            String rememberedPassword = OutsideSettingsManager.getValue(OutsideSettingsKeys.REMEMBERED_USER_PASSWORD);
+
+            assert rememberedLogin != null;
+            assert rememberedPassword != null;
+            if (!rememberedLogin.equals(NULL) & !rememberedPassword.equals(NULL)) {
+                nameTextField.getTextField().setText(Utils.decodeString(rememberedLogin));
+                passwordTextField.getTextField().setText(Utils.decodeString(rememberedPassword));
+            }
         }catch (Exception e){
             Log.error(e);
         }
@@ -190,9 +226,16 @@ public class WelcomePage extends Page{
     }
 
     private void openChatsPage(@NotNull User user){
-        User userWithId = new User(user.getUserName(), user.getUserPassword(), user.getUserDateOfRegistration(), Long.parseLong(Objects.requireNonNull(DatabaseService.getValueWithWhereValue(DatabaseConstants.USER_ID_ROW, DatabaseConstants.USER_NAME_ROW, user.getUserName()))));
+        try {
+            OutsideSettingsManager.changeValue(OutsideSettingsKeys.REMEMBERED_USER_LOGIN, Utils.encodeString(user.getUserName()));
+            OutsideSettingsManager.changeValue(OutsideSettingsKeys.REMEMBERED_USER_PASSWORD, Utils.encodeString(user.getUserPassword()));
 
-        ChatsPage chatsPage = new ChatsPage(this, getContentVbox(), StringGetterWithCurrentLanguage.getString(StringsConstants.RECENT_CHATS), false, userWithId);
-        chatsPage.open();
+            User userWithId = new User(user.getUserName(), user.getUserPassword(), user.getUserDateOfRegistration(), Long.parseLong(Objects.requireNonNull(DatabaseService.getValueWithWhereValue(DatabaseConstants.USER_ID_ROW, DatabaseConstants.USER_NAME_ROW, user.getUserName()))));
+
+            ChatsPage chatsPage = new ChatsPage(this, getContentVbox(), StringGetterWithCurrentLanguage.getString(StringsConstants.RECENT_CHATS), false, userWithId);
+            chatsPage.open();
+        }catch (Exception e){
+            Log.error(e);
+        }
     }
 }
