@@ -71,7 +71,7 @@ public class MainController {
     }
 
     private void initPages() {
-        WelcomePage welcomePage = new WelcomePage(null, contentVbox, StringGetterWithCurrentLanguage.getString(StringsConstants.LETS_LOG_UP), true,false);
+        WelcomePage welcomePage = new WelcomePage(null, contentVbox, StringGetterWithCurrentLanguage.getString(StringsConstants.LETS_LOG_IN), true,false);
         welcomePage.open();
 
         Log.info("Welcome page was initialized!");
@@ -105,7 +105,7 @@ public class MainController {
     private void initBackground() {
         try{
             BackgroundImage backgroundImage = new BackgroundImage(Utils.getImage("bitmaps/background/background.png"),
-                    BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+                    BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
             mainVbox.setBackground(new Background(backgroundImage));
 
             Log.info("Background was initialized!");

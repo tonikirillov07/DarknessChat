@@ -21,6 +21,9 @@ import javafx.scene.text.Font;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
+import static com.ds.darknesschat.Constants.BLACK_COLOR;
+import static com.ds.darknesschat.Constants.WHITE_COLOR;
+
 public class ChatPage extends Page{
     private VBox messagesContent;
     private ScrollPane messagesScrollPane;
@@ -58,9 +61,9 @@ public class ChatPage extends Page{
                     Utils.getImage("bitmaps/icons/others/message.png"), false);
             hBox.getChildren().add(messageAdditionalTextField);
 
-            AdditionalButton sendButton = new AdditionalButton(StringGetterWithCurrentLanguage.getString(StringsConstants.SEND), 137d, 49d, new Color(164, 62, 62), new Color(255, 255, 255));
+            AdditionalButton sendButton = new AdditionalButton(StringGetterWithCurrentLanguage.getString(StringsConstants.SEND), 137d, 49d, new Color(164, 62, 62), WHITE_COLOR);
             sendButton.addAction(() -> sendMessage(messageAdditionalTextField));
-            AdditionalButton backButton = new AdditionalButton(StringGetterWithCurrentLanguage.getString(StringsConstants.BACK), 137d, 49d, new Color(255, 255, 255), new Color(0, 0, 0));
+            AdditionalButton backButton = new AdditionalButton(StringGetterWithCurrentLanguage.getString(StringsConstants.BACK), 137d, 49d, WHITE_COLOR, BLACK_COLOR);
             backButton.addAction(this::leaveTheChat);
 
             hBox.getChildren().addAll(sendButton, backButton);

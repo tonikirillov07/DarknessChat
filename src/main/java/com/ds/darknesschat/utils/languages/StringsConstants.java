@@ -51,4 +51,6 @@ public final class StringsConstants {
     public static final String GENERATE_STRONG_PASSWORD = "generate_strong_password";
     public static final String CHANGING_NAME = "changing_name";
     public static final String WRITE_NEW_NAME = "write_new_name";
+    public static final String HAVE_ACCOUNT = "have_account";
+    public static final String HAVENT_ACCOUNT = "havent_account";
 }

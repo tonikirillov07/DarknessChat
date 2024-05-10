@@ -14,6 +14,8 @@ import com.ds.darknesschat.utils.sounds.SoundsConstants;
 import javafx.geometry.Insets;
 import javafx.scene.layout.VBox;
 
+import static com.ds.darknesschat.Constants.WHITE_COLOR;
+
 public class SettingsAccountChangeNamePage extends Page {
     protected SettingsAccountChangeNamePage(Page prevoiusPage, VBox contentVbox, String title, boolean createStandardTile) {
         super(prevoiusPage, contentVbox, title, createStandardTile);
@@ -43,7 +45,7 @@ public class SettingsAccountChangeNamePage extends Page {
 
     private void createNextButton(AdditionalTextField newNameAdditionalTextField) {
         AdditionalButton nextButton = new AdditionalButton(StringGetterWithCurrentLanguage.getString(StringsConstants.NEXT), 408d, 41d,
-                new Color(164, 62, 62), new Color(255, 255, 255));
+                new Color(164, 62, 62), WHITE_COLOR);
         VBox.setMargin(nextButton, new Insets(10d, 40d, 0d, 40d));
         addNodeToTile(nextButton);
 

@@ -7,6 +7,7 @@ import com.ds.darknesschat.additionalNodes.ChatTile;
 import com.ds.darknesschat.additionalNodes.DeveloperLabel;
 import com.ds.darknesschat.additionalNodes.ImageButton;
 import com.ds.darknesschat.pages.settingsPages.SettingsMainPage;
+import com.ds.darknesschat.user.User;
 import com.ds.darknesschat.utils.Color;
 import com.ds.darknesschat.utils.Utils;
 import com.ds.darknesschat.utils.languages.StringGetterWithCurrentLanguage;
@@ -30,8 +31,8 @@ import org.jetbrains.annotations.Nullable;
 public class ChatsPage extends Page{
     private HBox contentHbox;
 
-    protected ChatsPage(Page prevoiusPage, VBox contentVbox, String title, boolean createStandardTile) {
-        super(prevoiusPage, contentVbox, title, createStandardTile);
+    protected ChatsPage(Page prevoiusPage, VBox contentVbox, String title, boolean createStandardTile, User user) {
+        super(prevoiusPage, contentVbox, title, createStandardTile, user);
     }
 
     @Override
@@ -70,7 +71,7 @@ public class ChatsPage extends Page{
             ImageButton settingsImageButton = new ImageButton(70d, 70d, Utils.getImage("bitmaps/icons/others/settings.png"));
             settingsImageButton.setOnAction(() -> {
                 Utils.addRotateTranslationToNode(settingsImageButton);
-                new SettingsMainPage(this, getContentVbox(), StringGetterWithCurrentLanguage.getString(StringsConstants.SETTINGS), true).open();
+                new SettingsMainPage(this, getContentVbox(), StringGetterWithCurrentLanguage.getString(StringsConstants.SETTINGS), true, getUser()).open();
             });
             VBox.setMargin(settingsImageButton, new Insets(10d));
 
@@ -119,6 +120,7 @@ public class ChatsPage extends Page{
             sidePanelVbox.setEffect(new DropShadow());
             sidePanelVbox.setAlignment(Pos.TOP_CENTER);
             sidePanelVbox.getStyleClass().add("tile");
+            sidePanelVbox.setStyle("");
             Utils.addTranslateByLeftAnimationToNode(sidePanelVbox);
             addToContentHbox(sidePanelVbox);
 

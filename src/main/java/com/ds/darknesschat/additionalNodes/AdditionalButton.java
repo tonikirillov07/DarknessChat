@@ -2,6 +2,7 @@ package com.ds.darknesschat.additionalNodes;
 
 import com.ds.darknesschat.Constants;
 import com.ds.darknesschat.Main;
+import com.ds.darknesschat.utils.Color;
 import com.ds.darknesschat.utils.interfaces.IOnAction;
 import com.ds.darknesschat.utils.log.Log;
 import com.ds.darknesschat.utils.sounds.Sounds;
@@ -9,6 +10,7 @@ import com.ds.darknesschat.utils.sounds.SoundsConstants;
 import javafx.scene.control.Button;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.text.Font;
+import org.jetbrains.annotations.NotNull;
 
 public class AdditionalButton extends Button {
     private final double width;
@@ -33,11 +35,19 @@ public class AdditionalButton extends Button {
             getStyleClass().add("button-next");
             setEffect(new DropShadow());
 
-            setStyle("-fx-background-color: rgb(" + backgroundColor.red() + ", " + backgroundColor.green() + ", " + backgroundColor.blue() + ");" +
-                    "-fx-text-fill: rgb(" + textColor.red() + ", " + textColor.green() + ", " + textColor.blue() + ");");
+            setBackgroundColor(backgroundColor);
+            setTextColor(textColor);
         }catch (Exception e){
             Log.error(e);
         }
+    }
+
+    public void setBackgroundColor(@NotNull Color color){
+        setStyle(getStyle() + "-fx-background-color: rgb(" + color.red() + ", " + color.green() + ", " + color.blue() + ");");
+    }
+
+    public void setTextColor(@NotNull Color color){
+        setStyle(getStyle() + "-fx-text-fill: rgb(" + color.red() + ", " + color.green() + ", " + color.blue() + ");");
     }
 
     public void addAction(IOnAction onAction){

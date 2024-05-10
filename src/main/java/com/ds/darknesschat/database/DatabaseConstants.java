@@ -10,4 +10,5 @@ public class DatabaseConstants {
     public static final String OPACITY_LEVEL_ROW = "opacity_level";
     public static final String BACKGROUND_PATH_ROW = "background_path";
     public static final String REMEMBERED_CHAT_ADDRESS_ROW = "remembered_chat_address";
+    public static final String USER_ID_ROW = "user_id";
 }

@@ -3,6 +3,7 @@ package com.ds.darknesschat.pages.settingsPages;
 import com.ds.darknesschat.additionalNodes.*;
 import com.ds.darknesschat.pages.Page;
 import com.ds.darknesschat.pages.settingsPages.usersSettings.SettingsAccountPage;
+import com.ds.darknesschat.user.User;
 import com.ds.darknesschat.utils.Utils;
 import com.ds.darknesschat.utils.interfaces.IOnAction;
 import com.ds.darknesschat.utils.languages.StringGetterWithCurrentLanguage;
@@ -14,8 +15,8 @@ import javafx.scene.layout.VBox;
 import org.jetbrains.annotations.NotNull;
 
 public class SettingsMainPage extends Page {
-    public SettingsMainPage(Page prevoiusPage, VBox contentVbox, String title, boolean createStandardTile) {
-        super(prevoiusPage, contentVbox, title, createStandardTile);
+    public SettingsMainPage(Page prevoiusPage, VBox contentVbox, String title, boolean createStandardTile, User user) {
+        super(prevoiusPage, contentVbox, title, createStandardTile, user);
     }
 
     @Override

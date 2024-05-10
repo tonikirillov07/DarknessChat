@@ -16,6 +16,8 @@ import javafx.scene.layout.VBox;
 
 import java.util.Random;
 
+import static com.ds.darknesschat.Constants.WHITE_COLOR;
+
 public class SettingsAccountChangePasswordPage extends Page {
     protected SettingsAccountChangePasswordPage(Page prevoiusPage, VBox contentVbox, String title, boolean createStandardTile) {
         super(prevoiusPage, contentVbox, title, createStandardTile);
@@ -52,7 +54,7 @@ public class SettingsAccountChangePasswordPage extends Page {
     private void createButtons(AdditionalTextField currentPasswordTextField, AdditionalTextField newPasswordTextField) {
         try{
             AdditionalButton generateStrongPasswordButton = new AdditionalButton(StringGetterWithCurrentLanguage.getString(StringsConstants.GENERATE_STRONG_PASSWORD), 408d, 41d,
-                    new Color(62, 109, 164), new Color(255, 255, 255));
+                    new Color(62, 109, 164), WHITE_COLOR);
             VBox.setMargin(generateStrongPasswordButton, new Insets(10d, 40d, 0d, 40d));
             generateStrongPasswordButton.addAction(() -> {
                 String generatedPassword = PasswordGenerator.generate(new Random().nextInt(7, 12));
@@ -62,7 +64,7 @@ public class SettingsAccountChangePasswordPage extends Page {
             });
 
             AdditionalButton nextButton = new AdditionalButton(StringGetterWithCurrentLanguage.getString(StringsConstants.NEXT), 408d, 41d,
-                    new Color(164, 62, 62), new Color(255, 255, 255));
+                    new Color(164, 62, 62), WHITE_COLOR);
             VBox.setMargin(nextButton, new Insets(10d, 40d, 0d, 40d));
 
             addNodeToTile(generateStrongPasswordButton);

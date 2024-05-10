@@ -43,9 +43,9 @@ public class SettingsAppearancePage extends Page {
     @Contract(pure = true)
     private @NotNull List<String> findAppearanceValues(){
         List<String> appearanceValuesList = new ArrayList<>();
-        DecimalFormat decimalFormat = new DecimalFormat("#.#");
+        DecimalFormat decimalFormat = new DecimalFormat("#.##");
 
-        for (double i = 0.12d; i < 1d; i+=0.1d) {
+        for (double i = 0.12d; i < 1d; i+=0.01d) {
             appearanceValuesList.add(decimalFormat.format(i));
         }
 

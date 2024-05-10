@@ -111,7 +111,7 @@ public final class Utils {
 
     public static void addFadeTransitionToNode(Node node){
         try{
-            FadeTransition fadeTransition = new FadeTransition(Duration.millis(80), node);
+            FadeTransition fadeTransition = new FadeTransition(Duration.millis(100), node);
             fadeTransition.setFromValue(0.1f);
             fadeTransition.setToValue(1f);
             fadeTransition.setAutoReverse(true);

@@ -10,6 +10,8 @@ import com.ds.darknesschat.utils.log.Log;
 import javafx.geometry.Insets;
 import javafx.scene.layout.VBox;
 
+import static com.ds.darknesschat.Constants.WHITE_COLOR;
+
 public final class SettingsPage {
     public static void initBackButton(Page page) {
         try{
@@ -24,7 +26,7 @@ public final class SettingsPage {
 
     public static void initResetButton(Page page, IOnAction onAction) {
         try{
-            AdditionalButton resetAllButton = new AdditionalButton(StringGetterWithCurrentLanguage.getString(StringsConstants.RESET_ALL), 408d, 41d, new Color(109, 107, 208), new Color(255, 255, 255));
+            AdditionalButton resetAllButton = new AdditionalButton(StringGetterWithCurrentLanguage.getString(StringsConstants.RESET_ALL), 408d, 41d, new Color(109, 107, 208), WHITE_COLOR);
             resetAllButton.addAction(onAction);
             VBox.setMargin(resetAllButton, new Insets(10d, 0d, 0, 0d));
 

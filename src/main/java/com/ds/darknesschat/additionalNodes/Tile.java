@@ -26,6 +26,7 @@ public class Tile extends VBox {
     private void init() {
         setWidth(width);
         setHeight(height);
+        setMaxWidth(width);
         getStyleClass().add("tile");
         setAlignment(Pos.TOP_CENTER);
         setEffect(new DropShadow());

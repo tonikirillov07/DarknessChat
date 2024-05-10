@@ -3,6 +3,7 @@ package com.ds.darknesschat.pages;
 import com.ds.darknesschat.additionalNodes.DeveloperLabel;
 import com.ds.darknesschat.additionalNodes.SettingsOptionButton;
 import com.ds.darknesschat.additionalNodes.Tile;
+import com.ds.darknesschat.user.User;
 import com.ds.darknesschat.utils.interfaces.IOnAction;
 import com.ds.darknesschat.utils.log.Log;
 import javafx.geometry.Insets;
@@ -19,12 +20,21 @@ public abstract class Page {
     private Tile tile;
     private boolean isOpen;
     private final boolean createStandardTile;
+    private User user;
 
     protected Page(Page prevoiusPage, VBox contentVbox, String title, boolean createStandardTile) {
         this.prevoiusPage = prevoiusPage;
         this.contentVbox = contentVbox;
         this.title = title;
         this.createStandardTile = createStandardTile;
+    }
+
+    public Page(Page prevoiusPage, VBox contentVbox, String title, boolean createStandardTile, User user) {
+        this.prevoiusPage = prevoiusPage;
+        this.contentVbox = contentVbox;
+        this.title = title;
+        this.createStandardTile = createStandardTile;
+        this.user = user;
     }
 
     public void applyDefaultPagePaddings(){
@@ -148,8 +158,13 @@ public abstract class Page {
         return contentVbox;
     }
 
-    public abstract void onOpen();
+    public User getUser() {
+        return user;
+    }
+
     public void onClose(){
         Log.info("Page " + getTitle() + " was closed");
     }
+
+    public abstract void onOpen();
 }
