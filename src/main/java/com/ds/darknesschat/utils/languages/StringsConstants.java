@@ -55,4 +55,7 @@ public final class StringsConstants {
     public static final String HAVENT_ACCOUNT = "havent_account";
     public static final String THIS_USER_ALREADY_EXISTS = "this_user_already_exists";
     public static final String ENTERED_WRONG_DATA = "entered_wrong_data";
+    public static final String ENTERED_WRONG_PASSWORD = "entered_wrong_password";
+    public static final String NEW_PASSWORD_CANT_BE_EQUALS_WITH_OLD = "new_password_cant_be_equals_with_old";
+    public static final String NEW_NAME_CANT_BE_EQUALS_WITH_OLD = "new_name_cant_be_equals_with_old";
 }

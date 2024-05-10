@@ -5603,3 +5603,480 @@ java.io.FileNotFoundException: languages\rus.properdfties (The system cannot fin
 javafx.fxml.LoadException: 
 file:///C:/Users/toniw/IdeaProjects/DarknessChat/build/libs/DarknessChat-1.0-SNAPSHOT.jar!/com/ds/darknesschat/main-view.fxml
 
+Opening window...
+Background was initialized!
+Window Title was initialized!
+Close and Minimize Buttons was initialized!
+Window Header Drug was initialized!
+java.io.FileNotFoundException: languages\rus.properdfties (The system cannot find the file specified)
+java.io.FileNotFoundException: languages\rus.properdfties (The system cannot find the file specified)
+javafx.fxml.LoadException: 
+file:///C:/Users/toniw/IdeaProjects/DarknessChat/build/libs/DarknessChat-1.0-SNAPSHOT.jar!/com/ds/darknesschat/main-view.fxml
+
+Opening window...
+Background was initialized!
+Window Title was initialized!
+Close and Minimize Buttons was initialized!
+Window Header Drug was initialized!
+Tile Tile@3868b28c[styleClass=tile] was created for page ??????? ??????!
+Default padding to page were applied!
+Page ??????? ??????! was opened
+Welcome page was initialized!
+Window Header was initialized!
+Window was opened!
+Opening window...
+Background was initialized!
+Window Title was initialized!
+Close and Minimize Buttons was initialized!
+Window Header Drug was initialized!
+Tile Tile@3868b28c[styleClass=tile] was created for page null
+Default padding to page were applied!
+Page null was opened
+Welcome page was initialized!
+Window Header was initialized!
+Window was opened!
+Defined value in row date_of_registration is 2024-05-10T11:12:11.270428700
+User com.ds.darknesschat.user.User@744fb901 is exists: false
+Defined value in row date_of_registration is 2024-05-10T11:12:11.270428700
+User com.ds.darknesschat.user.User@4fc50acb is exists: true
+Defined value in row user_id is 3
+Page null was closed
+Default padding to page were deleted!
+Defined value in row opacity_level is 0.72
+Defined value in row animations_using is true
+Defined value in row animations_using is true
+Page null was opened
+Defined value in row sounds_using is true
+Defined value in row sounds_using is true
+Defined value in row animations_using is true
+Page null was closed
+Defined value in row animations_using is true
+Tile Tile@2593bc37[styleClass=tile] was created for page ?????????
+Default padding to page were applied!
+Loaded default settings for tile
+Defined value in row opacity_level is 0.72
+Page ????????? was opened
+Defined value in row sounds_using is true
+Page ????????? was closed
+Defined value in row animations_using is true
+Tile Tile@57591b18[styleClass=tile] was created for page ?????????->??????????
+Default padding to page were applied!
+Loaded default settings for tile
+Defined value in row animations_using is true
+Defined value in row sounds_using is true
+Defined value in row opacity_level is 0.72
+Defined value in row opacity_level is 0.72
+Page ?????????->?????????? was opened
+Defined value in row sounds_using is true
+Page null was closed
+Defined value in row animations_using is true
+Tile Tile@2d8b528e[styleClass=tile] was created for page ?????????
+Default padding to page were applied!
+Loaded default settings for tile
+Defined value in row opacity_level is 0.72
+Page ????????? was opened
+Defined value in row sounds_using is true
+Page ????????? was closed
+Defined value in row animations_using is true
+Tile Tile@7e586b8f[styleClass=tile] was created for page ?????????->???????
+Default padding to page were applied!
+Loaded default settings for tile
+Defined value in row opacity_level is 0.72
+Page ?????????->??????? was opened
+Defined value in row sounds_using is true
+Page null was closed
+Defined value in row animations_using is true
+Tile Tile@3ce2af8c[styleClass=tile] was created for page ?????????
+Default padding to page were applied!
+Loaded default settings for tile
+Defined value in row opacity_level is 0.72
+Page ????????? was opened
+Defined value in row sounds_using is true
+Page ????????? was closed
+Page null was closed
+Defined value in row animations_using is true
+Tile Tile@2070ff25[styleClass=tile] was created for page ?????????
+Default padding to page were applied!
+Loaded default settings for tile
+Defined value in row opacity_level is 0.72
+Page ????????? was opened
+Defined value in row sounds_using is true
+Page ????????? was closed
+Page null was closed
+Defined value in row animations_using is true
+Tile Tile@46ea0dd7[styleClass=tile] was created for page ?????????
+Default padding to page were applied!
+Loaded default settings for tile
+Defined value in row opacity_level is 0.72
+Page ????????? was opened
+Defined value in row sounds_using is true
+Page ????????? was closed
+Page null was closed
+Defined value in row animations_using is true
+Tile Tile@68aeb840[styleClass=tile] was created for page ?????????
+Default padding to page were applied!
+Loaded default settings for tile
+Defined value in row opacity_level is 0.72
+Page ????????? was opened
+Defined value in row sounds_using is true
+Page ????????? was closed
+Page null was closed
+Defined value in row animations_using is true
+Tile Tile@6908881f[styleClass=tile] was created for page ?????????
+Default padding to page were applied!
+Loaded default settings for tile
+Defined value in row opacity_level is 0.72
+Page ????????? was opened
+Defined value in row sounds_using is true
+Page null was closed
+Default padding to page were deleted!
+Defined value in row opacity_level is 0.72
+Defined value in row animations_using is true
+Defined value in row animations_using is true
+Page null was opened
+Opening window...
+Background was initialized!
+Window Title was initialized!
+Close and Minimize Buttons was initialized!
+Window Header Drug was initialized!
+Tile Tile@7701589f[styleClass=tile] was created for page ??????? ??????!
+Default padding to page were applied!
+Page ??????? ??????! was opened
+Welcome page was initialized!
+Window Header was initialized!
+Window was opened!
+Opening window...
+Background was initialized!
+Window Title was initialized!
+Close and Minimize Buttons was initialized!
+Window Header Drug was initialized!
+java.io.FileNotFoundException: languages\rus.properties (The system cannot find the path specified)
+java.io.FileNotFoundException: languages\rus.properties (The system cannot find the path specified)
+javafx.fxml.LoadException: 
+file:///C:/Users/toniw/IdeaProjects/DarknessChat/build/libs/DarknessChat-1.0-SNAPSHOT.jar!/com/ds/darknesschat/main-view.fxml
+
+Opening window...
+Background was initialized!
+Window Title was initialized!
+Close and Minimize Buttons was initialized!
+Window Header Drug was initialized!
+Tile Tile@78370ade[styleClass=tile] was created for page ??????? ??????!
+Default padding to page were applied!
+Page ??????? ??????! was opened
+Welcome page was initialized!
+Window Header was initialized!
+Window was opened!
+Opening window...
+Background was initialized!
+Window Title was initialized!
+Close and Minimize Buttons was initialized!
+Window Header Drug was initialized!
+java.io.FileNotFoundException: languages\rus.properties (The system cannot find the path specified)
+java.io.FileNotFoundException: languages\rus.properties (The system cannot find the path specified)
+javafx.fxml.LoadException: 
+file:///C:/Users/toniw/IdeaProjects/DarknessChat/build/libs/DarknessChat-1.0-SNAPSHOT.jar!/com/ds/darknesschat/main-view.fxml
+
+Opening window...
+Background was initialized!
+Window Title was initialized!
+Close and Minimize Buttons was initialized!
+Window Header Drug was initialized!
+Tile Tile@5c7869e6[styleClass=tile] was created for page ??????? ??????!
+Default padding to page were applied!
+Page ??????? ??????! was opened
+Welcome page was initialized!
+Window Header was initialized!
+Window was opened!
+Opening window...
+Background was initialized!
+Window Title was initialized!
+Close and Minimize Buttons was initialized!
+Window Header Drug was initialized!
+Tile Tile@4ed4e9b7[styleClass=tile] was created for page ??????? ??????!
+Default padding to page were applied!
+Page ??????? ??????! was opened
+Welcome page was initialized!
+Window Header was initialized!
+Window was opened!
+Defined value in row date_of_registration is 2024-05-10T11:12:11.270428700
+User com.ds.darknesschat.user.User@17480369 is exists: true
+Defined value in row user_id is 3
+Page ??????? ??????! was closed
+Default padding to page were deleted!
+Defined value in row opacity_level is 0.72
+Defined value in row animations_using is true
+Defined value in row animations_using is true
+Page ???????? ???? was opened
+Defined value in row sounds_using is true
+Defined value in row animations_using is true
+Page ???????? ???? was closed
+Defined value in row animations_using is true
+Tile Tile@2712cc0[styleClass=tile] was created for page ?????????
+Default padding to page were applied!
+Loaded default settings for tile
+Defined value in row opacity_level is 0.72
+Page ????????? was opened
+Defined value in row sounds_using is true
+Page ????????? was closed
+Defined value in row animations_using is true
+Tile Tile@24e2caa[styleClass=tile] was created for page ?????????->???????
+Default padding to page were applied!
+Loaded default settings for tile
+Defined value in row opacity_level is 0.72
+Page ?????????->??????? was opened
+Defined value in row sounds_using is true
+Page ?????????->??????? was closed
+Defined value in row animations_using is true
+Tile Tile@7317f264[styleClass=tile] was created for page ????? ??????
+Default padding to page were applied!
+Loaded default settings for tile
+Defined value in row opacity_level is 0.72
+Page ????? ?????? was opened
+Defined value in row sounds_using is true
+Defined value in row sounds_using is true
+Defined value in row sounds_using is true
+Defined value in row sounds_using is true
+Defined value in row sounds_using is true
+Defined value in row sounds_using is true
+Opening window...
+Background was initialized!
+Window Title was initialized!
+Close and Minimize Buttons was initialized!
+Window Header Drug was initialized!
+Tile Tile@4ed4e9b7[styleClass=tile] was created for page ??????? ??????!
+Default padding to page were applied!
+Page ??????? ??????! was opened
+Welcome page was initialized!
+Window Header was initialized!
+Window was opened!
+Defined value in row date_of_registration is 2024-05-10T11:12:11.270428700
+User com.ds.darknesschat.user.User@40878d06 is exists: true
+Defined value in row user_id is 3
+Page ??????? ??????! was closed
+Default padding to page were deleted!
+Defined value in row opacity_level is 0.72
+Defined value in row animations_using is true
+Defined value in row animations_using is true
+Page ???????? ???? was opened
+Defined value in row sounds_using is true
+Defined value in row animations_using is true
+Page ???????? ???? was closed
+Defined value in row animations_using is true
+Tile Tile@2d8fa5a4[styleClass=tile] was created for page ?????????
+Default padding to page were applied!
+Loaded default settings for tile
+Defined value in row opacity_level is 0.72
+Page ????????? was opened
+Defined value in row sounds_using is true
+Page ????????? was closed
+Defined value in row animations_using is true
+Tile Tile@7d8031c2[styleClass=tile] was created for page ?????????->???????
+Default padding to page were applied!
+Loaded default settings for tile
+Defined value in row opacity_level is 0.72
+Page ?????????->??????? was opened
+Defined value in row sounds_using is true
+Page ?????????->??????? was closed
+Defined value in row animations_using is true
+Tile Tile@684c2708[styleClass=tile] was created for page ????? ??????
+Default padding to page were applied!
+Loaded default settings for tile
+Defined value in row opacity_level is 0.72
+Page ????? ?????? was opened
+Defined value in row sounds_using is true
+Defined value in row user_password is YXpsazIxNDE=
+Defined value in row sounds_using is true
+Opening window...
+Background was initialized!
+Window Title was initialized!
+Close and Minimize Buttons was initialized!
+Window Header Drug was initialized!
+Tile Tile@5c7869e6[styleClass=tile] was created for page ??????? ??????!
+Default padding to page were applied!
+Page ??????? ??????! was opened
+Welcome page was initialized!
+Window Header was initialized!
+Window was opened!
+Page ??????? ??????! was closed
+Tile Tile@3a9ddc10[styleClass=tile] was created for page ??????? ????????????????!
+Default padding to page were applied!
+Page ??????? ????????????????! was opened
+Defined value in row date_of_registration is 2024-05-10T11:12:11.270428700
+User com.ds.darknesschat.user.User@5d9df420 is exists: false
+org.sqlite.SQLiteException: [SQLITE_CONSTRAINT_UNIQUE] A UNIQUE constraint failed (UNIQUE constraint failed: users.user_name)
+Defined value in row user_id is 3
+Page ??????? ????????????????! was closed
+Default padding to page were deleted!
+Defined value in row opacity_level is 0.72
+Defined value in row animations_using is true
+Defined value in row animations_using is true
+Page ???????? ???? was opened
+Opening window...
+Background was initialized!
+Window Title was initialized!
+Close and Minimize Buttons was initialized!
+Window Header Drug was initialized!
+Tile Tile@4ed4e9b7[styleClass=tile] was created for page ??????? ??????!
+Default padding to page were applied!
+Page ??????? ??????! was opened
+Welcome page was initialized!
+Window Header was initialized!
+Window was opened!
+Page ??????? ??????! was closed
+Tile Tile@4d40f1e4[styleClass=tile] was created for page ??????? ????????????????!
+Default padding to page were applied!
+Page ??????? ????????????????! was opened
+Defined value in row date_of_registration is null
+User com.ds.darknesschat.user.User@d0de349 is exists: false
+Added user com.ds.darknesschat.user.User@472e3187
+Defined value in row user_id is 6
+Page ??????? ????????????????! was closed
+Default padding to page were deleted!
+Defined value in row opacity_level is 0.75
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+Page ???????? ???? was opened
+Defined value in row sounds_using is 1
+Defined value in row animations_using is 1
+Page ???????? ???? was closed
+Defined value in row animations_using is 1
+Tile Tile@6421cb9[styleClass=tile] was created for page ?????????
+Default padding to page were applied!
+Loaded default settings for tile
+Defined value in row opacity_level is 0.75
+Page ????????? was opened
+Defined value in row sounds_using is 1
+Page ????????? was closed
+Defined value in row animations_using is 1
+Tile Tile@50c47b10[styleClass=tile] was created for page ?????????->???????
+Default padding to page were applied!
+Loaded default settings for tile
+Defined value in row opacity_level is 0.75
+Page ?????????->??????? was opened
+Defined value in row sounds_using is 1
+Page ?????????->??????? was closed
+Defined value in row animations_using is 1
+Tile Tile@60a87fca[styleClass=tile] was created for page ????? ??????
+Default padding to page were applied!
+Loaded default settings for tile
+Defined value in row opacity_level is 0.75
+Page ????? ?????? was opened
+Defined value in row sounds_using is 1
+Defined value in row user_password is YXpsazIxNDE=
+Opening window...
+Background was initialized!
+Window Title was initialized!
+Close and Minimize Buttons was initialized!
+Window Header Drug was initialized!
+Tile Tile@5c7869e6[styleClass=tile] was created for page ??????? ??????!
+Default padding to page were applied!
+Page ??????? ??????! was opened
+Welcome page was initialized!
+Window Header was initialized!
+Window was opened!
+Defined value in row date_of_registration is 2024-05-10
+User com.ds.darknesschat.user.User@66dba70b is exists: false
+Defined value in row date_of_registration is 2024-05-10
+User com.ds.darknesschat.user.User@40da2755 is exists: true
+Defined value in row user_id is 6
+Page ??????? ??????! was closed
+Default padding to page were deleted!
+Defined value in row opacity_level is 0.75
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+Page ???????? ???? was opened
+Defined value in row sounds_using is 1
+Defined value in row animations_using is 1
+Page ???????? ???? was closed
+Defined value in row animations_using is 1
+Tile Tile@777865c1[styleClass=tile] was created for page ?????????
+Default padding to page were applied!
+Loaded default settings for tile
+Defined value in row opacity_level is 0.75
+Page ????????? was opened
+Defined value in row sounds_using is 1
+Page ????????? was closed
+Defined value in row animations_using is 1
+Tile Tile@34659c86[styleClass=tile] was created for page ?????????->???????
+Default padding to page were applied!
+Loaded default settings for tile
+Defined value in row opacity_level is 0.75
+Page ?????????->??????? was opened
+Defined value in row sounds_using is 1
+Page ?????????->??????? was closed
+Defined value in row animations_using is 1
+Tile Tile@65051853[styleClass=tile] was created for page ????? ??????
+Default padding to page were applied!
+Loaded default settings for tile
+Defined value in row opacity_level is 0.75
+Page ????? ?????? was opened
+Defined value in row sounds_using is 1
+Defined value in row user_password is YXpsazIxNDE=
+Defined value in row sounds_using is 1
+Defined value in row sounds_using is 1
+Defined value in row user_password is YXpsazIxNDE=
+Defined value in row sounds_using is 1
+Defined value in row sounds_using is 1
+Defined value in row user_password is YXpsazIxNDE=
+Page ????????? was closed
+Defined value in row animations_using is 1
+Tile Tile@559f3e1b[styleClass=tile] was created for page ?????????->???????
+Default padding to page were applied!
+Loaded default settings for tile
+Defined value in row opacity_level is 0.75
+Page ?????????->??????? was opened
+Opening window...
+Background was initialized!
+Window Title was initialized!
+Close and Minimize Buttons was initialized!
+Window Header Drug was initialized!
+Tile Tile@4ed4e9b7[styleClass=tile] was created for page ??????? ??????!
+Default padding to page were applied!
+Page ??????? ??????! was opened
+Welcome page was initialized!
+Window Header was initialized!
+Window was opened!
+Defined value in row date_of_registration is 2024-05-10
+User com.ds.darknesschat.user.User@77eeb477 is exists: true
+Defined value in row user_id is 6
+Page ??????? ??????! was closed
+Default padding to page were deleted!
+Defined value in row opacity_level is 0.75
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+Page ???????? ???? was opened
+Defined value in row sounds_using is 1
+Defined value in row animations_using is 1
+Page ???????? ???? was closed
+Defined value in row animations_using is 1
+Tile Tile@5495d5a4[styleClass=tile] was created for page ?????????
+Default padding to page were applied!
+Loaded default settings for tile
+Defined value in row opacity_level is 0.75
+Page ????????? was opened
+Defined value in row sounds_using is 1
+Page ????????? was closed
+Defined value in row animations_using is 1
+Tile Tile@7a58e1a7[styleClass=tile] was created for page ?????????->???????
+Default padding to page were applied!
+Loaded default settings for tile
+Defined value in row opacity_level is 0.75
+Page ?????????->??????? was opened
+Defined value in row sounds_using is 1
+Page ?????????->??????? was closed
+Defined value in row animations_using is 1
+Tile Tile@3b32872e[styleClass=tile] was created for page ????? ?????
+Default padding to page were applied!
+Loaded default settings for tile
+Defined value in row opacity_level is 0.75
+Page ????? ????? was opened
+Defined value in row sounds_using is 1
+Defined value in row sounds_using is 1
+Defined value in row sounds_using is 1
+Page ????????? was closed
+Defined value in row animations_using is 1
+Tile Tile@14eb5ebb[styleClass=tile] was created for page ?????????->???????
+Default padding to page were applied!
+Loaded default settings for tile
+Defined value in row opacity_level is 0.75
+Page ?????????->??????? was opened

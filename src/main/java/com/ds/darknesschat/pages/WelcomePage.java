@@ -19,7 +19,6 @@ import javafx.scene.layout.VBox;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.time.LocalDateTime;
 import java.util.Objects;
 
 import static com.ds.darknesschat.Constants.*;
@@ -175,8 +174,10 @@ public class WelcomePage extends Page{
                 }
             }else{
                 if(!DatabaseService.isUserExists(user)){
-                    User registerUser = new User(user.getUserName(), user.getUserPassword(),Utils.getFormattedDate());
-                    DatabaseService.addUser(registerUser);
+                    User registerUser = new User(user.getUserName(), user.getUserPassword(), Utils.getFormattedDate());
+
+                    if(!DatabaseService.addUser(registerUser))
+                        return;
 
                     openChatsPage(registerUser);
                 }else{

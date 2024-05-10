@@ -28,7 +28,7 @@ public class DatabaseService {
     public static boolean isUserExists(User user){
         try {
             String select = "SELECT * FROM " + TABLE_NAME + " WHERE " + USER_NAME_ROW + "='" + user.getUserName() + "' AND " +
-                    USER_PASSWORD_ROW + "='" + user.getUserPassword()+"'";
+                    USER_PASSWORD_ROW + "='" + Utils.encodeString(user.getUserPassword())+"'";
 
             PreparedStatement preparedStatement = Objects.requireNonNull(getConnection()).prepareStatement(select);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -89,7 +89,7 @@ public class DatabaseService {
         }
     }
 
-    public static void addUser(User user){
+    public static boolean addUser(User user){
         try {
             String insert = "INSERT INTO " + TABLE_NAME + "(" + USER_NAME_ROW + "," + USER_PASSWORD_ROW + "," + USER_DATE_OF_REGISTRATION_ROW + ")" + " VALUES(?,?,?)";
 
@@ -102,8 +102,12 @@ public class DatabaseService {
             preparedStatement.close();
 
             Log.info("Added user " + user);
+
+            return true;
         }catch (Exception e){
             Log.error(e);
         }
+
+        return false;
     }
 }

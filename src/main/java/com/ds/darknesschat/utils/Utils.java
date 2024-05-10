@@ -183,7 +183,7 @@ public final class Utils {
     }
 
     public static @NotNull String getFormattedDate(){
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss yyyy-MM-dd");
         return LocalDateTime.now().format(dateTimeFormatter);
     }
 }

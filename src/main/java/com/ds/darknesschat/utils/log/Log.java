@@ -1,5 +1,6 @@
 package com.ds.darknesschat.utils.log;
 
+import com.ds.darknesschat.utils.dialogs.ErrorDialog;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.FileWriter;
@@ -20,6 +21,7 @@ public final class Log {
         writeLogsIntoFile(e.toString());
 
         e.printStackTrace();
+        ErrorDialog.show(e);
     }
 
     private static void writeLogsIntoFile(String log){

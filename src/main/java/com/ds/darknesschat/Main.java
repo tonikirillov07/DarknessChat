@@ -1,5 +1,6 @@
 package com.ds.darknesschat;
 
+import com.ds.darknesschat.utils.FilesChecker;
 import com.ds.darknesschat.utils.appSettings.settingsReader.SettingsKeys;
 import com.ds.darknesschat.utils.appSettings.settingsReader.SettingsReader;
 import com.ds.darknesschat.utils.Utils;
@@ -19,6 +20,9 @@ public class Main extends Application {
     public void start(@NotNull Stage stage) {
         try {
             Log.info("Opening window...");
+
+            if(!FilesChecker.checkFiles())
+                System.exit(-1);
 
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("main-view.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 906, 957);

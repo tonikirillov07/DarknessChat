@@ -2,11 +2,14 @@ package com.ds.darknesschat.pages.settingsPages.usersSettings;
 
 import com.ds.darknesschat.additionalNodes.AdditionalButton;
 import com.ds.darknesschat.additionalNodes.AdditionalTextField;
+import com.ds.darknesschat.database.DatabaseConstants;
+import com.ds.darknesschat.database.DatabaseService;
 import com.ds.darknesschat.pages.Page;
 import com.ds.darknesschat.pages.settingsPages.SettingsPage;
 import com.ds.darknesschat.user.User;
 import com.ds.darknesschat.utils.Color;
 import com.ds.darknesschat.utils.Utils;
+import com.ds.darknesschat.utils.dialogs.ErrorDialog;
 import com.ds.darknesschat.utils.languages.StringGetterWithCurrentLanguage;
 import com.ds.darknesschat.utils.languages.StringsConstants;
 import com.ds.darknesschat.utils.log.Log;
@@ -52,12 +55,26 @@ public class SettingsAccountChangeNamePage extends Page {
         VBox.setMargin(nextButton, new Insets(10d, 40d, 0d, 40d));
         addNodeToTile(nextButton);
 
-        nextButton.addAction(() -> {
-            if(Utils.isFieldsIsNotEmpty(new AdditionalTextField[]{newNameAdditionalTextField})){
-                System.out.println(1);
-            }else{
+        nextButton.addAction(() -> onNextButtonAction(newNameAdditionalTextField));
+    }
+
+    private void onNextButtonAction(AdditionalTextField newNameAdditionalTextField) {
+        try {
+            if (Utils.isFieldsIsNotEmpty(new AdditionalTextField[]{newNameAdditionalTextField})) {
+                if (newNameAdditionalTextField.getText().equals(getUser().getUserName())) {
+                    newNameAdditionalTextField.setError(getUser().getId());
+                    ErrorDialog.show(new Exception(StringGetterWithCurrentLanguage.getString(StringsConstants.NEW_NAME_CANT_BE_EQUALS_WITH_OLD)));
+
+                    return;
+                }
+
+                DatabaseService.changeValue(DatabaseConstants.USER_NAME_ROW, newNameAdditionalTextField.getText(), getUser().getId());
+                goToPreviousPage();
+            } else {
                 newNameAdditionalTextField.setError(getUser().getId());
             }
-        });
+        }catch (Exception e){
+            Log.error(e);
+        }
     }
 }
