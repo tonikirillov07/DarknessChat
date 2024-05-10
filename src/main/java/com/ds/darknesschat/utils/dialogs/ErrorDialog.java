@@ -16,7 +16,7 @@ public final class ErrorDialog {
             Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
             stage.getIcons().add(Utils.getImage("bitmaps/icons/others/error.png"));
 
-            alert.show();
+            alert.showAndWait();
         }catch (Exception exception){
             e.printStackTrace();
             exception.printStackTrace();

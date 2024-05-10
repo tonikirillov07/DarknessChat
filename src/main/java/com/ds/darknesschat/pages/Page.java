@@ -52,7 +52,7 @@ public abstract class Page {
     private void createTile() {
         try {
             tile = new Tile(Tile.DEFAULT_WIDTH, Tile.DEFAULT_HEIGHT, Constants.TILE_COLOR.getAlpha());
-            tile.animate();
+            tile.animate(getUser() != null ? getUser().getId(): Constants.IGNORE_USER_AGREEMENT);
 
             VBox vBox = new VBox();
             vBox.setAlignment(Pos.CENTER);

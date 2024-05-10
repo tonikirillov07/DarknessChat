@@ -15,7 +15,7 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-import static com.ds.darknesschat.Constants.NO_USER_AGREEMENT;
+import static com.ds.darknesschat.Constants.IGNORE_USER_AGREEMENT;
 
 public class MainController {
     @FXML
@@ -98,8 +98,8 @@ public class MainController {
     }
 
     private void initControlButtons() {
-        Utils.addActionToNode(closeButtonImageView, this::close, NO_USER_AGREEMENT);
-        Utils.addActionToNode(minimizeButtonImageView, this::minimize, NO_USER_AGREEMENT);
+        Utils.addActionToNode(closeButtonImageView, this::close, IGNORE_USER_AGREEMENT);
+        Utils.addActionToNode(minimizeButtonImageView, this::minimize, IGNORE_USER_AGREEMENT);
 
         Log.info("Close and Minimize Buttons was initialized!");
     }

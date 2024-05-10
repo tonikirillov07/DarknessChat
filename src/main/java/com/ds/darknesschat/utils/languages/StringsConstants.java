@@ -53,4 +53,6 @@ public final class StringsConstants {
     public static final String WRITE_NEW_NAME = "write_new_name";
     public static final String HAVE_ACCOUNT = "have_account";
     public static final String HAVENT_ACCOUNT = "havent_account";
+    public static final String THIS_USER_ALREADY_EXISTS = "this_user_already_exists";
+    public static final String ENTERED_WRONG_DATA = "entered_wrong_data";
 }

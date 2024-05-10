@@ -53,7 +53,7 @@ public class WelcomePage extends Page{
 
     private @Nullable AdditionalButton createNextButton() {
         try {
-            AdditionalButton nextButton = new AdditionalButton(isLogUpPage ? StringGetterWithCurrentLanguage.getString(StringsConstants.LOG_UP) : StringGetterWithCurrentLanguage.getString(StringsConstants.LOG_IN), AdditionalTextField.DEFAULT_WIDTH + 40, AdditionalTextField.DEFAULT_HEIGHT, new com.ds.darknesschat.utils.Color(217, 217, 217), BLACK_COLOR, NO_USER_AGREEMENT);
+            AdditionalButton nextButton = new AdditionalButton(isLogUpPage ? StringGetterWithCurrentLanguage.getString(StringsConstants.LOG_UP) : StringGetterWithCurrentLanguage.getString(StringsConstants.LOG_IN), AdditionalTextField.DEFAULT_WIDTH + 40, AdditionalTextField.DEFAULT_HEIGHT, new com.ds.darknesschat.utils.Color(217, 217, 217), BLACK_COLOR, IGNORE_USER_AGREEMENT);
             VBox.setMargin(nextButton, new Insets(100, 40, 10, 40));
 
             return nextButton;
@@ -138,7 +138,7 @@ public class WelcomePage extends Page{
             AdditionalTextField[] additionalTextFieldList = {nameTextField, passwordTextField, repeatPasswordTextField};
             Objects.requireNonNull(Utils.getEmptyFieldsFromArray(additionalTextFieldList)).forEach(additionalTextField -> {
                 if(additionalTextField != null)
-                    additionalTextField.setError(NO_USER_AGREEMENT);
+                    additionalTextField.setError(IGNORE_USER_AGREEMENT);
             });
 
             if (Utils.isFieldsIsNotEmpty(additionalTextFieldList)) {
@@ -162,23 +162,25 @@ public class WelcomePage extends Page{
 
     private void onNextButtonAction(AdditionalTextField nameTextField, AdditionalTextField passwordTextField, AdditionalTextField repeatPasswordTextField){
         if(checkAllFields(nameTextField, passwordTextField, repeatPasswordTextField)){
-            User user = new User(nameTextField.getText(), passwordTextField.getText(), null);
+            User user = new User(nameTextField.getText(), passwordTextField.getText(), DatabaseService.getValueWithWhereValue(DatabaseConstants.USER_DATE_OF_REGISTRATION_ROW, DatabaseConstants.USER_NAME_ROW, nameTextField.getText()));
 
             if(!isLogUpPage){
                 if(DatabaseService.isUserExists(user)){
                     openChatsPage(user);
                 }else{
-                    nameTextField.setError(NO_USER_AGREEMENT);
-                    passwordTextField.setError(NO_USER_AGREEMENT);
+                    nameTextField.setError(IGNORE_USER_AGREEMENT);
+                    passwordTextField.setError(IGNORE_USER_AGREEMENT);
+
+                    ErrorDialog.show(new Exception(StringGetterWithCurrentLanguage.getString(StringsConstants.ENTERED_WRONG_DATA)));
                 }
             }else{
                 if(!DatabaseService.isUserExists(user)){
-                    User registerUser = new User(user.getUserName(), user.getUserPassword(), LocalDateTime.now().toString());
+                    User registerUser = new User(user.getUserName(), user.getUserPassword(),Utils.getFormattedDate());
                     DatabaseService.addUser(registerUser);
 
                     openChatsPage(registerUser);
                 }else{
-                    ErrorDialog.show(new Exception("Error"));
+                    ErrorDialog.show(new Exception(StringGetterWithCurrentLanguage.getString(StringsConstants.THIS_USER_ALREADY_EXISTS)));
                 }
             }
         }else {

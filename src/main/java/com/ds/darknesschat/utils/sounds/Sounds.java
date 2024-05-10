@@ -10,12 +10,12 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.Objects;
 
-import static com.ds.darknesschat.Constants.NO_USER_AGREEMENT;
+import static com.ds.darknesschat.Constants.IGNORE_USER_AGREEMENT;
 
 public class Sounds {
     public static void playSound(String soundPath, long userId){
         try{
-            if(userId != NO_USER_AGREEMENT) {
+            if(userId != IGNORE_USER_AGREEMENT) {
                 if (DatabaseService.getBoolean(Objects.requireNonNull(DatabaseService.getValue(DatabaseConstants.SOUNDS_USING_ROW, userId))))
                     playWithIgnoreUserSettings(soundPath);
             }else

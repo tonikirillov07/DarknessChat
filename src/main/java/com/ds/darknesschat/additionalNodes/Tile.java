@@ -59,8 +59,8 @@ public class Tile extends VBox {
         setColor(new com.ds.darknesschat.utils.Color(UserSettings.getUserAlphaLevel(user), TILE_COLOR.getRed(), TILE_COLOR.getGreen(), TILE_COLOR.getBlue()));
     }
 
-    public void animate(){
-        Utils.addTranslateByUpAnimationToNode(this, true);
+    public void animate(long userId){
+        Utils.addTranslateByUpAnimationToNode(this, true, userId);
     }
 
     public void addChild(Node node){

@@ -81,8 +81,8 @@ public class SettingsAccountPage extends Page {
             vBox.setSpacing(20d);
             VBox.setMargin(vBox, new Insets(40d, 40d, 0, 40d));
 
-            vBox.getChildren().addAll(createLabel(StringGetterWithCurrentLanguage.getString(StringsConstants.ACCOUNT_NAME) + " Anton K"),
-                    createLabel(StringGetterWithCurrentLanguage.getString(StringsConstants.DATE_OF_REGISTRATION) + " 1/1/1111"));
+            vBox.getChildren().addAll(createLabel(StringGetterWithCurrentLanguage.getString(StringsConstants.ACCOUNT_NAME) + " " + getUser().getUserName()),
+                    createLabel(StringGetterWithCurrentLanguage.getString(StringsConstants.DATE_OF_REGISTRATION) + " " + getUser().getUserDateOfRegistration()));
 
             addNodeToTile(vBox);
         }catch (Exception e){

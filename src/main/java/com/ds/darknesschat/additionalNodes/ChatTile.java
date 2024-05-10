@@ -21,6 +21,7 @@ public class ChatTile extends HBox {
     private final double width, height;
     private final String text;
     private final Pane parent;
+    private final Page page;
     public static final double DEFAULT_WIDTH = 300d;
     public static final double DEFAULT_HEIGHT = 54d;
 
@@ -29,6 +30,7 @@ public class ChatTile extends HBox {
         this.height = height;
         this.text = text;
         this.parent = parent;
+        this.page = page;
         
         init(page);
         animate();
@@ -89,6 +91,6 @@ public class ChatTile extends HBox {
     }
 
     public void animate(){
-        Utils.addTranslateByUpAnimationToNode(this, false);
+        Utils.addTranslateByUpAnimationToNode(this, false, page.getUser().getId());
     }
 }

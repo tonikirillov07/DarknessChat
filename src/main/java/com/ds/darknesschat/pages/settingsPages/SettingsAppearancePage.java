@@ -40,7 +40,7 @@ public class SettingsAppearancePage extends Page {
     }
 
     private void createOptionsSwitchButtons() {
-        addOptionButton(StringGetterWithCurrentLanguage.getString(StringsConstants.ANIMATIONS), currentValue -> {}, ON_OFF_OPTIONS_LIST, getIndexValueForONAndOffList(DatabaseService.getBoolean(Objects.requireNonNull(DatabaseService.getValue(ANIMATIONS_USING_ROW, getUser().getId())))), true);
+        addOptionButton(StringGetterWithCurrentLanguage.getString(StringsConstants.ANIMATIONS), this::changeAnimations, ON_OFF_OPTIONS_LIST, getIndexValueForONAndOffList(DatabaseService.getBoolean(Objects.requireNonNull(DatabaseService.getValue(ANIMATIONS_USING_ROW, getUser().getId())))), true);
         addOptionButton(StringGetterWithCurrentLanguage.getString(StringsConstants.SOUNDS), this::changeSounds, ON_OFF_OPTIONS_LIST, getIndexValueForONAndOffList(DatabaseService.getBoolean(Objects.requireNonNull(DatabaseService.getValue(SOUNDS_USING_ROW, getUser().getId())))), false);
         addOptionButton(StringGetterWithCurrentLanguage.getString(StringsConstants.OPACITY), this::changeAlpha, findAppearanceValues(), findAppearanceValues().indexOf(DatabaseService.getValue(OPACITY_LEVEL_ROW, getUser().getId())), false);
         addOptionButton(StringGetterWithCurrentLanguage.getString(StringsConstants.BACKGROUND), currentValue -> {}, ON_OFF_OPTIONS_LIST, 0, false);
@@ -50,9 +50,13 @@ public class SettingsAppearancePage extends Page {
         return value ? 0: 1;
     }
 
+    private void changeAnimations(String value) {
+        int valueId = ON_OFF_OPTIONS_LIST.indexOf(value);
+        DatabaseService.changeValue(ANIMATIONS_USING_ROW, valueId == 0 ? "true": "false", getUser().getId());
+    }
+
     private void changeSounds(String value){
         int valueId = ON_OFF_OPTIONS_LIST.indexOf(value);
-
         DatabaseService.changeValue(SOUNDS_USING_ROW, valueId == 0 ? "true": "false", getUser().getId());
     }
 

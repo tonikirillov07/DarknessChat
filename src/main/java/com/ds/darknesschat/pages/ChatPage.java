@@ -53,7 +53,7 @@ public class ChatPage extends Page{
             tile.setMaxHeight(480d);
             tile.setAlignment(Pos.CENTER_LEFT);
             tile.applyAlphaWithUserSettings(getUser());
-            tile.animate();
+            tile.animate(getUser().getId());
             tile.setSpacing(20d);
 
             HBox hBox = new HBox();
@@ -88,7 +88,7 @@ public class ChatPage extends Page{
             label.setFont(Font.loadFont(Main.class.getResourceAsStream(Constants.FONT_BOLD_PATH), 14d));
 
             messagesContent.getChildren().add(label);
-            Utils.addFadeTransitionToNode(label);
+            Utils.addFadeTransitionToNode(label, getUser().getId());
             messagesScrollPane.setVvalue(1);
 
             //additionalTextField.getTextField().clear();
