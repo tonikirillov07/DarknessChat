@@ -34,12 +34,12 @@ public final class Utils {
         return new Image(Objects.requireNonNull(Main.class.getResourceAsStream(resourcePath)));
     }
 
-    public static void addActionToNode(@NotNull Node node, IOnAction action){
+    public static void addActionToNode(@NotNull Node node, IOnAction action, long userId){
         try {
             node.setOnMouseClicked(mouseEvent -> {
                 if (mouseEvent.getButton() == MouseButton.PRIMARY) {
                     if (action != null) {
-                        Sounds.playSound(SoundsConstants.CLICK_SOUND);
+                        Sounds.playSound(SoundsConstants.CLICK_SOUND, userId);
                         action.onAction();
                     }else
                         Log.info("Action is null and could not be executed in node" + node);

@@ -8,6 +8,7 @@ import com.ds.darknesschat.additionalNodes.DeveloperLabel;
 import com.ds.darknesschat.additionalNodes.ImageButton;
 import com.ds.darknesschat.pages.settingsPages.SettingsMainPage;
 import com.ds.darknesschat.user.User;
+import com.ds.darknesschat.user.UserSettings;
 import com.ds.darknesschat.utils.Color;
 import com.ds.darknesschat.utils.Utils;
 import com.ds.darknesschat.utils.languages.StringGetterWithCurrentLanguage;
@@ -27,6 +28,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import static com.ds.darknesschat.Constants.BLACK_COLOR;
+import static com.ds.darknesschat.Constants.TILE_COLOR;
 
 public class ChatsPage extends Page{
     private HBox contentHbox;
@@ -64,11 +68,11 @@ public class ChatsPage extends Page{
 
     private void createDeveloperLabelArea(@NotNull VBox buttonsAndDeveloperLabelVbox) {
         try {
-            ImageButton chatsImageButton = new ImageButton(70d, 70d, Utils.getImage("bitmaps/icons/others/chats.png"));
+            ImageButton chatsImageButton = new ImageButton(70d, 70d, Utils.getImage("bitmaps/icons/others/chats.png"), getUser().getId());
             VBox.setMargin(chatsImageButton, new Insets(10d));
             addActionToChatsButtonClick(chatsImageButton);
 
-            ImageButton settingsImageButton = new ImageButton(70d, 70d, Utils.getImage("bitmaps/icons/others/settings.png"));
+            ImageButton settingsImageButton = new ImageButton(70d, 70d, Utils.getImage("bitmaps/icons/others/settings.png"), getUser().getId());
             settingsImageButton.setOnAction(() -> {
                 Utils.addRotateTranslationToNode(settingsImageButton);
                 new SettingsMainPage(this, getContentVbox(), StringGetterWithCurrentLanguage.getString(StringsConstants.SETTINGS), true, getUser()).open();
@@ -91,8 +95,8 @@ public class ChatsPage extends Page{
             MenuItem connectToChatItem = new MenuItem(StringGetterWithCurrentLanguage.getString(StringsConstants.CONNECT_TO_CHAT));
             contextMenu.getItems().addAll(createChatItem, connectToChatItem);
 
-            createChatItem.setOnAction(actionEvent -> new CreateChatPage(this, getContentVbox(), StringGetterWithCurrentLanguage.getString(StringsConstants.CREATING_CHAT), true).open());
-            connectToChatItem.setOnAction(actionEvent -> new ConnectToTheChatPage(this, getContentVbox(), StringGetterWithCurrentLanguage.getString(StringsConstants.CONNECTING), true).open());
+            createChatItem.setOnAction(actionEvent -> new CreateChatPage(this, getContentVbox(), StringGetterWithCurrentLanguage.getString(StringsConstants.CREATING_CHAT), true, getUser()).open());
+            connectToChatItem.setOnAction(actionEvent -> new ConnectToTheChatPage(this, getContentVbox(), StringGetterWithCurrentLanguage.getString(StringsConstants.CONNECTING), true, getUser()).open());
 
             chatsButtonNode.setOnMouseClicked(mouseEvent -> contextMenu.show(chatsButtonNode, mouseEvent.getScreenX(), mouseEvent.getScreenY()));
         }catch (Exception e){
@@ -120,7 +124,8 @@ public class ChatsPage extends Page{
             sidePanelVbox.setEffect(new DropShadow());
             sidePanelVbox.setAlignment(Pos.TOP_CENTER);
             sidePanelVbox.getStyleClass().add("tile");
-            sidePanelVbox.setStyle("");
+            sidePanelVbox.setStyle(sidePanelVbox.getStyle() + "-fx-background-color: rgba(" +
+                    TILE_COLOR.getRed() + ", " + TILE_COLOR.getGreen() + ", " + TILE_COLOR.getBlue() + ", " + UserSettings.getUserAlphaLevel(getUser()) + ");");
             Utils.addTranslateByLeftAnimationToNode(sidePanelVbox);
             addToContentHbox(sidePanelVbox);
 
@@ -138,7 +143,7 @@ public class ChatsPage extends Page{
 
     private void createClearButton(@NotNull VBox sidePanelVbox, VBox scrollPane) {
         try {
-            AdditionalButton clearButton = new AdditionalButton(StringGetterWithCurrentLanguage.getString(StringsConstants.CLEAR_ALL), 308d, 58d, new Color(217, 217, 217), new Color(0,0,0));
+            AdditionalButton clearButton = new AdditionalButton(StringGetterWithCurrentLanguage.getString(StringsConstants.CLEAR_ALL), 308d, 58d, new Color(217, 217, 217), BLACK_COLOR, getUser().getId());
             VBox.setMargin(clearButton, new Insets(20));
             sidePanelVbox.getChildren().add(clearButton);
 

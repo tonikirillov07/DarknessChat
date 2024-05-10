@@ -4,6 +4,7 @@ import com.ds.darknesschat.additionalNodes.AdditionalButton;
 import com.ds.darknesschat.additionalNodes.AdditionalTextField;
 import com.ds.darknesschat.pages.Page;
 import com.ds.darknesschat.pages.settingsPages.SettingsPage;
+import com.ds.darknesschat.user.User;
 import com.ds.darknesschat.utils.Color;
 import com.ds.darknesschat.utils.Utils;
 import com.ds.darknesschat.utils.languages.StringGetterWithCurrentLanguage;
@@ -17,8 +18,8 @@ import javafx.scene.layout.VBox;
 import static com.ds.darknesschat.Constants.WHITE_COLOR;
 
 public class SettingsAccountChangeNamePage extends Page {
-    protected SettingsAccountChangeNamePage(Page prevoiusPage, VBox contentVbox, String title, boolean createStandardTile) {
-        super(prevoiusPage, contentVbox, title, createStandardTile);
+    protected SettingsAccountChangeNamePage(Page prevoiusPage, VBox contentVbox, String title, boolean createStandardTile, User user) {
+        super(prevoiusPage, contentVbox, title, createStandardTile, user);
     }
 
     @Override
@@ -28,6 +29,8 @@ public class SettingsAccountChangeNamePage extends Page {
         createTextField();
         SettingsPage.initBackButton(this);
         createDeveloperLabelInBottom();
+
+        getTile().applyAlphaWithUserSettings(getUser());
     }
 
     private void createTextField() {
@@ -45,7 +48,7 @@ public class SettingsAccountChangeNamePage extends Page {
 
     private void createNextButton(AdditionalTextField newNameAdditionalTextField) {
         AdditionalButton nextButton = new AdditionalButton(StringGetterWithCurrentLanguage.getString(StringsConstants.NEXT), 408d, 41d,
-                new Color(164, 62, 62), WHITE_COLOR);
+                new Color(164, 62, 62), WHITE_COLOR, getUser().getId());
         VBox.setMargin(nextButton, new Insets(10d, 40d, 0d, 40d));
         addNodeToTile(nextButton);
 
@@ -53,7 +56,7 @@ public class SettingsAccountChangeNamePage extends Page {
             if(Utils.isFieldsIsNotEmpty(new AdditionalTextField[]{newNameAdditionalTextField})){
                 System.out.println(1);
             }else{
-                newNameAdditionalTextField.setError();
+                newNameAdditionalTextField.setError(getUser().getId());
             }
         });
     }

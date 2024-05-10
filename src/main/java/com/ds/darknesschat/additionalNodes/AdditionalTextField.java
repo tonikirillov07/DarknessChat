@@ -58,7 +58,7 @@ public class AdditionalTextField extends HBox {
         init();
     }
 
-    public void setError(){
+    public void setError(long userId){
         try {
             addShadowEffect(Color.RED);
 
@@ -70,7 +70,10 @@ public class AdditionalTextField extends HBox {
             translateTransition.setOnFinished(actionEvent -> addShadowEffect(Color.BLACK));
             translateTransition.play();
 
-            Sounds.playSound(SoundsConstants.ERROR_SOUND);
+            if(userId == -1)
+                Sounds.playWithIgnoreUserSettings(SoundsConstants.ERROR_SOUND);
+            else
+                Sounds.playSound(SoundsConstants.ERROR_SOUND, userId);
         }catch (Exception e){
             Log.error(e);
         }

@@ -1,5 +1,6 @@
 package com.ds.darknesschat.pages;
 
+import com.ds.darknesschat.Constants;
 import com.ds.darknesschat.additionalNodes.DeveloperLabel;
 import com.ds.darknesschat.additionalNodes.SettingsOptionButton;
 import com.ds.darknesschat.additionalNodes.Tile;
@@ -50,7 +51,7 @@ public abstract class Page {
 
     private void createTile() {
         try {
-            tile = new Tile(Tile.DEFAULT_WIDTH, Tile.DEFAULT_HEIGHT);
+            tile = new Tile(Tile.DEFAULT_WIDTH, Tile.DEFAULT_HEIGHT, Constants.TILE_COLOR.getAlpha());
             tile.animate();
 
             VBox vBox = new VBox();
@@ -98,7 +99,7 @@ public abstract class Page {
         try {
             SettingsOptionButton optionButton =
                     new SettingsOptionButton(SettingsOptionButton.DEFAULT_WIDTH, SettingsOptionButton.DEFAULT_HEIGHT, text, image,
-                            SettingsOptionButton.DEFAULT_IMAGE_FIT_WIDTH, SettingsOptionButton.DEFAULT_IMAGE_FIT_HEIGHT);
+                            SettingsOptionButton.DEFAULT_IMAGE_FIT_WIDTH, SettingsOptionButton.DEFAULT_IMAGE_FIT_HEIGHT, user.getId());
             optionButton.setOnAction(onAction);
             VBox.setMargin(optionButton, new Insets(isFirst ? 50d : 5d, 40d, 0, 40d));
             addNodeToTile(optionButton);

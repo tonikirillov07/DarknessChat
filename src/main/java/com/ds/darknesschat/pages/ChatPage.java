@@ -5,6 +5,7 @@ import com.ds.darknesschat.Main;
 import com.ds.darknesschat.additionalNodes.AdditionalButton;
 import com.ds.darknesschat.additionalNodes.AdditionalTextField;
 import com.ds.darknesschat.additionalNodes.Tile;
+import com.ds.darknesschat.user.User;
 import com.ds.darknesschat.utils.Color;
 import com.ds.darknesschat.utils.Utils;
 import com.ds.darknesschat.utils.languages.StringGetterWithCurrentLanguage;
@@ -28,8 +29,8 @@ public class ChatPage extends Page{
     private VBox messagesContent;
     private ScrollPane messagesScrollPane;
 
-    protected ChatPage(Page prevoiusPage, VBox contentVbox, String title, boolean createStandardTile) {
-        super(prevoiusPage, contentVbox, title, createStandardTile);
+    protected ChatPage(Page prevoiusPage, VBox contentVbox, String title, boolean createStandardTile, User user) {
+        super(prevoiusPage, contentVbox, title, createStandardTile, user);
     }
 
     @Override
@@ -42,14 +43,16 @@ public class ChatPage extends Page{
         createDeveloperLabelInBottom();
 
         getTile().setMaxHeight(415d);
+        getTile().applyAlphaWithUserSettings(getUser());
     }
 
     private void createMessageTextFieldTile() {
         try{
-            Tile tile = new Tile(756d, 81d);
+            Tile tile = new Tile(756d, 81d, 0.43f);
             tile.setPadding(new Insets(20d));
             tile.setMaxHeight(480d);
             tile.setAlignment(Pos.CENTER_LEFT);
+            tile.applyAlphaWithUserSettings(getUser());
             tile.animate();
             tile.setSpacing(20d);
 
@@ -61,9 +64,9 @@ public class ChatPage extends Page{
                     Utils.getImage("bitmaps/icons/others/message.png"), false);
             hBox.getChildren().add(messageAdditionalTextField);
 
-            AdditionalButton sendButton = new AdditionalButton(StringGetterWithCurrentLanguage.getString(StringsConstants.SEND), 137d, 49d, new Color(164, 62, 62), WHITE_COLOR);
+            AdditionalButton sendButton = new AdditionalButton(StringGetterWithCurrentLanguage.getString(StringsConstants.SEND), 137d, 49d, new Color(164, 62, 62), WHITE_COLOR, getUser().getId());
             sendButton.addAction(() -> sendMessage(messageAdditionalTextField));
-            AdditionalButton backButton = new AdditionalButton(StringGetterWithCurrentLanguage.getString(StringsConstants.BACK), 137d, 49d, WHITE_COLOR, BLACK_COLOR);
+            AdditionalButton backButton = new AdditionalButton(StringGetterWithCurrentLanguage.getString(StringsConstants.BACK), 137d, 49d, WHITE_COLOR, BLACK_COLOR, getUser().getId());
             backButton.addAction(this::leaveTheChat);
 
             hBox.getChildren().addAll(sendButton, backButton);
@@ -90,7 +93,7 @@ public class ChatPage extends Page{
 
             //additionalTextField.getTextField().clear();
         }else
-            additionalTextField.setError();
+            additionalTextField.setError(getUser().getId());
     }
 
     private void leaveTheChat(){

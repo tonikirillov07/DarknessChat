@@ -7,8 +7,8 @@ import com.ds.darknesschat.additionalNodes.SettingsOption;
 import com.ds.darknesschat.additionalNodes.SettingsOptionButton;
 import com.ds.darknesschat.pages.Page;
 import com.ds.darknesschat.pages.settingsPages.SettingsPage;
+import com.ds.darknesschat.user.User;
 import com.ds.darknesschat.utils.Utils;
-import com.ds.darknesschat.utils.interfaces.IOnAction;
 import com.ds.darknesschat.utils.languages.StringGetterWithCurrentLanguage;
 import com.ds.darknesschat.utils.languages.StringsConstants;
 import com.ds.darknesschat.utils.log.Log;
@@ -20,9 +20,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import org.jetbrains.annotations.Nullable;
 
+import static com.ds.darknesschat.Constants.WHITE_COLOR;
+
 public class SettingsAccountPage extends Page {
-    public SettingsAccountPage(Page prevoiusPage, VBox contentVbox, String title, boolean createStandardTile) {
-        super(prevoiusPage, contentVbox, title, createStandardTile);
+    public SettingsAccountPage(Page prevoiusPage, VBox contentVbox, String title, boolean createStandardTile, User user) {
+        super(prevoiusPage, contentVbox, title, createStandardTile, user);
     }
 
     @Override
@@ -34,14 +36,16 @@ public class SettingsAccountPage extends Page {
         createOptionsButtons();
         createDeleteAccountButtonAndLogOut();
         SettingsPage.initBackButton(this);
+
+        getTile().applyAlphaWithUserSettings(getUser());
     }
 
     private void createDeleteAccountButtonAndLogOut() {
         try{
-            AdditionalButton additionalButtonDeleteAccount = new AdditionalButton(StringGetterWithCurrentLanguage.getString(StringsConstants.DELETE_ACCOUNT),  408d, 41d, new com.ds.darknesschat.utils.Color(187, 71, 71), new com.ds.darknesschat.utils.Color(255, 255, 255));
+            AdditionalButton additionalButtonDeleteAccount = new AdditionalButton(StringGetterWithCurrentLanguage.getString(StringsConstants.DELETE_ACCOUNT),  408d, 41d, new com.ds.darknesschat.utils.Color(187, 71, 71), WHITE_COLOR, getUser().getId());
             VBox.setMargin(additionalButtonDeleteAccount, new Insets(6d, 40d, 0, 40d));
 
-            AdditionalButton additionalButtonLogOut = new AdditionalButton(StringGetterWithCurrentLanguage.getString(StringsConstants.LOG_OUT),  408d, 41d, new com.ds.darknesschat.utils.Color(47, 38, 38), new com.ds.darknesschat.utils.Color(255, 255, 255));
+            AdditionalButton additionalButtonLogOut = new AdditionalButton(StringGetterWithCurrentLanguage.getString(StringsConstants.LOG_OUT),  408d, 41d, new com.ds.darknesschat.utils.Color(47, 38, 38), WHITE_COLOR, getUser().getId());
             VBox.setMargin(additionalButtonLogOut, new Insets(6d, 40d, 0, 40d));
 
             addNodeToTile(additionalButtonDeleteAccount);
@@ -54,14 +58,14 @@ public class SettingsAccountPage extends Page {
     private void createOptionsButtons() {
         try{
             SettingsOptionButton changePasswordSettingsOptionButton = new SettingsOptionButton(SettingsOption.DEFAULT_WIDTH, SettingsOption.DEFAULT_HEIGHT, StringGetterWithCurrentLanguage.getString(StringsConstants.CHANGE_PASSWORD), Utils.getImage("bitmaps/icons/others/arrow.png"),
-                    11d, 11d);
+                    11d, 11d, getUser().getId());
             VBox.setMargin(changePasswordSettingsOptionButton, new Insets(50d, 40d, 0, 40d));
             SettingsOptionButton changeNameSettingsOptionButton = new SettingsOptionButton(SettingsOption.DEFAULT_WIDTH, SettingsOption.DEFAULT_HEIGHT, StringGetterWithCurrentLanguage.getString(StringsConstants.CHANGE_NAME), Utils.getImage("bitmaps/icons/others/arrow.png"),
-                    11d, 11d);
+                    11d, 11d, getUser().getId());
             VBox.setMargin(changeNameSettingsOptionButton, new Insets(8d, 40d, 0, 40d));
 
-            changePasswordSettingsOptionButton.setOnAction(() -> new SettingsAccountChangePasswordPage(this, getContentVbox(), StringGetterWithCurrentLanguage.getString(StringsConstants.CHANGING_PASSWORD), true).open());
-            changeNameSettingsOptionButton.setOnAction(() -> new SettingsAccountChangeNamePage(this, getContentVbox(), StringGetterWithCurrentLanguage.getString(StringsConstants.CHANGING_NAME), true).open());
+            changePasswordSettingsOptionButton.setOnAction(() -> new SettingsAccountChangePasswordPage(this, getContentVbox(), StringGetterWithCurrentLanguage.getString(StringsConstants.CHANGING_PASSWORD), true, getUser()).open());
+            changeNameSettingsOptionButton.setOnAction(() -> new SettingsAccountChangeNamePage(this, getContentVbox(), StringGetterWithCurrentLanguage.getString(StringsConstants.CHANGING_NAME), true, getUser()).open());
 
             addNodeToTile(changePasswordSettingsOptionButton);
             addNodeToTile(changeNameSettingsOptionButton);

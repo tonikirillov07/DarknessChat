@@ -12,12 +12,14 @@ public class SettingsOptionSwitchButton extends SettingsOption {
     private final List<String> switchValues;
     private int currentValue;
     private Label valueLabel;
+    private final long userId;
 
-    public SettingsOptionSwitchButton(double width, double height, String text, List<String> switchValues, int startValue) {
+    public SettingsOptionSwitchButton(double width, double height, String text, List<String> switchValues, int startValue, long userId) {
         super(width, height);
         this.switchValues = switchValues;
         this.currentValue = startValue;
-        
+        this.userId = userId;
+
         createLabel(text, Color.WHITE, Pos.CENTER_LEFT);
         createSwitchValueLabel();
     }
@@ -34,7 +36,7 @@ public class SettingsOptionSwitchButton extends SettingsOption {
             valueLabel.setText(switchValues.get(currentValue));
 
             onSwitch.onSwitch(switchValues.get(currentValue));
-        });
+        }, userId);
     }
 
     private void createSwitchValueLabel() {

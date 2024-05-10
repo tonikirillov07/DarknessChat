@@ -12,26 +12,29 @@ public class ImageButton extends ImageView {
     private final double width, height;
     private final Image imageSource;
     private IOnAction onAction;
+    private final long userId;
 
-    public ImageButton(double width, double height, Image imageSource) {
+    public ImageButton(double width, double height, Image imageSource, long userId) {
         this.width = width;
         this.height = height;
         this.imageSource = imageSource;
+        this.userId = userId;
 
         init();
     }
 
-    public ImageButton(double width, double height, Image imageSource, IOnAction onAction) {
+    public ImageButton(double width, double height, Image imageSource, IOnAction onAction, long userId) {
         this.width = width;
         this.height = height;
         this.imageSource = imageSource;
         this.onAction = onAction;
+        this.userId = userId;
 
         init();
     }
 
     public void setOnAction(IOnAction onAction){
-        Utils.addActionToNode(this, onAction);
+        Utils.addActionToNode(this, onAction, userId);
     }
 
     private void init() {
@@ -44,7 +47,7 @@ public class ImageButton extends ImageView {
             getStyleClass().add("image-button");
 
             if(onAction != null)
-                Utils.addActionToNode(this, onAction);
+                Utils.addActionToNode(this, onAction, userId);
         }catch (Exception e){
             Log.error(e);
         }

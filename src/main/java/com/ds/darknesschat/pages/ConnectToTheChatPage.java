@@ -4,6 +4,7 @@ import com.ds.darknesschat.Constants;
 import com.ds.darknesschat.Main;
 import com.ds.darknesschat.additionalNodes.AdditionalButton;
 import com.ds.darknesschat.additionalNodes.AdditionalTextField;
+import com.ds.darknesschat.user.User;
 import com.ds.darknesschat.utils.Utils;
 import com.ds.darknesschat.utils.languages.StringGetterWithCurrentLanguage;
 import com.ds.darknesschat.utils.languages.StringsConstants;
@@ -16,11 +17,14 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
+import static com.ds.darknesschat.Constants.BLACK_COLOR;
+import static com.ds.darknesschat.Constants.WHITE_COLOR;
+
 public class ConnectToTheChatPage extends Page{
     private AdditionalTextField additionalChatAddressTextField;
 
-    public ConnectToTheChatPage(Page prevoiusPage, VBox contentVbox, String title, boolean createStandardTile) {
-        super(prevoiusPage, contentVbox, title, createStandardTile);
+    public ConnectToTheChatPage(Page prevoiusPage, VBox contentVbox, String title, boolean createStandardTile, User user) {
+        super(prevoiusPage, contentVbox, title, createStandardTile, user);
     }
 
     @Override
@@ -31,6 +35,7 @@ public class ConnectToTheChatPage extends Page{
         initCheckBox();
         initButtons();
         createDeveloperLabelInBottom();
+        getTile().applyAlphaWithUserSettings(getUser());
     }
 
     public void setAddressValue(String addressValue){
@@ -42,12 +47,12 @@ public class ConnectToTheChatPage extends Page{
 
     private void initButtons() {
         try{
-            AdditionalButton nextButton = new AdditionalButton(StringGetterWithCurrentLanguage.getString(StringsConstants.NEXT), 308d, 41d, new com.ds.darknesschat.utils.Color(164, 62, 62), new com.ds.darknesschat.utils.Color(255, 255, 255));
+            AdditionalButton nextButton = new AdditionalButton(StringGetterWithCurrentLanguage.getString(StringsConstants.NEXT), 308d, 41d, new com.ds.darknesschat.utils.Color(164, 62, 62), WHITE_COLOR, getUser().getId());
             nextButton.addAction(this::onConnectToTheChatButtonAction);
             VBox.setMargin(nextButton, new Insets(200d, 40d, 0, 40d));
             addNodeToTile(nextButton);
 
-            AdditionalButton backButton = new AdditionalButton(StringGetterWithCurrentLanguage.getString(StringsConstants.BACK), 308d, 41d, new com.ds.darknesschat.utils.Color(255, 255, 255), new com.ds.darknesschat.utils.Color(0, 0, 0));
+            AdditionalButton backButton = new AdditionalButton(StringGetterWithCurrentLanguage.getString(StringsConstants.BACK), 308d, 41d, WHITE_COLOR, BLACK_COLOR, getUser().getId());
             backButton.addAction(this::goToPreviousPage);
             VBox.setMargin(backButton, new Insets(10d, 40d, 30d, 40d));
             addNodeToTile(backButton);
@@ -61,7 +66,7 @@ public class ConnectToTheChatPage extends Page{
             if(Utils.isFieldsIsNotEmpty(new AdditionalTextField[]{additionalChatAddressTextField})){
                 System.out.println(1);
             }else {
-                additionalChatAddressTextField.setError();
+                additionalChatAddressTextField.setError(getUser().getId());
             }
         }else{
             initTextField();

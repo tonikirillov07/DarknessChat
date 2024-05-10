@@ -3,6 +3,7 @@ package com.ds.darknesschat.database;
 import com.ds.darknesschat.user.User;
 import com.ds.darknesschat.utils.Utils;
 import com.ds.darknesschat.utils.log.Log;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.sql.Connection;
@@ -47,9 +48,17 @@ public class DatabaseService {
         return false;
     }
 
-    public static @Nullable String getValue(String row, int id){
+    public static @Nullable String getValue(String row, long userId){
+        return getValueWithWhereValue(row, USER_ID_ROW, String.valueOf(userId));
+    }
+
+    public static boolean getBoolean(@NotNull String value){
+        return value.equals("1") | value.equals("true") | value.equals("yes");
+    }
+
+    public static @Nullable String getValueWithWhereValue(String row, String whereRow, String whereValue){
         try {
-            String select = "SELECT " + row + " FROM " + TABLE_NAME + " WHERE " + USER_ID_ROW + "=" + id;
+            String select = "SELECT " + row + " FROM " + TABLE_NAME + " WHERE " + whereRow + "='" + whereValue + "'";
 
             PreparedStatement preparedStatement = Objects.requireNonNull(getConnection()).prepareStatement(select);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -66,6 +75,18 @@ public class DatabaseService {
         }
 
         return null;
+    }
+
+    public static void changeValue(String row, String newValue, long userId){
+        try{
+            String change = "UPDATE " + TABLE_NAME + " SET " + row + "=" + "'" + newValue + "'" + " WHERE " + USER_ID_ROW + "=" + "'" + userId + "'";
+
+            PreparedStatement preparedStatement = Objects.requireNonNull(getConnection()).prepareStatement(change);
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+        }catch (Exception e){
+            Log.error(e);
+        }
     }
 
     public static void addUser(User user){

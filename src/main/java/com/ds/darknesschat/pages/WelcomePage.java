@@ -3,6 +3,7 @@ package com.ds.darknesschat.pages;
 import com.ds.darknesschat.additionalNodes.AdditionalButton;
 import com.ds.darknesschat.additionalNodes.AdditionalTextField;
 import com.ds.darknesschat.additionalNodes.Tile;
+import com.ds.darknesschat.database.DatabaseConstants;
 import com.ds.darknesschat.database.DatabaseService;
 import com.ds.darknesschat.user.User;
 import com.ds.darknesschat.utils.Color;
@@ -15,12 +16,13 @@ import com.ds.darknesschat.utils.sounds.Sounds;
 import com.ds.darknesschat.utils.sounds.SoundsConstants;
 import javafx.geometry.Insets;
 import javafx.scene.layout.VBox;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-import static com.ds.darknesschat.Constants.WHITE_COLOR;
+import static com.ds.darknesschat.Constants.*;
 
 public class WelcomePage extends Page{
     private final boolean isLogUpPage;
@@ -51,7 +53,7 @@ public class WelcomePage extends Page{
 
     private @Nullable AdditionalButton createNextButton() {
         try {
-            AdditionalButton nextButton = new AdditionalButton(isLogUpPage ? StringGetterWithCurrentLanguage.getString(StringsConstants.LOG_UP) : StringGetterWithCurrentLanguage.getString(StringsConstants.LOG_IN), AdditionalTextField.DEFAULT_WIDTH + 40, AdditionalTextField.DEFAULT_HEIGHT, new com.ds.darknesschat.utils.Color(217, 217, 217), new Color(0,0,0));
+            AdditionalButton nextButton = new AdditionalButton(isLogUpPage ? StringGetterWithCurrentLanguage.getString(StringsConstants.LOG_UP) : StringGetterWithCurrentLanguage.getString(StringsConstants.LOG_IN), AdditionalTextField.DEFAULT_WIDTH + 40, AdditionalTextField.DEFAULT_HEIGHT, new com.ds.darknesschat.utils.Color(217, 217, 217), BLACK_COLOR, NO_USER_AGREEMENT);
             VBox.setMargin(nextButton, new Insets(100, 40, 10, 40));
 
             return nextButton;
@@ -136,7 +138,7 @@ public class WelcomePage extends Page{
             AdditionalTextField[] additionalTextFieldList = {nameTextField, passwordTextField, repeatPasswordTextField};
             Objects.requireNonNull(Utils.getEmptyFieldsFromArray(additionalTextFieldList)).forEach(additionalTextField -> {
                 if(additionalTextField != null)
-                    additionalTextField.setError();
+                    additionalTextField.setError(NO_USER_AGREEMENT);
             });
 
             if (Utils.isFieldsIsNotEmpty(additionalTextFieldList)) {
@@ -144,7 +146,7 @@ public class WelcomePage extends Page{
                     if (repeatPasswordTextField.getText().equals(passwordTextField.getText())) {
                         isAllFine = true;
                     } else
-                        repeatPasswordTextField.setError();
+                        repeatPasswordTextField.setError(getUser().getId());
                 }else{
                     isAllFine = true;
                 }
@@ -164,25 +166,30 @@ public class WelcomePage extends Page{
 
             if(!isLogUpPage){
                 if(DatabaseService.isUserExists(user)){
-                    ChatsPage chatsPage = new ChatsPage(this, getContentVbox(), StringGetterWithCurrentLanguage.getString(StringsConstants.RECENT_CHATS), false, user);
-                    chatsPage.open();
+                    openChatsPage(user);
                 }else{
-                    nameTextField.setError();
-                    passwordTextField.setError();
+                    nameTextField.setError(NO_USER_AGREEMENT);
+                    passwordTextField.setError(NO_USER_AGREEMENT);
                 }
             }else{
                 if(!DatabaseService.isUserExists(user)){
                     User registerUser = new User(user.getUserName(), user.getUserPassword(), LocalDateTime.now().toString());
                     DatabaseService.addUser(registerUser);
 
-                    ChatsPage chatsPage = new ChatsPage(this, getContentVbox(), StringGetterWithCurrentLanguage.getString(StringsConstants.RECENT_CHATS), false, registerUser);
-                    chatsPage.open();
+                    openChatsPage(registerUser);
                 }else{
                     ErrorDialog.show(new Exception("Error"));
                 }
             }
         }else {
-            Sounds.playSound(SoundsConstants.ERROR_SOUND);
+            Sounds.playWithIgnoreUserSettings(SoundsConstants.ERROR_SOUND);
         }
+    }
+
+    private void openChatsPage(@NotNull User user){
+        User userWithId = new User(user.getUserName(), user.getUserPassword(), user.getUserDateOfRegistration(), Long.parseLong(Objects.requireNonNull(DatabaseService.getValueWithWhereValue(DatabaseConstants.USER_ID_ROW, DatabaseConstants.USER_NAME_ROW, user.getUserName()))));
+
+        ChatsPage chatsPage = new ChatsPage(this, getContentVbox(), StringGetterWithCurrentLanguage.getString(StringsConstants.RECENT_CHATS), false, userWithId);
+        chatsPage.open();
     }
 }

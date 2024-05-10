@@ -15,9 +15,11 @@ import javafx.scene.paint.Color;
 public class SettingsOptionButton extends SettingsOption {
     public static final double DEFAULT_IMAGE_FIT_WIDTH = 32d;
     public static final double DEFAULT_IMAGE_FIT_HEIGHT = 32d;
+    private final long userId;
 
-    public SettingsOptionButton(double width, double height, String text, Image iconSource, double fitWidth, double fitHeight) {
+    public SettingsOptionButton(double width, double height, String text, Image iconSource, double fitWidth, double fitHeight, long userId) {
         super(width, height);
+        this.userId = userId;
 
         createLabel(text, Color.WHITE, Pos.CENTER_LEFT);
         createImage(iconSource, fitWidth, fitHeight);
@@ -43,6 +45,6 @@ public class SettingsOptionButton extends SettingsOption {
     }
 
     public void setOnAction(IOnAction onAction){
-        Utils.addActionToNode(this, onAction);
+        Utils.addActionToNode(this, onAction, userId);
     }
 }

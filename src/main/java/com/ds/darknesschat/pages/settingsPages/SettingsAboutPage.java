@@ -3,6 +3,7 @@ package com.ds.darknesschat.pages.settingsPages;
 import com.ds.darknesschat.Constants;
 import com.ds.darknesschat.Main;
 import com.ds.darknesschat.pages.Page;
+import com.ds.darknesschat.user.User;
 import com.ds.darknesschat.utils.appSettings.settingsReader.SettingsKeys;
 import com.ds.darknesschat.utils.appSettings.settingsReader.SettingsReader;
 import com.ds.darknesschat.utils.languages.StringGetterWithCurrentLanguage;
@@ -15,8 +16,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
 public class SettingsAboutPage extends Page {
-    protected SettingsAboutPage(Page prevoiusPage, VBox contentVbox, String title, boolean createStandardTile) {
-        super(prevoiusPage, contentVbox, title, createStandardTile);
+    protected SettingsAboutPage(Page prevoiusPage, VBox contentVbox, String title, boolean createStandardTile, User user) {
+        super(prevoiusPage, contentVbox, title, createStandardTile, user);
     }
 
     @Override
@@ -25,6 +26,8 @@ public class SettingsAboutPage extends Page {
         loadDefaultTileSettings();
         createInfoLabel();
         SettingsPage.initBackButton(this);
+
+        getTile().applyAlphaWithUserSettings(getUser());
     }
 
     private void createInfoLabel() {

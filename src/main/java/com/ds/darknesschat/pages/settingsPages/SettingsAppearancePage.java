@@ -2,7 +2,9 @@ package com.ds.darknesschat.pages.settingsPages;
 
 import com.ds.darknesschat.additionalNodes.SettingsOption;
 import com.ds.darknesschat.additionalNodes.SettingsOptionSwitchButton;
+import com.ds.darknesschat.database.DatabaseService;
 import com.ds.darknesschat.pages.Page;
+import com.ds.darknesschat.user.User;
 import com.ds.darknesschat.utils.interfaces.IOnSwitch;
 import com.ds.darknesschat.utils.languages.StringGetterWithCurrentLanguage;
 import com.ds.darknesschat.utils.languages.StringsConstants;
@@ -15,12 +17,14 @@ import org.jetbrains.annotations.NotNull;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static com.ds.darknesschat.Constants.ON_OFF_OPTIONS_LIST;
+import static com.ds.darknesschat.database.DatabaseConstants.*;
 
 public class SettingsAppearancePage extends Page {
-    protected SettingsAppearancePage(Page prevoiusPage, VBox contentVbox, String title, boolean createStandardTile) {
-        super(prevoiusPage, contentVbox, title, createStandardTile);
+    protected SettingsAppearancePage(Page prevoiusPage, VBox contentVbox, String title, boolean createStandardTile, User user) {
+        super(prevoiusPage, contentVbox, title, createStandardTile, user);
     }
 
     @Override
@@ -31,13 +35,29 @@ public class SettingsAppearancePage extends Page {
         SettingsPage.initResetButton(this, () -> {});
         SettingsPage.initBackButton(this);
         createDeveloperLabelInBottom();
+
+        getTile().applyAlphaWithUserSettings(getUser());
     }
 
     private void createOptionsSwitchButtons() {
-        addOptionButton(StringGetterWithCurrentLanguage.getString(StringsConstants.ANIMATIONS), currentValue -> {}, ON_OFF_OPTIONS_LIST, 0, true);
-        addOptionButton(StringGetterWithCurrentLanguage.getString(StringsConstants.SOUNDS), currentValue -> {}, ON_OFF_OPTIONS_LIST, 0, false);
-        addOptionButton(StringGetterWithCurrentLanguage.getString(StringsConstants.OPACITY), currentValue -> {}, findAppearanceValues(), 0, false);
+        addOptionButton(StringGetterWithCurrentLanguage.getString(StringsConstants.ANIMATIONS), currentValue -> {}, ON_OFF_OPTIONS_LIST, getIndexValueForONAndOffList(DatabaseService.getBoolean(Objects.requireNonNull(DatabaseService.getValue(ANIMATIONS_USING_ROW, getUser().getId())))), true);
+        addOptionButton(StringGetterWithCurrentLanguage.getString(StringsConstants.SOUNDS), this::changeSounds, ON_OFF_OPTIONS_LIST, getIndexValueForONAndOffList(DatabaseService.getBoolean(Objects.requireNonNull(DatabaseService.getValue(SOUNDS_USING_ROW, getUser().getId())))), false);
+        addOptionButton(StringGetterWithCurrentLanguage.getString(StringsConstants.OPACITY), this::changeAlpha, findAppearanceValues(), findAppearanceValues().indexOf(DatabaseService.getValue(OPACITY_LEVEL_ROW, getUser().getId())), false);
         addOptionButton(StringGetterWithCurrentLanguage.getString(StringsConstants.BACKGROUND), currentValue -> {}, ON_OFF_OPTIONS_LIST, 0, false);
+    }
+
+    private int getIndexValueForONAndOffList(boolean value){
+        return value ? 0: 1;
+    }
+
+    private void changeSounds(String value){
+        int valueId = ON_OFF_OPTIONS_LIST.indexOf(value);
+
+        DatabaseService.changeValue(SOUNDS_USING_ROW, valueId == 0 ? "true": "false", getUser().getId());
+    }
+
+    private void changeAlpha(String value){
+        DatabaseService.changeValue(OPACITY_LEVEL_ROW, value, getUser().getId());
     }
 
     @Contract(pure = true)
@@ -56,7 +76,7 @@ public class SettingsAppearancePage extends Page {
 
     private void addOptionButton(String text, IOnSwitch onSwitch, List<String> switchValues, int startValue, boolean isFirst){
         try {
-            SettingsOptionSwitchButton optionButton = new SettingsOptionSwitchButton(SettingsOption.DEFAULT_WIDTH, SettingsOption.DEFAULT_HEIGHT, text, switchValues, startValue);
+            SettingsOptionSwitchButton optionButton = new SettingsOptionSwitchButton(SettingsOption.DEFAULT_WIDTH, SettingsOption.DEFAULT_HEIGHT, text, switchValues, startValue, getUser().getId());
             optionButton.setOnClick(onSwitch);
             VBox.setMargin(optionButton, new Insets(isFirst ? 50d : 5d, 40d, 0, 40d));
             addNodeToTile(optionButton);

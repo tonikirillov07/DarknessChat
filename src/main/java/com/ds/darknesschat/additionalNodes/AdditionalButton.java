@@ -17,6 +17,7 @@ public class AdditionalButton extends Button {
     private final double height;
     private final com.ds.darknesschat.utils.Color textColor;
     private final com.ds.darknesschat.utils.Color backgroundColor;
+    private long userId;
 
     public AdditionalButton(String s, double width, double height, com.ds.darknesschat.utils.Color color, com.ds.darknesschat.utils.Color textColor) {
         super(s);
@@ -24,6 +25,17 @@ public class AdditionalButton extends Button {
         this.height = height;
         this.backgroundColor = color;
         this.textColor = textColor;
+
+        init();
+    }
+
+    public AdditionalButton(String s, double width, double height, com.ds.darknesschat.utils.Color backgroundColor, com.ds.darknesschat.utils.Color textColor, long userId) {
+        super(s);
+        this.userId = userId;
+        this.backgroundColor = backgroundColor;
+        this.textColor = textColor;
+        this.height = height;
+        this.width = width;
 
         init();
     }
@@ -43,16 +55,16 @@ public class AdditionalButton extends Button {
     }
 
     public void setBackgroundColor(@NotNull Color color){
-        setStyle(getStyle() + "-fx-background-color: rgb(" + color.red() + ", " + color.green() + ", " + color.blue() + ");");
+        setStyle(getStyle() + "-fx-background-color: " + color.generateCssStyle());
     }
 
     public void setTextColor(@NotNull Color color){
-        setStyle(getStyle() + "-fx-text-fill: rgb(" + color.red() + ", " + color.green() + ", " + color.blue() + ");");
+        setStyle(getStyle() + "-fx-text-fill: " + color.generateCssStyle());
     }
 
     public void addAction(IOnAction onAction){
         setOnAction(actionEvent -> {
-            Sounds.playSound(SoundsConstants.CLICK_SOUND);
+            Sounds.playSound(SoundsConstants.CLICK_SOUND, userId);
             onAction.onAction();
         });
     }
