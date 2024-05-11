@@ -106,7 +106,6 @@ public abstract class Page {
         }catch (Exception e){
             Log.error(e);
         }
-
     }
 
     public void createDeveloperLabelInBottom(){
