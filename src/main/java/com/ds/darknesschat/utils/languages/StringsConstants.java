@@ -62,4 +62,8 @@ public final class StringsConstants {
     public static final String DO_YOU_REALLY_WANT_TO_DELETE_YOUR_ACCOUNT = "do_you_really_want_to_delete_your_account";
     public static final String INFO = "info";
     public static final String CONFIRM = "confirm";
+    public static final String USERS_IN_CHAT = "users_in_chat";
+    public static final String USER_DISCONNECTED = "user_disconnected";
+    public static final String USER = "user";
+    public static final String CONNECTED_TO_THE_CHAT = "connected_to_the_chat";
 }

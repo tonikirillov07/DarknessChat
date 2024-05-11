@@ -14,10 +14,13 @@ import javafx.animation.TranslateTransition;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseButton;
+import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.awt.*;
 import java.awt.datatransfer.StringSelection;
@@ -29,6 +32,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.List;
 
+import static com.ds.darknesschat.Constants.MAX_PORT_VALUE;
+import static com.ds.darknesschat.Constants.MIN_PORT_VALUE;
 import static com.ds.darknesschat.utils.appSettings.outsideSettings.OutsideSettingsKeys.APP_LANGUAGE;
 
 public final class Utils {
@@ -48,36 +53,6 @@ public final class Utils {
                         Log.info("Action is null and could not be executed in node" + node);
                 }
             });
-        }catch (Exception e){
-            Log.error(e);
-        }
-    }
-
-    public static void addTranslateByUpAnimationToNode(Node node, boolean byUp, long userId){
-        try {
-            if(UserSettings.getUserAnimationsUsing(userId)) {
-                TranslateTransition translateTransition = new TranslateTransition(Duration.millis(200), node);
-                translateTransition.setFromY(-200 * (byUp ? 1 : -1));
-                translateTransition.setToY(0);
-                translateTransition.setAutoReverse(true);
-                translateTransition.setDelay(Duration.millis(30));
-                translateTransition.play();
-            }
-        }catch (Exception e){
-            Log.error(e);
-        }
-    }
-
-    public static void addTranslateByLeftAnimationToNode(Node node, long userId){
-        try {
-            if(UserSettings.getUserAnimationsUsing(userId)) {
-                TranslateTransition translateTransition = new TranslateTransition(Duration.millis(200), node);
-                translateTransition.setFromX(-200);
-                translateTransition.setToX(0);
-                translateTransition.setAutoReverse(true);
-                translateTransition.setDelay(Duration.millis(30));
-                translateTransition.play();
-            }
         }catch (Exception e){
             Log.error(e);
         }
@@ -114,34 +89,6 @@ public final class Utils {
         }
 
         return null;
-    }
-
-    public static void addFadeTransitionToNode(Node node, long userId){
-        try{
-            if(UserSettings.getUserAnimationsUsing(userId)) {
-                FadeTransition fadeTransition = new FadeTransition(Duration.millis(100), node);
-                fadeTransition.setFromValue(0.1f);
-                fadeTransition.setToValue(1f);
-                fadeTransition.setAutoReverse(true);
-                fadeTransition.play();
-            }
-        }catch (Exception e) {
-            Log.error(e);
-        }
-    }
-
-    public static void addRotateTranslationToNode(Node node, long userId){
-        try {
-            if(UserSettings.getUserAnimationsUsing(userId)) {
-                RotateTransition rotateTransition = new RotateTransition(Duration.millis(100), node);
-                rotateTransition.setFromAngle(0d);
-                rotateTransition.setToAngle(360d);
-                rotateTransition.setAutoReverse(true);
-                rotateTransition.play();
-            }
-        }catch (Exception e) {
-            Log.error(e);
-        }
     }
 
     public static void changeCurrentLanguage(){
@@ -189,5 +136,97 @@ public final class Utils {
     public static @NotNull String getFormattedDate(){
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss yyyy-MM-dd");
         return LocalDateTime.now().format(dateTimeFormatter);
+    }
+
+    public static boolean isStringAreJSON(String string){
+        try {
+            new JSONObject(string);
+            return true;
+        }catch (JSONException e){
+            return false;
+        }
+    }
+
+    public static String getStringFromJSON(String json, String key){
+        return new JSONObject(json).getString(key);
+    }
+
+    public static @NotNull String extractUserNameFromMessage(@NotNull String message){
+        int colonIndex = message.indexOf(":");
+        StringBuilder stringBuilder = new StringBuilder();
+
+        for (int i = 0; i < colonIndex + 1; i++) {
+            stringBuilder.append(message.charAt(i));
+        }
+
+        return stringBuilder.toString();
+    }
+
+    public static @NotNull String extractMessageTextFromMessage(@NotNull String message){
+        int colonIndex = message.indexOf(":");
+        StringBuilder stringBuilder = new StringBuilder();
+
+        for (int i = colonIndex + 1; i < message.length(); i++) {
+            stringBuilder.append(message.charAt(i));
+        }
+
+        return stringBuilder.toString();
+    }
+
+    @Contract("_ -> new")
+    public static int @Nullable [] parseColorRGBFromString(String color){
+        try {
+            double red;
+            double green;
+            double blue;
+
+            int commaIndex = color.indexOf(",");
+
+            StringBuilder redStringBuilder = new StringBuilder();
+            for (int redCharIndex = 0; redCharIndex < commaIndex; redCharIndex++) {
+                redStringBuilder.append(color.charAt(redCharIndex));
+            }
+
+            StringBuilder secondPart = new StringBuilder();
+            for (int i = commaIndex + 2; i < color.length(); i++) {
+                secondPart.append(color.charAt(i));
+            }
+
+            String secondColorPart = secondPart.toString();
+
+            StringBuilder greenStringBuilder = new StringBuilder();
+            for (int blueCharIndex = 0; blueCharIndex < secondColorPart.indexOf(","); blueCharIndex++) {
+                greenStringBuilder.append(secondColorPart.charAt(blueCharIndex));
+            }
+
+            StringBuilder blueStringBuilder = new StringBuilder();
+            for (int blueCharIndex = secondColorPart.indexOf(",") + 2; blueCharIndex < secondColorPart.length(); blueCharIndex++) {
+                blueStringBuilder.append(secondColorPart.charAt(blueCharIndex));
+            }
+
+            red = Double.parseDouble(redStringBuilder.toString());
+            green = Double.parseDouble(greenStringBuilder.toString());
+            blue = Double.parseDouble(blueStringBuilder.toString());
+
+            return new int[]{(int) Math.round(red * 100), (int) Math.round(green * 100), (int) Math.round(blue * 100)};
+        }catch (Exception e){
+            Log.error(e);
+        }
+
+        return null;
+    }
+
+    public static boolean isPortNormal(int port){
+        return port <= MAX_PORT_VALUE & port >= MIN_PORT_VALUE;
+    }
+
+    public static boolean stringCanBeConvertedToInt(String string){
+        try{
+            Integer.parseInt(string);
+
+            return true;
+        }catch (Exception e){
+            return false;
+        }
     }
 }

@@ -4,6 +4,7 @@ import com.ds.darknesschat.Constants;
 import com.ds.darknesschat.Main;
 import com.ds.darknesschat.user.User;
 import com.ds.darknesschat.user.UserSettings;
+import com.ds.darknesschat.utils.Animations;
 import com.ds.darknesschat.utils.Color;
 import com.ds.darknesschat.utils.Utils;
 import javafx.geometry.Insets;
@@ -22,6 +23,7 @@ public class Tile extends VBox {
     public static final double DEFAULT_WIDTH = 606d;
     public static final double DEFAULT_HEIGHT = 645d;
     private final float alpha;
+    private Label titleLabel;
 
     public Tile(double width, double height, float alpha) {
         this.width = width;
@@ -47,20 +49,24 @@ public class Tile extends VBox {
     }
 
     public void addTitle(String title){
-        Label label = new Label(title);
-        label.getStyleClass().add("header-label");
-        label.setFont(Font.loadFont(Main.class.getResourceAsStream(Constants.FONT_BOLD_ITALIC_PATH), 32));
-        VBox.setMargin(label, new Insets(15, 0, 0,0));
+        titleLabel = new Label(title);
+        titleLabel.getStyleClass().add("header-label");
+        titleLabel.setFont(Font.loadFont(Main.class.getResourceAsStream(Constants.FONT_BOLD_ITALIC_PATH), 32));
+        VBox.setMargin(titleLabel, new Insets(15, 0, 0,0));
 
-        addChild(label);
+        addChild(titleLabel);
     }
 
     public void applyAlphaWithUserSettings(User user){
         setColor(new com.ds.darknesschat.utils.Color(UserSettings.getUserAlphaLevel(user), TILE_COLOR.getRed(), TILE_COLOR.getGreen(), TILE_COLOR.getBlue()));
     }
 
+    public Label getTitleLabel() {
+        return titleLabel;
+    }
+
     public void animate(long userId){
-        Utils.addTranslateByUpAnimationToNode(this, true, userId);
+        Animations.addTranslateByUpAnimationToNode(this, true, userId);
     }
 
     public void addChild(Node node){

@@ -18,5 +18,8 @@ public final class Constants {
     public static final Color TILE_COLOR = new Color(0.75f, 19, 19, 19);
     public static final long IGNORE_USER_AGREEMENT = -1;
     public static final String NULL = "null";
+    public static final String DISCONNECT_COMMAND = "/close";
+    public static final int MAX_PORT_VALUE = 65535;
+    public static final int MIN_PORT_VALUE = 1000;
     public static final List<String> ON_OFF_OPTIONS_LIST = List.of(Objects.requireNonNull(StringGetterWithCurrentLanguage.getString(StringsConstants.ON)), Objects.requireNonNull(StringGetterWithCurrentLanguage.getString(StringsConstants.OFF)));
 }

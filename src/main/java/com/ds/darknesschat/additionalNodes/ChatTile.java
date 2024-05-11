@@ -4,6 +4,7 @@ import com.ds.darknesschat.Constants;
 import com.ds.darknesschat.Main;
 import com.ds.darknesschat.pages.ConnectToTheChatPage;
 import com.ds.darknesschat.pages.Page;
+import com.ds.darknesschat.utils.Animations;
 import com.ds.darknesschat.utils.Utils;
 import com.ds.darknesschat.utils.languages.StringGetterWithCurrentLanguage;
 import com.ds.darknesschat.utils.languages.StringsConstants;
@@ -91,6 +92,6 @@ public class ChatTile extends HBox {
     }
 
     public void animate(){
-        Utils.addTranslateByUpAnimationToNode(this, false, page.getUser().getId());
+        Animations.addTranslateByUpAnimationToNode(this, false, page.getUser().getId());
     }
 }

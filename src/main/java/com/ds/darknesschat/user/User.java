@@ -1,8 +1,8 @@
 package com.ds.darknesschat.user;
 
 public class User {
-    private final String userName;
-    private final String userPassword;
+    private String userName;
+    private String userPassword;
     private final String userDateOfRegistration;
     private long id = -1L;
 
@@ -33,6 +33,14 @@ public class User {
 
     public String getUserDateOfRegistration() {
         return userDateOfRegistration;
+    }
+
+    public void setUserPassword(String userPassword) {
+        this.userPassword = userPassword;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     @Override

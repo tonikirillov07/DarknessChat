@@ -9,6 +9,7 @@ import com.ds.darknesschat.additionalNodes.ImageButton;
 import com.ds.darknesschat.pages.settingsPages.SettingsMainPage;
 import com.ds.darknesschat.user.User;
 import com.ds.darknesschat.user.UserSettings;
+import com.ds.darknesschat.utils.Animations;
 import com.ds.darknesschat.utils.Color;
 import com.ds.darknesschat.utils.Utils;
 import com.ds.darknesschat.utils.languages.StringGetterWithCurrentLanguage;
@@ -74,7 +75,7 @@ public class ChatsPage extends Page{
 
             ImageButton settingsImageButton = new ImageButton(70d, 70d, Utils.getImage("bitmaps/icons/others/settings.png"), getUser().getId());
             settingsImageButton.setOnAction(() -> {
-                Utils.addRotateTranslationToNode(settingsImageButton, getUser().getId());
+                Animations.addRotateTranslationToNode(settingsImageButton, getUser().getId());
                 new SettingsMainPage(this, getContentVbox(), StringGetterWithCurrentLanguage.getString(StringsConstants.SETTINGS), true, getUser()).open();
             });
             VBox.setMargin(settingsImageButton, new Insets(10d));
@@ -126,7 +127,7 @@ public class ChatsPage extends Page{
             sidePanelVbox.getStyleClass().add("tile");
             sidePanelVbox.setStyle(sidePanelVbox.getStyle() + "-fx-background-color: rgba(" +
                     TILE_COLOR.getRed() + ", " + TILE_COLOR.getGreen() + ", " + TILE_COLOR.getBlue() + ", " + UserSettings.getUserAlphaLevel(getUser()) + ");");
-            Utils.addTranslateByLeftAnimationToNode(sidePanelVbox, getUser().getId());
+            Animations.addTranslateByLeftAnimationToNode(sidePanelVbox, getUser().getId());
             addToContentHbox(sidePanelVbox);
 
             createHeader(sidePanelVbox);

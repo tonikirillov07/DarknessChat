@@ -4,18 +4,22 @@ import com.ds.darknesschat.Constants;
 import com.ds.darknesschat.Main;
 import com.ds.darknesschat.additionalNodes.AdditionalButton;
 import com.ds.darknesschat.additionalNodes.AdditionalTextField;
+import com.ds.darknesschat.server.Server;
 import com.ds.darknesschat.user.User;
 import com.ds.darknesschat.user.UserSettings;
 import com.ds.darknesschat.utils.InputTypes;
 import com.ds.darknesschat.utils.Utils;
+import com.ds.darknesschat.utils.dialogs.ErrorDialog;
 import com.ds.darknesschat.utils.languages.StringGetterWithCurrentLanguage;
 import com.ds.darknesschat.utils.languages.StringsConstants;
 import com.ds.darknesschat.utils.log.Log;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 
 import java.util.Random;
 
@@ -45,7 +49,7 @@ public class CreateChatPage extends Page{
     private void initButtons() {
         try {
             AdditionalButton nextButton = new AdditionalButton(StringGetterWithCurrentLanguage.getString(StringsConstants.NEXT), 308d, 41d, new com.ds.darknesschat.utils.Color(164, 62, 62), WHITE_COLOR, getUser().getId());
-            nextButton.addAction(this::openChatPage);
+            nextButton.addAction(this::createServer);
             VBox.setMargin(nextButton, new Insets(200d, 40d, 0, 40d));
             addNodeToTile(nextButton);
 
@@ -58,10 +62,31 @@ public class CreateChatPage extends Page{
         }
     }
 
-    private void openChatPage(){
+    private void createServer() {
+        try{
+            if(!Utils.isPortNormal(Integer.parseInt(chatPortTextField.getText()))) {
+                ErrorDialog.show(new Exception("Invalid port! Try write another port"));
+
+                return;
+            }
+
+            Server server = new Server();
+            if(!server.create(Integer.parseInt(chatPortTextField.getText())))
+                return;
+
+            openChatPage(server);
+        }catch (Exception e){
+            Log.error(e);
+        }
+    }
+
+    private void openChatPage(Server server){
         try {
             if (Utils.isFieldsIsNotEmpty(new AdditionalTextField[]{chatPortTextField})) {
-                new ChatPage(this, getContentVbox(), Utils.getLocalIP4Address() + ":" + chatPortTextField.getText(), true, getUser()).open();
+                ChatPage chatPage = new ChatPage(this, getContentVbox(), Utils.getLocalIP4Address() + ":" + chatPortTextField.getText(), true, getUser(), server);
+                chatPage.open();
+                if(!chatPage.connectToServer(Utils.getLocalIP4Address() + ":" + chatPortTextField.getText()))
+                    chatPage.goToPreviousPage();
             } else
                 chatPortTextField.setError(getUser().getId());
         }catch (Exception e){
@@ -84,8 +109,11 @@ public class CreateChatPage extends Page{
         try {
             chatPortTextField = new AdditionalTextField(308d, 49d, StringGetterWithCurrentLanguage.getString(StringsConstants.WRITE_YOUR_PORT), Utils.getImage("bitmaps/icons/others/digits.png"), false);
             chatPortTextField.setInputType(InputTypes.NUMERIC);
-            chatPortTextField.getTextField().setText(String.valueOf(new Random().nextInt(1000, 99999)));
-            chatPortTextField.addOnTextTyping(currentText -> currentChatIPLabel.setText(Utils.getLocalIP4Address() + ":" + currentText));
+            chatPortTextField.getTextField().setText(String.valueOf(new Random().nextInt(MIN_PORT_VALUE, MAX_PORT_VALUE)));
+            chatPortTextField.addOnTextTyping(currentText -> {
+                chatPortTextField.getTextField().setStyle(chatPortTextField.getTextField().getStyle() + "; -fx-text-fill: " + (Utils.isPortNormal(Utils.stringCanBeConvertedToInt(currentText) ? Integer.parseInt(currentText): MIN_PORT_VALUE) ? "white; ": "red; "));
+                currentChatIPLabel.setText(Utils.getLocalIP4Address() + ":" + currentText);
+            });
             VBox.setMargin(chatPortTextField, new Insets(50d, 40d, 30d, 40d));
             addNodeToTile(chatPortTextField);
         }catch (Exception e){

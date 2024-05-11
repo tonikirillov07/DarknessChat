@@ -18,6 +18,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 
 import java.util.Objects;
 
@@ -74,7 +75,10 @@ public class ConnectToTheChatPage extends Page{
                 else
                     DatabaseService.setNull(DatabaseConstants.REMEMBERED_CHAT_ADDRESS_ROW, getUser().getId());
 
-                new ChatPage(this, getContentVbox(), additionalChatAddressTextField.getText(), true, getUser()).open();
+                ChatPage chatPage = new ChatPage(this, getContentVbox(), additionalChatAddressTextField.getText(), true, getUser(), null);
+                chatPage.open();
+                if(!chatPage.connectToServer(additionalChatAddressTextField.getText()))
+                    chatPage.goToPreviousPage();
             }else {
                 additionalChatAddressTextField.setError(getUser().getId());
             }

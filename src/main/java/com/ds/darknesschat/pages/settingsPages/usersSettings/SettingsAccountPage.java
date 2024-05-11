@@ -71,6 +71,10 @@ public class SettingsAccountPage extends Page {
     private void deleteAccount() {
         if (ConfirmDialog.show(StringGetterWithCurrentLanguage.getString(StringsConstants.DO_YOU_REALLY_WANT_TO_DELETE_YOUR_ACCOUNT))) {
             DatabaseService.deleteUser(getUser().getId());
+
+            OutsideSettingsManager.changeValue(OutsideSettingsKeys.REMEMBERED_USER_LOGIN, NULL);
+            OutsideSettingsManager.changeValue(OutsideSettingsKeys.REMEMBERED_USER_PASSWORD, NULL);
+
             openWelcomePage();
         }
     }

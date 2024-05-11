@@ -69,6 +69,8 @@ public class SettingsAccountChangeNamePage extends Page {
                 }
 
                 DatabaseService.changeValue(DatabaseConstants.USER_NAME_ROW, newNameAdditionalTextField.getText(), getUser().getId());
+                getUser().setUserName(newNameAdditionalTextField.getText());
+
                 goToPreviousPage();
             } else {
                 newNameAdditionalTextField.setError(getUser().getId());

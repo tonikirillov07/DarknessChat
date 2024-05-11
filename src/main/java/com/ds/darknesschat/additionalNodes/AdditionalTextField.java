@@ -85,7 +85,6 @@ public class AdditionalTextField extends HBox {
 
     public void addOnTextTyping(IOnTextTyping onTextTyping){
         this.onTextTyping = onTextTyping;
-        getTextField().setOnKeyTyped(keyEvent -> onTextTyping.onTextTyping(getText()));
     }
 
     public void addOnEnterKeyPressed(IOnAction onAction){
@@ -98,12 +97,12 @@ public class AdditionalTextField extends HBox {
     public void setInputType(InputTypes inputType){
         if(inputType == InputTypes.NUMERIC) {
             getTextField().setOnKeyTyped(keyEvent -> {
-                if(onTextTyping != null)
-                    onTextTyping.onTextTyping(getText());
-
                 if(!getCharactersList().stream().allMatch(Character::isDigit)){
                     removeAllButDigits();
                 }
+
+                if(onTextTyping != null)
+                    onTextTyping.onTextTyping(getText());
             });
         }
     }
