@@ -48,7 +48,7 @@ public class ChatsPage extends Page{
         deleteDefaultPagePaddings();
         getContentVbox().setAlignment(Pos.CENTER_LEFT);
 
-        initContentHbox();
+        initContentHBox();
         createSidePanel();
         initDeveloperAndButtonsVbox();
     }
@@ -108,7 +108,7 @@ public class ChatsPage extends Page{
         }
     }
 
-    private void initContentHbox() {
+    private void initContentHBox() {
         try {
             contentHbox = new HBox();
             contentHbox.setAlignment(Pos.CENTER_LEFT);
@@ -145,13 +145,13 @@ public class ChatsPage extends Page{
             else
                 createNoChatsHereLabel(scrollPaneContentVbox);
 
-            createClearButton(sidePanelVbox, scrollPaneContentVbox, recentChatsList.isEmpty());
+            createClearButton(sidePanelVbox, scrollPaneContentVbox, recentChatsList.isEmpty(), scrollPaneContentVbox);
         }catch (Exception e){
             Log.error(e);
         }
     }
 
-    private void createClearButton(@NotNull VBox sidePanelVbox, VBox scrollPane, boolean listIsEmpty) {
+    private void createClearButton(@NotNull VBox sidePanelVbox, VBox scrollPane, boolean listIsEmpty, VBox scrollPaneContentVbox) {
         try {
             AdditionalButton clearButton = new AdditionalButton(StringGetterWithCurrentLanguage.getString(StringsConstants.CLEAR_ALL), 308d, 58d, new Color(217, 217, 217), BLACK_COLOR, getUser().getId());
             clearButton.setDisable(listIsEmpty);
@@ -161,6 +161,9 @@ public class ChatsPage extends Page{
             clearButton.addAction(() -> {
                 scrollPane.getChildren().clear();
                 UserRecentChats.clearRecentChats(getUser().getId());
+
+                createNoChatsHereLabel(scrollPaneContentVbox);
+                clearButton.setDisable(true);
             });
         }catch (Exception e){
             Log.error(e);

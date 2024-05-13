@@ -6,7 +6,6 @@ import com.ds.darknesschat.user.User;
 import com.ds.darknesschat.user.UserSettings;
 import com.ds.darknesschat.utils.Animations;
 import com.ds.darknesschat.utils.Color;
-import com.ds.darknesschat.utils.Utils;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;

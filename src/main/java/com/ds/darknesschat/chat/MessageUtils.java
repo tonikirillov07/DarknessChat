@@ -13,9 +13,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.TextFlow;
 import org.jetbrains.annotations.NotNull;
 
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-
 import static com.ds.darknesschat.utils.appSettings.settingsReader.SettingsKeys.MAX_MESSAGES_COUNT;
 
 public class MessageUtils {
@@ -51,9 +48,5 @@ public class MessageUtils {
         label.setFont(Font.loadFont(Main.class.getResourceAsStream(Constants.FONT_BOLD_PATH), 14d));
 
         return label;
-    }
-
-    public static @NotNull String generateUserStringMessage(String userName, String userMessage){
-        return userName + ": " + userMessage + " (" + LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")) + ")";
     }
 }

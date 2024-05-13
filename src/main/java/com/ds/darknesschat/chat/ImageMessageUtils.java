@@ -14,6 +14,8 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.TextFlow;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.json.JSONArray;
@@ -32,8 +34,15 @@ public class ImageMessageUtils {
             VBox vBox = new VBox();
             vBox.setSpacing(10d);
 
-            String messageForLabel = message.isEmpty() ? userName + ": " : MessageUtils.generateUserStringMessage(userName, message);
-            Label userNameLabel = MessageUtils.createLabel(messageForLabel, userNameColor);
+            TextFlow textFlow = new TextFlow();
+
+            Label userNameLabel = MessageUtils.createLabel(userName + ": ", userNameColor);
+            Label userMessageLabel = MessageUtils.createLabel(message, Color.WHITE);
+            Label messageTimeLabel = MessageUtils.createLabel("(" + Utils.getCurrentTime() + ")", Color.WHITE);
+
+            textFlow.getChildren().add(userNameLabel);
+            if(!message.isEmpty())
+                textFlow.getChildren().add(userMessageLabel);
 
             ImageInfo imageInfo =  Objects.requireNonNull(ImageUtils.getImageFromBytes(bytes));
             Image image = imageInfo.image();
@@ -48,7 +57,7 @@ public class ImageMessageUtils {
                 assert contextMenu != null;
                 contextMenu.show(imageView, contextMenuEvent.getScreenX(), contextMenuEvent.getScreenY());
             });
-            vBox.getChildren().addAll(userNameLabel, imageView);
+            vBox.getChildren().addAll(textFlow, imageView, messageTimeLabel);
             Animations.addFadeTransitionToNode(imageView, userId);
 
             messagesContent.getChildren().add(vBox);

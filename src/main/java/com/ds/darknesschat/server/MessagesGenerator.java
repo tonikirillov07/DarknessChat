@@ -1,5 +1,6 @@
 package com.ds.darknesschat.server;
 
+import com.ds.darknesschat.utils.Utils;
 import javafx.scene.paint.Color;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
@@ -29,5 +30,9 @@ public class MessagesGenerator {
     private static @NotNull String presentColorInRGBSString(@NotNull Color color){
         DecimalFormat decimalFormat = new DecimalFormat("#.###");
         return decimalFormat.format(color.getRed()) + ", " + decimalFormat.format(color.getGreen()) + ", " + decimalFormat.format(color.getBlue());
+    }
+
+    public static @NotNull String generateUserStringMessage(String userName, String userMessage){
+        return userName + ": " + userMessage + " (" + Utils.getCurrentTime() + ")";
     }
 }

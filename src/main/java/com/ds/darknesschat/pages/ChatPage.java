@@ -38,15 +38,13 @@ import java.io.UTFDataFormatException;
 import java.net.ConnectException;
 import java.net.Socket;
 import java.text.DecimalFormat;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 import static com.ds.darknesschat.Constants.*;
 import static com.ds.darknesschat.chat.ImageMessageUtils.createMessageImageView;
 import static com.ds.darknesschat.chat.MessageUtils.createMessageLabel;
-import static com.ds.darknesschat.chat.MessageUtils.generateUserStringMessage;
 import static com.ds.darknesschat.client.ClientConstants.*;
+import static com.ds.darknesschat.server.MessagesGenerator.generateUserStringMessage;
 import static com.ds.darknesschat.utils.Utils.extractPortAndAddressFromAddress;
 import static com.ds.darknesschat.utils.languages.StringsConstants.USERS_IN_CHAT;
 

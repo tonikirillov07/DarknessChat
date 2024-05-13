@@ -4,7 +4,6 @@ import com.ds.darknesschat.Main;
 import com.ds.darknesschat.utils.log.Log;
 import org.jetbrains.annotations.Nullable;
 
-import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 import java.util.Objects;
 import java.util.Properties;

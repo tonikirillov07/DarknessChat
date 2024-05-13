@@ -17,7 +17,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import org.jetbrains.annotations.NotNull;
 
 public class ChatTile extends HBox {
     private final double width, height;

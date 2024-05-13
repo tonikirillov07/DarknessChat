@@ -4,7 +4,6 @@ import com.ds.darknesschat.utils.dialogs.ErrorDialog;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FilenameFilter;
 import java.util.Objects;
 
 public class FilesChecker {

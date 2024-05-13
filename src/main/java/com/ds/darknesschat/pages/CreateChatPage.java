@@ -6,7 +6,6 @@ import com.ds.darknesschat.additionalNodes.AdditionalButton;
 import com.ds.darknesschat.additionalNodes.AdditionalTextField;
 import com.ds.darknesschat.server.Server;
 import com.ds.darknesschat.user.User;
-import com.ds.darknesschat.user.UserSettings;
 import com.ds.darknesschat.utils.InputTypes;
 import com.ds.darknesschat.utils.Utils;
 import com.ds.darknesschat.utils.dialogs.ErrorDialog;
@@ -15,11 +14,9 @@ import com.ds.darknesschat.utils.languages.StringsConstants;
 import com.ds.darknesschat.utils.log.Log;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.stage.Stage;
 
 import java.util.Random;
 

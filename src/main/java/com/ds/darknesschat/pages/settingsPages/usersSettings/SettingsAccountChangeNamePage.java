@@ -13,8 +13,6 @@ import com.ds.darknesschat.utils.dialogs.ErrorDialog;
 import com.ds.darknesschat.utils.languages.StringGetterWithCurrentLanguage;
 import com.ds.darknesschat.utils.languages.StringsConstants;
 import com.ds.darknesschat.utils.log.Log;
-import com.ds.darknesschat.utils.sounds.Sounds;
-import com.ds.darknesschat.utils.sounds.SoundsConstants;
 import javafx.geometry.Insets;
 import javafx.scene.layout.VBox;
 
