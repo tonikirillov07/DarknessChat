@@ -11,7 +11,6 @@ import com.ds.darknesschat.utils.Color;
 import com.ds.darknesschat.utils.PasswordGenerator;
 import com.ds.darknesschat.utils.Utils;
 import com.ds.darknesschat.utils.dialogs.ErrorDialog;
-import com.ds.darknesschat.utils.interfaces.IOnAction;
 import com.ds.darknesschat.utils.languages.StringGetterWithCurrentLanguage;
 import com.ds.darknesschat.utils.languages.StringsConstants;
 import com.ds.darknesschat.utils.log.Log;

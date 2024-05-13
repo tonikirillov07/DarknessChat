@@ -2,28 +2,28 @@ package com.ds.darknesschat.utils;
 
 import com.ds.darknesschat.Main;
 import com.ds.darknesschat.additionalNodes.AdditionalTextField;
-import com.ds.darknesschat.user.UserSettings;
+import com.ds.darknesschat.database.DatabaseConstants;
+import com.ds.darknesschat.database.DatabaseService;
 import com.ds.darknesschat.utils.appSettings.outsideSettings.OutsideSettingsManager;
-import com.ds.darknesschat.utils.interfaces.IOnAction;
+import com.ds.darknesschat.utils.eventListeners.IOnAction;
 import com.ds.darknesschat.utils.log.Log;
 import com.ds.darknesschat.utils.sounds.Sounds;
 import com.ds.darknesschat.utils.sounds.SoundsConstants;
-import javafx.animation.FadeTransition;
-import javafx.animation.RotateTransition;
-import javafx.animation.TranslateTransition;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseButton;
-import javafx.scene.paint.Color;
-import javafx.util.Duration;
+import javafx.scene.layout.Pane;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.awt.*;
+import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.net.InetAddress;
 import java.nio.charset.StandardCharsets;
@@ -133,6 +133,22 @@ public final class Utils {
         Log.info("String " + string + " copied in clipboard");
     }
 
+    public static void copyImageToClipboard(BufferedImage bufferedImage){
+        Clipboard systemClipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+        systemClipboard.setContents(new TransferableImage(bufferedImage), null);
+    }
+
+    public static void openFile(File file){
+        try {
+            if (Desktop.isDesktopSupported())
+                Desktop.getDesktop().open(file);
+            else
+                Log.error(new Exception("Desktop is not supported on this device"));
+        }catch (Exception e){
+            Log.error(e);
+        }
+    }
+
     public static @NotNull String getFormattedDate(){
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss yyyy-MM-dd");
         return LocalDateTime.now().format(dateTimeFormatter);
@@ -228,5 +244,63 @@ public final class Utils {
         }catch (Exception e){
             return false;
         }
+    }
+
+    public static void clearPaneInHalf(@NotNull Pane pane){
+        int stopIndex = Math.floorDiv(pane.getChildren().size(), 2);
+
+        for (int i = 0; i < stopIndex; i++) {
+            pane.getChildren().remove(i);
+        }
+    }
+
+    @Contract(pure = true)
+    public static boolean stringMeetsAtLeastOneRegex(String @NotNull [] regexes, String string){
+        boolean isMeet = false;
+
+        for (String regex : regexes) {
+            if(string.matches(regex)){
+                isMeet = true;
+                break;
+            }
+        }
+
+        return isMeet;
+    }
+
+    public static @Nullable ChatAddress extractPortAndAddressFromAddress(@NotNull String address){
+        try {
+            int colonIndex = address.indexOf(":") + 1;
+            StringBuilder portBuilder = new StringBuilder();
+            StringBuilder addressBuilder = new StringBuilder();
+
+            for (int i = colonIndex; i < address.length(); i++) {
+                portBuilder.append(address.charAt(i));
+            }
+
+            for (int i = 0; i < colonIndex - 1; i++) {
+                addressBuilder.append(address.charAt(i));
+            }
+
+            int port = Integer.parseInt(portBuilder.toString());
+            String parsedAddress = addressBuilder.toString();
+
+            return new ChatAddress(parsedAddress, port);
+        }catch (Exception e){
+            Log.error(e);
+        }
+
+        return null;
+    }
+
+    public static @NotNull String getFileFormat(@NotNull String fileName){
+        int dotIndex = fileName.indexOf(".");
+        StringBuilder stringBuilder = new StringBuilder();
+
+        for (int i = dotIndex + 1; i < fileName.length(); i++) {
+            stringBuilder.append(fileName.charAt(i));
+        }
+
+        return stringBuilder.toString();
     }
 }

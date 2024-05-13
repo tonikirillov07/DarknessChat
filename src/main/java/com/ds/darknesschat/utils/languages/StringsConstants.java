@@ -66,4 +66,17 @@ public final class StringsConstants {
     public static final String USER_DISCONNECTED = "user_disconnected";
     public static final String USER = "user";
     public static final String CONNECTED_TO_THE_CHAT = "connected_to_the_chat";
+    public static final String DO_YOU_REALLY_WANT_TO_LEAVE_IF_NO_HOST = "do_you_really_want_to_leave_if_no_host";
+    public static final String DO_YOU_REALLY_WANT_TO_LEAVE_IF_HOST = "do_you_really_want_to_leave_if_host";
+    public static final String DO_YOU_REALLY_WANT_TO_RESET_SETTINGS = "do_you_really_want_to_reset_settings";
+    public static final String SERVER_WILL_BE_CLOSED_RIGHT_NOW = "server_will_closed_right_now";
+    public static final String NO_RECENT_CHATS_YET_IN_HERE = "no_recent_chats_here";
+    public static final String SELECT_YOUR_IMAGE_FOR_SEND = "select_your_image";
+    public static final String EVERYTHING = "everything";
+    public static final String IMAGES = "everything";
+    public static final String YOUR_MESSAGE_IS_TOO_BIG = "your_message_is_too_big";
+    public static final String YOUR_MESSAGE_SIZE = "you_message_size";
+    public static final String COPY_IMAGE = "copy_image";
+    public static final String OPEN_IN_FOLDER = "open_in_folder";
+    public static final String USER_ALREADY_IN_CHAT = "user_already_in_chat";
 }

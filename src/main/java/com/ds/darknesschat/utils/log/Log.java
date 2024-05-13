@@ -1,6 +1,7 @@
 package com.ds.darknesschat.utils.log;
 
 import com.ds.darknesschat.utils.dialogs.ErrorDialog;
+import javafx.application.Platform;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.FileWriter;

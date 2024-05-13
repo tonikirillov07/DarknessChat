@@ -3,13 +3,12 @@ package com.ds.darknesschat.additionalNodes;
 import com.ds.darknesschat.Constants;
 import com.ds.darknesschat.Main;
 import com.ds.darknesschat.utils.InputTypes;
-import com.ds.darknesschat.utils.interfaces.IOnAction;
-import com.ds.darknesschat.utils.interfaces.IOnTextTyping;
+import com.ds.darknesschat.utils.eventListeners.IOnAction;
+import com.ds.darknesschat.utils.eventListeners.IOnTextTyping;
 import com.ds.darknesschat.utils.log.Log;
 import com.ds.darknesschat.utils.sounds.Sounds;
 import com.ds.darknesschat.utils.sounds.SoundsConstants;
 import javafx.animation.TranslateTransition;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.PasswordField;
@@ -19,7 +18,6 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.paint.Color;
@@ -40,6 +38,7 @@ public class AdditionalTextField extends HBox {
     public static final double DEFAULT_WIDTH = 340d;
     public static final double DEFAULT_HEIGHT = 49d;
     private IOnTextTyping onTextTyping;
+    private InputTypes inputType;
 
     public AdditionalTextField(double width, double height, String placeholder, Image fieldIcon, boolean isPasswordField) {
         this.width = width;
@@ -47,6 +46,7 @@ public class AdditionalTextField extends HBox {
         this.placeholder = placeholder;
         this.fieldIcon = fieldIcon;
         this.isPasswordField = isPasswordField;
+        inputType = InputTypes.DEFAULT;
 
         init();
     }
@@ -58,6 +58,7 @@ public class AdditionalTextField extends HBox {
         this.defaultValue = defaultValue;
         this.fieldIcon = fieldIcon;
         this.isPasswordField = isPasswordField;
+        inputType = InputTypes.DEFAULT;
 
         init();
     }
@@ -85,6 +86,11 @@ public class AdditionalTextField extends HBox {
 
     public void addOnTextTyping(IOnTextTyping onTextTyping){
         this.onTextTyping = onTextTyping;
+
+        if(inputType == InputTypes.DEFAULT){
+            getTextField().setOnKeyTyped(keyEvent -> onTextTyping.onTextTyping(getText()));
+        }
+
     }
 
     public void addOnEnterKeyPressed(IOnAction onAction){

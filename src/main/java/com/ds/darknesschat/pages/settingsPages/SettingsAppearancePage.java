@@ -5,7 +5,7 @@ import com.ds.darknesschat.additionalNodes.SettingsOptionSwitchButton;
 import com.ds.darknesschat.database.DatabaseService;
 import com.ds.darknesschat.pages.Page;
 import com.ds.darknesschat.user.User;
-import com.ds.darknesschat.utils.interfaces.IOnSwitch;
+import com.ds.darknesschat.utils.eventListeners.IOnSwitch;
 import com.ds.darknesschat.utils.languages.StringGetterWithCurrentLanguage;
 import com.ds.darknesschat.utils.languages.StringsConstants;
 import com.ds.darknesschat.utils.log.Log;
@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Objects;
 
 import static com.ds.darknesschat.Constants.ON_OFF_OPTIONS_LIST;
+import static com.ds.darknesschat.client.ClientConstants.TRUE;
 import static com.ds.darknesschat.database.DatabaseConstants.*;
 
 public class SettingsAppearancePage extends Page {
@@ -32,11 +33,20 @@ public class SettingsAppearancePage extends Page {
         applyDefaultPagePaddings();
         loadDefaultTileSettings();
         createOptionsSwitchButtons();
-        SettingsPage.initResetButton(this, () -> {});
+        SettingsPage.initResetButton(this, this::resetAppearanceSettings);
         SettingsPage.initBackButton(this);
         createDeveloperLabelInBottom();
 
         getTile().applyAlphaWithUserSettings(getUser());
+    }
+
+    private void resetAppearanceSettings(){
+        DatabaseService.changeValue(ANIMATIONS_USING_ROW, TRUE, getUser().getId());
+        DatabaseService.changeValue(SOUNDS_USING_ROW, TRUE, getUser().getId());
+        DatabaseService.changeValue(OPACITY_LEVEL_ROW, "0.8", getUser().getId());
+
+        Log.info("Appearance settings rested");
+        reopen();
     }
 
     private void createOptionsSwitchButtons() {

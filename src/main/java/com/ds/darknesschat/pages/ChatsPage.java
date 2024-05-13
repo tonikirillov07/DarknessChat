@@ -8,6 +8,7 @@ import com.ds.darknesschat.additionalNodes.DeveloperLabel;
 import com.ds.darknesschat.additionalNodes.ImageButton;
 import com.ds.darknesschat.pages.settingsPages.SettingsMainPage;
 import com.ds.darknesschat.user.User;
+import com.ds.darknesschat.user.UserRecentChats;
 import com.ds.darknesschat.user.UserSettings;
 import com.ds.darknesschat.utils.Animations;
 import com.ds.darknesschat.utils.Color;
@@ -29,6 +30,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 import static com.ds.darknesschat.Constants.BLACK_COLOR;
 import static com.ds.darknesschat.Constants.TILE_COLOR;
@@ -134,21 +137,31 @@ public class ChatsPage extends Page{
 
             VBox scrollPaneContentVbox = createScrollPane(sidePanelVbox);
             assert scrollPaneContentVbox != null;
-            scrollPaneContentVbox.getChildren().add(new ChatTile(ChatTile.DEFAULT_WIDTH, ChatTile.DEFAULT_HEIGHT, "192.168.0.102:6565", scrollPaneContentVbox, this));
 
-            createClearButton(sidePanelVbox, scrollPaneContentVbox);
+            List<String> recentChatsList = UserRecentChats.getRecentChats(getUser().getId());
+
+            if(!recentChatsList.isEmpty())
+                recentChatsList.forEach(address -> scrollPaneContentVbox.getChildren().add(new ChatTile(ChatTile.DEFAULT_WIDTH, ChatTile.DEFAULT_HEIGHT, address, scrollPaneContentVbox, this)));
+            else
+                createNoChatsHereLabel(scrollPaneContentVbox);
+
+            createClearButton(sidePanelVbox, scrollPaneContentVbox, recentChatsList.isEmpty());
         }catch (Exception e){
             Log.error(e);
         }
     }
 
-    private void createClearButton(@NotNull VBox sidePanelVbox, VBox scrollPane) {
+    private void createClearButton(@NotNull VBox sidePanelVbox, VBox scrollPane, boolean listIsEmpty) {
         try {
             AdditionalButton clearButton = new AdditionalButton(StringGetterWithCurrentLanguage.getString(StringsConstants.CLEAR_ALL), 308d, 58d, new Color(217, 217, 217), BLACK_COLOR, getUser().getId());
+            clearButton.setDisable(listIsEmpty);
             VBox.setMargin(clearButton, new Insets(20));
             sidePanelVbox.getChildren().add(clearButton);
 
-            clearButton.addAction(() -> scrollPane.getChildren().clear());
+            clearButton.addAction(() -> {
+                scrollPane.getChildren().clear();
+                UserRecentChats.clearRecentChats(getUser().getId());
+            });
         }catch (Exception e){
             Log.error(e);
         }
@@ -191,6 +204,19 @@ public class ChatsPage extends Page{
         }
 
         return null;
+    }
+
+    private void createNoChatsHereLabel(@NotNull VBox sidePanelVbox){
+        try {
+            Label label = new Label(StringGetterWithCurrentLanguage.getString(StringsConstants.NO_RECENT_CHATS_YET_IN_HERE));
+            label.setTextFill(javafx.scene.paint.Color.LIGHTGRAY);
+            label.setUnderline(true);
+            label.setFont(Font.loadFont(Main.class.getResourceAsStream(Constants.FONT_BOLD_ITALIC_PATH), 14d));
+
+            sidePanelVbox.getChildren().add(label);
+        }catch (Exception e){
+            Log.error(e);
+        }
     }
 
     private void addToContentHbox(Node node){

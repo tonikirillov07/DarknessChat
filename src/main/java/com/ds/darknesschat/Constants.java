@@ -21,5 +21,10 @@ public final class Constants {
     public static final String DISCONNECT_COMMAND = "/close";
     public static final int MAX_PORT_VALUE = 65535;
     public static final int MIN_PORT_VALUE = 1000;
+    public static final String[] SERVER_ADDRESS_REGEXES = {"\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}:\\d{3,5}", "localhost:\\d{3,5}"};
+    public static final String ATTACHMENTS_FOLDER = "attachments";
+    public static final int MESSAGE_SIZE_LIMIT_IN_BYTES = 65535;
+    public static final String ATTACHMENT_PNG = "attachment.png";
+    public static final long CLIENT_AND_SERVER_UPDATE_DELAY_IN_MILLIS = 100L;
     public static final List<String> ON_OFF_OPTIONS_LIST = List.of(Objects.requireNonNull(StringGetterWithCurrentLanguage.getString(StringsConstants.ON)), Objects.requireNonNull(StringGetterWithCurrentLanguage.getString(StringsConstants.OFF)));
 }

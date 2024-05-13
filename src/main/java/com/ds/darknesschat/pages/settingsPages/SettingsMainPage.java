@@ -1,14 +1,17 @@
 package com.ds.darknesschat.pages.settingsPages;
 
 import com.ds.darknesschat.additionalNodes.*;
+import com.ds.darknesschat.database.DatabaseConstants;
+import com.ds.darknesschat.database.DatabaseService;
 import com.ds.darknesschat.pages.Page;
 import com.ds.darknesschat.pages.settingsPages.usersSettings.SettingsAccountPage;
 import com.ds.darknesschat.user.User;
 import com.ds.darknesschat.utils.Utils;
 import com.ds.darknesschat.utils.appSettings.outsideSettings.OutsideSettingsKeys;
 import com.ds.darknesschat.utils.appSettings.outsideSettings.OutsideSettingsManager;
+import com.ds.darknesschat.utils.dialogs.ConfirmDialog;
 import com.ds.darknesschat.utils.dialogs.InfoDialog;
-import com.ds.darknesschat.utils.interfaces.IOnAction;
+import com.ds.darknesschat.utils.eventListeners.IOnAction;
 import com.ds.darknesschat.utils.languages.StringGetterWithCurrentLanguage;
 import com.ds.darknesschat.utils.languages.StringsConstants;
 import com.ds.darknesschat.utils.log.Log;
@@ -16,6 +19,9 @@ import javafx.geometry.Insets;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import org.jetbrains.annotations.NotNull;
+
+import static com.ds.darknesschat.client.ClientConstants.TRUE;
+import static com.ds.darknesschat.utils.languages.StringsConstants.DO_YOU_REALLY_WANT_TO_RESET_SETTINGS;
 
 public class SettingsMainPage extends Page {
     public SettingsMainPage(Page prevoiusPage, VBox contentVbox, String title, boolean createStandardTile, User user) {
@@ -28,11 +34,28 @@ public class SettingsMainPage extends Page {
         loadDefaultTileSettings();
 
         initOptionsButtons();
-        SettingsPage.initResetButton(this, () -> {});
+        SettingsPage.initResetButton(this, this::resetAllSettings);
         SettingsPage.initBackButton(this);
         createDeveloperLabelInBottom();
 
         getTile().applyAlphaWithUserSettings(getUser());
+    }
+
+    private void resetAllSettings(){
+        try {
+            if(ConfirmDialog.show(StringGetterWithCurrentLanguage.getString(DO_YOU_REALLY_WANT_TO_RESET_SETTINGS))) {
+                DatabaseService.changeValue(DatabaseConstants.ANIMATIONS_USING_ROW, TRUE, getUser().getId());
+                DatabaseService.changeValue(DatabaseConstants.OPACITY_LEVEL_ROW, "0.8", getUser().getId());
+                DatabaseService.changeValue(DatabaseConstants.SOUNDS_USING_ROW, TRUE, getUser().getId());
+                DatabaseService.changeValue(DatabaseConstants.BACKGROUND_PATH_ROW, "DEFAULT", getUser().getId());
+                DatabaseService.setNull(DatabaseConstants.REMEMBERED_CHAT_ADDRESS_ROW, getUser().getId());
+
+                Log.info("User settings rested");
+                reopen();
+            }
+        }catch (Exception e){
+            Log.error(e);
+        }
     }
 
     private void initOptionsButtons() {

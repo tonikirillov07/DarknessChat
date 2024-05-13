@@ -3,7 +3,7 @@ package com.ds.darknesschat.pages.settingsPages;
 import com.ds.darknesschat.additionalNodes.AdditionalButton;
 import com.ds.darknesschat.pages.Page;
 import com.ds.darknesschat.utils.Color;
-import com.ds.darknesschat.utils.interfaces.IOnAction;
+import com.ds.darknesschat.utils.eventListeners.IOnAction;
 import com.ds.darknesschat.utils.languages.StringGetterWithCurrentLanguage;
 import com.ds.darknesschat.utils.languages.StringsConstants;
 import com.ds.darknesschat.utils.log.Log;

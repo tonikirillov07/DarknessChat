@@ -3,7 +3,7 @@ package com.ds.darknesschat.additionalNodes;
 import com.ds.darknesschat.Constants;
 import com.ds.darknesschat.Main;
 import com.ds.darknesschat.utils.Color;
-import com.ds.darknesschat.utils.interfaces.IOnAction;
+import com.ds.darknesschat.utils.eventListeners.IOnAction;
 import com.ds.darknesschat.utils.log.Log;
 import com.ds.darknesschat.utils.sounds.Sounds;
 import com.ds.darknesschat.utils.sounds.SoundsConstants;
@@ -44,6 +44,7 @@ public class AdditionalButton extends Button {
         try{
             setFont(Font.loadFont(Main.class.getResourceAsStream(Constants.FONT_BOLD_ITALIC_PATH), 20));
             setPrefSize(width, height);
+            setMinSize(width, height);
             getStyleClass().add("button-next");
             setEffect(new DropShadow());
 

@@ -18,12 +18,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.stage.Stage;
 
-import java.util.Objects;
-
-import static com.ds.darknesschat.Constants.BLACK_COLOR;
-import static com.ds.darknesschat.Constants.WHITE_COLOR;
+import static com.ds.darknesschat.Constants.*;
 
 public class ConnectToTheChatPage extends Page{
     private AdditionalTextField additionalChatAddressTextField;
@@ -76,9 +72,10 @@ public class ConnectToTheChatPage extends Page{
                     DatabaseService.setNull(DatabaseConstants.REMEMBERED_CHAT_ADDRESS_ROW, getUser().getId());
 
                 ChatPage chatPage = new ChatPage(this, getContentVbox(), additionalChatAddressTextField.getText(), true, getUser(), null);
-                chatPage.open();
                 if(!chatPage.connectToServer(additionalChatAddressTextField.getText()))
-                    chatPage.goToPreviousPage();
+                    return;
+
+                chatPage.open();
             }else {
                 additionalChatAddressTextField.setError(getUser().getId());
             }
@@ -109,6 +106,7 @@ public class ConnectToTheChatPage extends Page{
     private void initTextField() {
         try {
             additionalChatAddressTextField = new AdditionalTextField(308d, 49d, StringGetterWithCurrentLanguage.getString(StringsConstants.WRITE_CHAT_ADDRESS), Utils.getImage("bitmaps/icons/others/digits.png"), false);
+            additionalChatAddressTextField.addOnTextTyping(this::checkEnteredAddress);
             VBox.setMargin(additionalChatAddressTextField, new Insets(50d, 40d, 30d, 40d));
             addNodeToTile(additionalChatAddressTextField);
 
@@ -119,5 +117,9 @@ public class ConnectToTheChatPage extends Page{
         }catch (Exception e){
             Log.error(e);
         }
+    }
+
+    private void checkEnteredAddress(String currentText) {
+        additionalChatAddressTextField.getTextField().setStyle("-fx-text-fill: " + (Utils.stringMeetsAtLeastOneRegex(SERVER_ADDRESS_REGEXES, currentText) ? "white; " : "red; "));
     }
 }

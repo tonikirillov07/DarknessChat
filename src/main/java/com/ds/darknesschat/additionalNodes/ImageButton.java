@@ -1,7 +1,7 @@
 package com.ds.darknesschat.additionalNodes;
 
 import com.ds.darknesschat.utils.Utils;
-import com.ds.darknesschat.utils.interfaces.IOnAction;
+import com.ds.darknesschat.utils.eventListeners.IOnAction;
 import com.ds.darknesschat.utils.log.Log;
 import javafx.scene.Cursor;
 import javafx.scene.effect.DropShadow;

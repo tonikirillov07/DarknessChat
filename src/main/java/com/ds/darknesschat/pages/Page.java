@@ -5,7 +5,7 @@ import com.ds.darknesschat.additionalNodes.DeveloperLabel;
 import com.ds.darknesschat.additionalNodes.SettingsOptionButton;
 import com.ds.darknesschat.additionalNodes.Tile;
 import com.ds.darknesschat.user.User;
-import com.ds.darknesschat.utils.interfaces.IOnAction;
+import com.ds.darknesschat.utils.eventListeners.IOnAction;
 import com.ds.darknesschat.utils.log.Log;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -13,6 +13,7 @@ import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 public abstract class Page {
     private final Page prevoiusPage;
@@ -127,11 +128,16 @@ public abstract class Page {
     public void addNodeToPage(Node node){
         contentVbox.getChildren().add(node);
     }
+
     public void addNodeToTile(Node node){
         if(tile != null)
             tile.getChildren().add(node);
         else
             createTile();
+    }
+
+    public Stage getStage(){
+        return (Stage) getContentVbox().getScene().getWindow();
     }
 
     public boolean isOpen() {

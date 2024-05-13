@@ -6,4 +6,5 @@ public final class SettingsKeys {
     public static final String APP_DEVELOPER = "app_developer";
     public static final String APP_ICON = "app_icon";
     public static final String APP_RESIZABLE = "app_resizable";
+    public static final String MAX_MESSAGES_COUNT = "max_messages_count";
 }

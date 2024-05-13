@@ -4,6 +4,7 @@ import com.ds.darknesschat.Constants;
 import com.ds.darknesschat.Main;
 import com.ds.darknesschat.pages.ConnectToTheChatPage;
 import com.ds.darknesschat.pages.Page;
+import com.ds.darknesschat.user.UserRecentChats;
 import com.ds.darknesschat.utils.Animations;
 import com.ds.darknesschat.utils.Utils;
 import com.ds.darknesschat.utils.languages.StringGetterWithCurrentLanguage;
@@ -35,16 +36,6 @@ public class ChatTile extends HBox {
         
         init(page);
         animate();
-        addAction(page);
-    }
-
-    private void addAction(@NotNull Page page) {
-        Utils.addActionToNode(this, () -> {
-            ConnectToTheChatPage connectToTheChatPage = new ConnectToTheChatPage(page, page.getContentVbox(), StringGetterWithCurrentLanguage.getString(StringsConstants.CONNECTING), true, page.getUser());
-            connectToTheChatPage.open();
-
-            connectToTheChatPage.setAddressValue(text);
-        }, page.getUser().getId());
     }
 
     private void init(Page page) {
@@ -74,6 +65,7 @@ public class ChatTile extends HBox {
     private void delete(){
         try {
             parent.getChildren().remove(this);
+            UserRecentChats.deleteOneRecentChat(text, page.getUser().getId());
         }catch (Exception e){
             Log.error(e);
         }
@@ -84,6 +76,13 @@ public class ChatTile extends HBox {
             Label label = new Label(text);
             label.setTextFill(Color.WHITE);
             label.setFont(Font.loadFont(Main.class.getResourceAsStream(Constants.FONT_BOLD_ITALIC_PATH), 16));
+
+            Utils.addActionToNode(label, () -> {
+                ConnectToTheChatPage connectToTheChatPage = new ConnectToTheChatPage(page, page.getContentVbox(), StringGetterWithCurrentLanguage.getString(StringsConstants.CONNECTING), true, page.getUser());
+                connectToTheChatPage.open();
+
+                connectToTheChatPage.setAddressValue(text);
+            }, page.getUser().getId());
 
             getChildren().add(label);
         }catch (Exception e){

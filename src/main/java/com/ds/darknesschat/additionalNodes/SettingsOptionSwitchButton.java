@@ -1,7 +1,7 @@
 package com.ds.darknesschat.additionalNodes;
 
 import com.ds.darknesschat.utils.Utils;
-import com.ds.darknesschat.utils.interfaces.IOnSwitch;
+import com.ds.darknesschat.utils.eventListeners.IOnSwitch;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;

@@ -1,5 +1,6 @@
 package com.ds.darknesschat.client;
 
+import com.ds.darknesschat.server.MessagesGenerator;
 import com.ds.darknesschat.server.Server;
 import com.ds.darknesschat.utils.Utils;
 import com.ds.darknesschat.utils.languages.StringGetterWithCurrentLanguage;
@@ -13,8 +14,9 @@ import java.io.*;
 import java.net.Socket;
 import java.util.Random;
 
+import static com.ds.darknesschat.Constants.CLIENT_AND_SERVER_UPDATE_DELAY_IN_MILLIS;
 import static com.ds.darknesschat.Constants.DISCONNECT_COMMAND;
-import static com.ds.darknesschat.client.ClientKeys.*;
+import static com.ds.darknesschat.client.ClientConstants.*;
 
 public class Client implements Runnable{
     private final Socket socket;
@@ -23,6 +25,7 @@ public class Client implements Runnable{
     private final DataInputStream in;
     private String clientName;
     private Color clientNameColor;
+    private boolean canClientAcceptRequestsFromServer = true;
 
     public Client(@NotNull Socket socket, Server server) throws IOException {
         this.socket = socket;
@@ -36,9 +39,9 @@ public class Client implements Runnable{
 
     private void createRandomNameColor() {
         Random random = new Random();
-        int red = random.nextInt(30, 255);
-        int green = random.nextInt(30, 255);
-        int blue = random.nextInt(30, 255);
+        int red = random.nextInt(MIN_COLOR_VALUE, MAX_COLOR_VALUE);
+        int green = random.nextInt(MIN_COLOR_VALUE, MAX_COLOR_VALUE);
+        int blue = random.nextInt(MIN_COLOR_VALUE, MAX_COLOR_VALUE);
 
         clientNameColor = Color.rgb(red, green, blue);
     }
@@ -60,56 +63,48 @@ public class Client implements Runnable{
         return jsonObject.toString();
     }
 
-    private String getJSONRecordWithUsersNameColor(){
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put(CLIENT_NAME_COLOR, clientNameColor.getRed() + ", " + clientNameColor.getGreen() + ", " + clientNameColor.getBlue());
-
-        return jsonObject.toString();
-    }
-
     @Override
     public void run() {
-        server.sendStringMessageToAll(generateUserMessage(StringGetterWithCurrentLanguage.getString(StringsConstants.USER) + " " + clientName + " " +
-                StringGetterWithCurrentLanguage.getString(StringsConstants.CONNECTED_TO_THE_CHAT), true));
+        server.sendStringMessageToAll(MessagesGenerator.generateUserTextMessage(StringGetterWithCurrentLanguage.getString(StringsConstants.USER) + " " + clientName + " " +
+                StringGetterWithCurrentLanguage.getString(StringsConstants.CONNECTED_TO_THE_CHAT), true, clientNameColor, server.getClientsCount()));
         server.sendStringMessageToAll(getJSONRecordWithUsersCount());
 
-        while(!socket.isClosed()){
+        while(canClientAcceptRequestsFromServer){
             try {
                 String message = in.readUTF();
 
                 if (!message.equals(DISCONNECT_COMMAND)) {
-                    server.sendStringMessageToAll(generateUserMessage(message, false));
+                    if(Utils.isStringAreJSON(message)){
+                        JSONObject jsonObject = new JSONObject(message);
+
+                        if(jsonObject.has(CLIENT_SENT_IMAGE)){
+                            server.sendStringMessageToAll(MessagesGenerator.generateUserImageMessage(jsonObject.toString(), clientNameColor, server.getClientsCount()));
+                        }
+                    }else{
+                        server.sendStringMessageToAll(MessagesGenerator.generateUserTextMessage(message, false, clientNameColor, server.getClientsCount()));
+                    }
                 }else
                     break;
 
-                Thread.sleep(100);
+                Thread.sleep(CLIENT_AND_SERVER_UPDATE_DELAY_IN_MILLIS);
             }catch (Exception e){
                 Log.error(e);
+
+                break;
             }
         }
 
         close();
     }
 
-    private String generateUserMessage(String message, boolean fromServer){
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put(CLIENT_MESSAGE, message);
-        jsonObject.put(CLIENT_NAME_COLOR, fromServer ? presetColorInRGBSString(Color.WHITE) : presetColorInRGBSString(clientNameColor));
-        jsonObject.put(CLIENTS_COUNT, server.getClientsCount());
-
-        return jsonObject.toString();
-    }
-
-    private @NotNull String presetColorInRGBSString(@NotNull Color color){
-        return color.getRed() + ", " + color.getGreen() + ", " + color.getBlue();
-    }
-
-    private void close(){
+    public void close(){
         try {
+            canClientAcceptRequestsFromServer = false;
+
             socket.close();
             server.deleteClient(this);
 
-            server.sendStringMessageToAll(generateUserMessage(clientName + " " + StringGetterWithCurrentLanguage.getString(StringsConstants.USER_DISCONNECTED), true));
+            server.sendStringMessageToAll(MessagesGenerator.generateUserTextMessage(clientName + " " + StringGetterWithCurrentLanguage.getString(StringsConstants.USER_DISCONNECTED), true, clientNameColor, server.getClientsCount()));
         }catch (Exception e){
             Log.error(e);
         }

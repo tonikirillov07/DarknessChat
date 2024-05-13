@@ -2,13 +2,12 @@ package com.ds.darknesschat.utils;
 
 import com.ds.darknesschat.user.UserSettings;
 import com.ds.darknesschat.utils.log.Log;
-import javafx.animation.FadeTransition;
-import javafx.animation.RotateTransition;
-import javafx.animation.TranslateTransition;
+import javafx.animation.*;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.util.Duration;
 
-public class Animations {
+public final class Animations {
     public static void addTranslateByUpAnimationToNode(Node node, boolean byUp, long userId){
         try {
             if(UserSettings.getUserAnimationsUsing(userId)) {
@@ -61,6 +60,27 @@ public class Animations {
                 rotateTransition.setToAngle(360d);
                 rotateTransition.setAutoReverse(true);
                 rotateTransition.play();
+            }
+        }catch (Exception e) {
+            Log.error(e);
+        }
+    }
+
+    public static void addTextTypingAnimationToLabel(String text, Label label, long userId){
+        try{
+            if(UserSettings.getUserAnimationsUsing(userId)) {
+                Animation animation = new Transition() {
+                    {
+                        setCycleDuration(Duration.millis(200d));
+                    }
+
+                    @Override
+                    protected void interpolate(double v) {
+                        label.setText(text.substring(0, (int) Math.round(text.length() * v)));
+                    }
+                };
+                animation.setCycleCount(1);
+                animation.play();
             }
         }catch (Exception e) {
             Log.error(e);

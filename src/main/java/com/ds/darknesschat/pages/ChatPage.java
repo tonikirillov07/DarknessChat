@@ -1,16 +1,17 @@
 package com.ds.darknesschat.pages;
 
-import com.ds.darknesschat.Constants;
 import com.ds.darknesschat.Main;
 import com.ds.darknesschat.additionalNodes.AdditionalButton;
 import com.ds.darknesschat.additionalNodes.AdditionalTextField;
+import com.ds.darknesschat.additionalNodes.ImageButton;
 import com.ds.darknesschat.additionalNodes.Tile;
+import com.ds.darknesschat.database.DatabaseConstants;
+import com.ds.darknesschat.database.DatabaseService;
 import com.ds.darknesschat.server.Server;
 import com.ds.darknesschat.user.User;
-import com.ds.darknesschat.utils.Animations;
-import com.ds.darknesschat.utils.ChatAddress;
-import com.ds.darknesschat.utils.Color;
-import com.ds.darknesschat.utils.Utils;
+import com.ds.darknesschat.user.UserRecentChats;
+import com.ds.darknesschat.utils.*;
+import com.ds.darknesschat.utils.dialogs.ConfirmDialog;
 import com.ds.darknesschat.utils.dialogs.ErrorDialog;
 import com.ds.darknesschat.utils.languages.StringGetterWithCurrentLanguage;
 import com.ds.darknesschat.utils.languages.StringsConstants;
@@ -18,30 +19,35 @@ import com.ds.darknesschat.utils.log.Log;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.Tooltip;
+import javafx.scene.control.*;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-import javafx.scene.text.TextFlow;
+import javafx.stage.FileChooser;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.json.JSONObject;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.File;
+import java.io.UTFDataFormatException;
 import java.net.ConnectException;
 import java.net.Socket;
+import java.text.DecimalFormat;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 import static com.ds.darknesschat.Constants.*;
-import static com.ds.darknesschat.client.ClientKeys.*;
+import static com.ds.darknesschat.chat.ImageMessageUtils.createMessageImageView;
+import static com.ds.darknesschat.chat.MessageUtils.createMessageLabel;
+import static com.ds.darknesschat.chat.MessageUtils.generateUserStringMessage;
+import static com.ds.darknesschat.client.ClientConstants.*;
+import static com.ds.darknesschat.utils.Utils.extractPortAndAddressFromAddress;
 import static com.ds.darknesschat.utils.languages.StringsConstants.USERS_IN_CHAT;
 
 public class ChatPage extends Page{
@@ -52,10 +58,12 @@ public class ChatPage extends Page{
     private Socket socket;
     private DataOutputStream out;
     private DataInputStream in;
-    private Server server;
+    private final Server server;
+    private boolean isClientCanAcceptRequestsFromServer = true;
 
     protected ChatPage(Page prevoiusPage, VBox contentVbox, String title, boolean createStandardTile, User user, Server server) {
         super(prevoiusPage, contentVbox, title, createStandardTile, user);
+        this.server = server;
     }
 
     @Override
@@ -71,6 +79,23 @@ public class ChatPage extends Page{
         getTile().setMaxHeight(415d);
         getTile().applyAlphaWithUserSettings(getUser());
         Utils.addActionToNode(getTile().getTitleLabel(), () -> Utils.copyStringToClipboard(getTitle()), getUser().getId());
+
+        getStage().setOnCloseRequest(windowEvent -> {
+            disconnect();
+
+            if(server != null)
+                server.close();
+        });
+    }
+
+    @Override
+    public void onClose() {
+        super.onClose();
+
+        getStage().setOnCloseRequest(windowEvent -> {});
+
+        if(isClientCanAcceptRequestsFromServer)
+            disconnect();
     }
 
     private void createUserCountLabel() {
@@ -102,6 +127,7 @@ public class ChatPage extends Page{
 
     public boolean connectToServer(String address){
         try{
+            UserRecentChats.addUserRecentChat(getUser().getId(), address);
             ChatAddress chatAddress = extractPortAndAddressFromAddress(address);
 
             assert chatAddress != null;
@@ -116,24 +142,32 @@ public class ChatPage extends Page{
 
             new Thread(() -> {
                 try {
-                    while (!socket.isClosed() & isOpen()) {
+                    while (isClientCanAcceptRequestsFromServer) {
                         String message = in.readUTF();
 
                         if (Utils.isStringAreJSON(message)) {
                             JSONObject jsonObject = new JSONObject(message);
-
                             Platform.runLater(() -> {
-                                usersCountLabel.setText(String.valueOf(jsonObject.getInt(CLIENTS_COUNT)));
+                                if(jsonObject.has(CLIENTS_COUNT))
+                                    usersCountLabel.setText(String.valueOf(jsonObject.getInt(CLIENTS_COUNT)));
 
-                                if (jsonObject.has(CLIENT_NAME_COLOR)) {
+                                if (jsonObject.has(CLIENT_NAME_COLOR)){
                                     int[] userColorComponents = Utils.parseColorRGBFromString(jsonObject.getString(CLIENT_NAME_COLOR));
-                                    createMessageLabel(jsonObject.getString(CLIENT_MESSAGE), javafx.scene.paint.Color.rgb(userColorComponents[0], userColorComponents[1], userColorComponents[2]));
+
+                                    if(jsonObject.has(CLIENT_SENT_IMAGE)) {
+                                        createMessageImageView(jsonObject.getJSONArray(CLIENT_SENT_IMAGE), jsonObject.getString(CLIENT_NAME), javafx.scene.paint.Color.rgb(userColorComponents[0], userColorComponents[1], userColorComponents[2]), jsonObject.getString(CLIENT_MESSAGE), messagesContent, messagesScrollPane, getUser().getId());
+                                    }else {
+                                        String currentMessage = jsonObject.getString(CLIENT_MESSAGE);
+                                        if (!Utils.isStringAreJSON(currentMessage)) {
+                                            createMessageLabel(currentMessage, javafx.scene.paint.Color.rgb(userColorComponents[0], userColorComponents[1], userColorComponents[2]), messagesScrollPane, messagesContent, getUser().getId());
+                                        }
+                                    }
                                 }
                             });
 
                         }
 
-                        Thread.sleep(100);
+                        Thread.sleep(CLIENT_AND_SERVER_UPDATE_DELAY_IN_MILLIS);
                     }
                 }catch (Exception e){
                     Log.error(e);
@@ -182,6 +216,7 @@ public class ChatPage extends Page{
     private void disconnect() {
         try {
             out.writeUTF(DISCONNECT_COMMAND);
+            isClientCanAcceptRequestsFromServer = false;
 
             in.close();
             out.close();
@@ -189,31 +224,6 @@ public class ChatPage extends Page{
         }catch (Exception e){
             Log.error(e);
         }
-    }
-
-    private @Nullable ChatAddress extractPortAndAddressFromAddress(@NotNull String address){
-        try {
-            int colonIndex = address.indexOf(":") + 1;
-            StringBuilder portBuilder = new StringBuilder();
-            StringBuilder addressBuilder = new StringBuilder();
-
-            for (int i = colonIndex; i < address.length(); i++) {
-                portBuilder.append(address.charAt(i));
-            }
-
-            for (int i = 0; i < colonIndex - 1; i++) {
-                addressBuilder.append(address.charAt(i));
-            }
-
-            int port = Integer.parseInt(portBuilder.toString());
-            String parsedAddress = addressBuilder.toString();
-
-            return new ChatAddress(parsedAddress, port);
-        }catch (Exception e){
-            Log.error(e);
-        }
-
-        return null;
     }
 
     private void createMessageTextFieldTile() {
@@ -235,16 +245,48 @@ public class ChatPage extends Page{
             messageAdditionalTextField.addOnEnterKeyPressed(() -> sendMessage(messageAdditionalTextField.getText()));
             hBox.getChildren().add(messageAdditionalTextField);
 
+            ImageButton attachmentButton = new ImageButton(52d, 50d, Utils.getImage("bitmaps/icons/others/attachment.png"), getUser().getId());
+            attachmentButton.setOnAction(this::onAttachmentButton);
+
             AdditionalButton sendButton = new AdditionalButton(StringGetterWithCurrentLanguage.getString(StringsConstants.SEND), 137d, 49d, new Color(164, 62, 62), WHITE_COLOR, getUser().getId());
+            sendButton.setMinWidth(137d);
             sendButton.addAction(() -> sendMessage(messageAdditionalTextField.getText()));
 
             AdditionalButton backButton = new AdditionalButton(StringGetterWithCurrentLanguage.getString(StringsConstants.BACK), 137d, 49d, WHITE_COLOR, BLACK_COLOR, getUser().getId());
             backButton.addAction(this::leaveTheChat);
 
-            hBox.getChildren().addAll(sendButton, backButton);
+            hBox.getChildren().addAll(attachmentButton, sendButton, backButton);
 
             tile.addChild(hBox);
             addNodeToPage(tile);
+        }catch (Exception e){
+            Log.error(e);
+        }
+    }
+
+    private void onAttachmentButton() {
+        try{
+            FileChooser fileChooserImage = new FileChooser();
+            fileChooserImage.setTitle(StringGetterWithCurrentLanguage.getString(StringsConstants.SELECT_YOUR_IMAGE_FOR_SEND));
+            fileChooserImage.getExtensionFilters().addAll(
+                    new FileChooser.ExtensionFilter(Objects.requireNonNull(StringGetterWithCurrentLanguage.getString(StringsConstants.IMAGES)), "*.png*", "*.jpg*", "*.jpeg*"),
+                    new FileChooser.ExtensionFilter(Objects.requireNonNull(StringGetterWithCurrentLanguage.getString(StringsConstants.EVERYTHING)), "*.*")
+            );
+
+            String lastPathInDatabase = DatabaseService.getValue(DatabaseConstants.USER_LAST_PATH_IN_ATTACHMENTS, getUser().getId());
+            if(lastPathInDatabase != null){
+                File lastDirectoryPath = new File(lastPathInDatabase);
+
+                if(lastDirectoryPath.exists())
+                    fileChooserImage.setInitialDirectory(lastDirectoryPath);
+            }
+
+            File selectedFile = fileChooserImage.showOpenDialog(getStage());
+
+            if(selectedFile != null){
+                DatabaseService.changeValue(DatabaseConstants.USER_LAST_PATH_IN_ATTACHMENTS, selectedFile.getParent(), getUser().getId());
+                sendImageToServer(ImageUtils.convertImageFileToBytes(ImageUtils.compressImage(selectedFile, Utils.getFileFormat(selectedFile.getName()))), messageAdditionalTextField.getText());
+            }
         }catch (Exception e){
             Log.error(e);
         }
@@ -257,7 +299,7 @@ public class ChatPage extends Page{
                 if (messageAdditionalTextField != null)
                     messageAdditionalTextField.getTextField().clear();
 
-                sendMessageToServer(getUser().getUserName() + ": " + message + " (" + LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")) + ")");
+                sendMessageToServer(generateUserStringMessage(getUser().getUserName(), message));
             } else
                 messageAdditionalTextField.setError(getUser().getId());
         }catch (Exception e){
@@ -274,38 +316,40 @@ public class ChatPage extends Page{
         }
     }
 
-    private void createMessageLabel(String text, javafx.scene.paint.Color userNameColor){
+    private void sendImageToServer(byte[] image, String message) {
         try {
-            Label userLabel = createLabel(Utils.extractUserNameFromMessage(text), userNameColor);
-            Label messageLabel = createLabel(Utils.extractMessageTextFromMessage(text), javafx.scene.paint.Color.WHITE);
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put(CLIENT_MESSAGE, message);
+            jsonObject.put(CLIENT_NAME, getUser().getUserName());
+            jsonObject.put(CLIENT_SENT_IMAGE, image);
 
-            TextFlow textFlow = new TextFlow();
-            textFlow.getChildren().addAll(userLabel, messageLabel);
+            int messageSize = jsonObject.toString().getBytes().length;
+            double messageSizeInMegaBytes = Double.parseDouble(new DecimalFormat("#.###").format(messageSize * Math.pow(10, -6)));
 
-            Label label = new Label();
-            label.setGraphic(textFlow);
+            if(messageSize > MESSAGE_SIZE_LIMIT_IN_BYTES) {
+                boolean showSizeInMegaBytes = messageSizeInMegaBytes >= 1d;
 
-            messagesContent.getChildren().add(label);
-            Animations.addFadeTransitionToNode(label, getUser().getId());
-            messagesScrollPane.setVvalue(1);
+                ErrorDialog.show(new UTFDataFormatException(StringGetterWithCurrentLanguage.getString(StringsConstants.YOUR_MESSAGE_IS_TOO_BIG) + " "
+                        + MESSAGE_SIZE_LIMIT_IN_BYTES + " bytes. " + StringGetterWithCurrentLanguage.getString(StringsConstants.YOUR_MESSAGE_SIZE) + " "
+                        + (showSizeInMegaBytes ? messageSizeInMegaBytes : messageSize) + (showSizeInMegaBytes ? " megaBytes" : " bytes")));
+                return;
+            }
+
+            messageAdditionalTextField.getTextField().clear();
+            sendMessageToServer(jsonObject.toString());
         }catch (Exception e){
             Log.error(e);
         }
     }
 
-    private @NotNull Label createLabel(String text, javafx.scene.paint.Color color){
-        Label label = new Label(text);
-        label.setTextFill(color);
-        label.setWrapText(true);
-        label.setMaxWidth(756d);
-        label.setFont(Font.loadFont(Main.class.getResourceAsStream(Constants.FONT_BOLD_PATH), 14d));
-
-        return label;
-    }
-
     private void leaveTheChat(){
-        disconnect();
-        goToPreviousPage();
+        if(ConfirmDialog.show(StringGetterWithCurrentLanguage.getString(server == null ? StringsConstants.DO_YOU_REALLY_WANT_TO_LEAVE_IF_NO_HOST: StringsConstants.DO_YOU_REALLY_WANT_TO_LEAVE_IF_HOST))) {
+            disconnect();
+            goToPreviousPage();
+
+            if(server != null)
+                server.close();
+        }
     }
 
     private void createMessagesScrollPane() {
