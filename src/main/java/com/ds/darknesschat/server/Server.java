@@ -1,6 +1,7 @@
 package com.ds.darknesschat.server;
 
 import com.ds.darknesschat.client.Client;
+import com.ds.darknesschat.chat.messages.MessagesGenerator;
 import com.ds.darknesschat.utils.Utils;
 import com.ds.darknesschat.utils.languages.StringGetterWithCurrentLanguage;
 import com.ds.darknesschat.utils.languages.StringsConstants;

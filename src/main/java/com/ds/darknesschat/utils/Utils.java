@@ -20,10 +20,12 @@ import org.json.JSONObject;
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
+import java.awt.datatransfer.Transferable;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.net.InetAddress;
 import java.nio.charset.StandardCharsets;
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -125,22 +127,26 @@ public final class Utils {
     }
 
     public static void copyStringToClipboard(String string){
-        Toolkit toolkit = Toolkit.getDefaultToolkit();
-        toolkit.getSystemClipboard().setContents(new StringSelection(string), null);
-
+        copyTransferable(new StringSelection(string));
         Log.info("String " + string + " copied in clipboard");
     }
 
     public static void copyImageToClipboard(BufferedImage bufferedImage){
+        copyTransferable(new TransferableImage(bufferedImage));
+        Log.info("Image " + bufferedImage + " copied in clipboard");
+    }
+
+    public static void copyTransferable(Transferable transferable){
         Clipboard systemClipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-        systemClipboard.setContents(new TransferableImage(bufferedImage), null);
+        systemClipboard.setContents(transferable, null);
     }
 
     public static void openFile(File file){
         try {
-            if (Desktop.isDesktopSupported())
-                Desktop.getDesktop().open(file);
-            else
+            if (Desktop.isDesktopSupported()) {
+                if(file.exists())
+                    Desktop.getDesktop().open(file);
+            }else
                 Log.error(new Exception("Desktop is not supported on this device"));
         }catch (Exception e){
             Log.error(e);
@@ -304,5 +310,17 @@ public final class Utils {
 
     public static @NotNull String getCurrentTime() {
         return LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+    }
+
+    public static void onWindowClose(){
+        Log.info("Windows closed");
+    }
+
+    public static double convertBytesToKiloBytes(int byteValue){
+        return Double.parseDouble(new DecimalFormat("#.###").format(byteValue / 1024));
+    }
+
+    public static double convertBytesToMegaBytes(int byteValue){
+        return Double.parseDouble(new DecimalFormat("#.###").format(byteValue * Math.pow(10, -6)));
     }
 }

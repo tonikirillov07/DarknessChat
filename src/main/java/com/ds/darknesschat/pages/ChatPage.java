@@ -37,21 +37,21 @@ import java.io.File;
 import java.io.UTFDataFormatException;
 import java.net.ConnectException;
 import java.net.Socket;
-import java.text.DecimalFormat;
 import java.util.Objects;
 
 import static com.ds.darknesschat.Constants.*;
-import static com.ds.darknesschat.chat.ImageMessageUtils.createMessageImageView;
-import static com.ds.darknesschat.chat.MessageUtils.createMessageLabel;
+import static com.ds.darknesschat.chat.messages.ImageMessageUtils.createMessageImageView;
+import static com.ds.darknesschat.chat.messages.MessageUtils.createMessageLabel;
 import static com.ds.darknesschat.client.ClientConstants.*;
-import static com.ds.darknesschat.server.MessagesGenerator.generateUserStringMessage;
-import static com.ds.darknesschat.utils.Utils.extractPortAndAddressFromAddress;
+import static com.ds.darknesschat.chat.messages.MessagesGenerator.generateUserStringMessage;
+import static com.ds.darknesschat.utils.Utils.*;
 import static com.ds.darknesschat.utils.languages.StringsConstants.USERS_IN_CHAT;
 
 public class ChatPage extends Page{
     private VBox messagesContent;
     private ScrollPane messagesScrollPane;
     private AdditionalTextField messageAdditionalTextField;
+    private Tooltip usersChatLabelTooltip;
     private Label usersCountLabel;
     private Socket socket;
     private DataOutputStream out;
@@ -79,6 +79,7 @@ public class ChatPage extends Page{
         Utils.addActionToNode(getTile().getTitleLabel(), () -> Utils.copyStringToClipboard(getTitle()), getUser().getId());
 
         getStage().setOnCloseRequest(windowEvent -> {
+            onWindowClose();
             disconnect();
 
             if(server != null)
@@ -98,14 +99,14 @@ public class ChatPage extends Page{
 
     private void createUserCountLabel() {
         try {
-            usersCountLabel = new Label("1");
+            usersCountLabel = new Label();
             usersCountLabel.setFont(Font.loadFont(Main.class.getResourceAsStream(FONT_BOLD_ITALIC_PATH), 16d));
             usersCountLabel.setTextFill(javafx.scene.paint.Color.WHITE);
 
-            Tooltip tooltip = new Tooltip(StringGetterWithCurrentLanguage.getString(USERS_IN_CHAT) + " " + usersCountLabel.getText());
-            tooltip.setFont(Font.loadFont(Main.class.getResourceAsStream(FONT_BOLD_ITALIC_PATH), 15d));
-            tooltip.setWrapText(true);
-            usersCountLabel.setTooltip(tooltip);
+            usersChatLabelTooltip = new Tooltip(StringGetterWithCurrentLanguage.getString(USERS_IN_CHAT) + " " + usersCountLabel.getText());
+            usersChatLabelTooltip.setFont(Font.loadFont(Main.class.getResourceAsStream(FONT_BOLD_ITALIC_PATH), 15d));
+            usersChatLabelTooltip.setWrapText(true);
+            usersCountLabel.setTooltip(usersChatLabelTooltip);
 
             ImageView imageView = new ImageView(Utils.getImage("bitmaps/icons/others/users.png"));
             imageView.setFitWidth(32d);
@@ -123,8 +124,10 @@ public class ChatPage extends Page{
         }
     }
 
-    public boolean connectToServer(String address){
+    public boolean tryConnectToServer(String address){
         try{
+            Log.info("Trying to connect to the server to address: " + address);
+
             UserRecentChats.addUserRecentChat(getUser().getId(), address);
             ChatAddress chatAddress = extractPortAndAddressFromAddress(address);
 
@@ -178,6 +181,8 @@ public class ChatPage extends Page{
         }catch (Exception e){
             Log.error(e);
         }
+
+        Log.error(new ConnectException("Failed to connect to address " + address));
 
         return false;
     }
@@ -322,13 +327,13 @@ public class ChatPage extends Page{
             jsonObject.put(CLIENT_SENT_IMAGE, image);
 
             int messageSize = jsonObject.toString().getBytes().length;
-            double messageSizeInMegaBytes = Double.parseDouble(new DecimalFormat("#.###").format(messageSize * Math.pow(10, -6)));
+            double messageSizeInMegaBytes = convertBytesToMegaBytes(messageSize);
 
             if(messageSize > MESSAGE_SIZE_LIMIT_IN_BYTES) {
                 boolean showSizeInMegaBytes = messageSizeInMegaBytes >= 1d;
 
                 ErrorDialog.show(new UTFDataFormatException(StringGetterWithCurrentLanguage.getString(StringsConstants.YOUR_MESSAGE_IS_TOO_BIG) + " "
-                        + MESSAGE_SIZE_LIMIT_IN_BYTES + " bytes. " + StringGetterWithCurrentLanguage.getString(StringsConstants.YOUR_MESSAGE_SIZE) + " "
+                        + convertBytesToKiloBytes(messageSize) + " kiloBytes. " + StringGetterWithCurrentLanguage.getString(StringsConstants.YOUR_MESSAGE_SIZE) + " "
                         + (showSizeInMegaBytes ? messageSizeInMegaBytes : messageSize) + (showSizeInMegaBytes ? " megaBytes" : " bytes")));
                 return;
             }

@@ -49,7 +49,8 @@ public class WelcomePage extends Page{
             assert rememberedLogin != null;
             assert rememberedPassword != null;
             if (!rememberedLogin.equals(NULL) & !rememberedPassword.equals(NULL)) {
-                openChatsPage(new User(Utils.decodeString(rememberedLogin), Utils.decodeString(rememberedLogin), DatabaseService.getValueWithWhereValue(DatabaseConstants.USER_DATE_OF_REGISTRATION_ROW, DatabaseConstants.USER_NAME_ROW, Utils.decodeString(rememberedLogin))));
+                if(DatabaseService.isUserExists(new User(Utils.decodeString(rememberedLogin), Utils.decodeString(rememberedPassword), null)))
+                    openChatsPage(new User(Utils.decodeString(rememberedLogin), Utils.decodeString(rememberedPassword), DatabaseService.getValueWithWhereValue(DatabaseConstants.USER_DATE_OF_REGISTRATION_ROW, DatabaseConstants.USER_NAME_ROW, Utils.decodeString(rememberedLogin))));
             }
         }catch (Exception e){
             Log.error(e);

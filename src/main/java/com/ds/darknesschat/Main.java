@@ -32,6 +32,7 @@ public class Main extends Application {
             stage.getIcons().add(Utils.getImage(SettingsReader.getStringValue(SettingsKeys.APP_ICON)));
             stage.setResizable(SettingsReader.getBooleanValue(SettingsKeys.APP_RESIZABLE));
             stage.initStyle(StageStyle.TRANSPARENT);
+            stage.setOnCloseRequest(windowEvent -> Utils.onWindowClose());
             stage.setScene(scene);
             stage.show();
 

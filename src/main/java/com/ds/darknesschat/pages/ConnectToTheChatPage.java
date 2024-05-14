@@ -23,6 +23,7 @@ import static com.ds.darknesschat.Constants.*;
 
 public class ConnectToTheChatPage extends Page{
     private AdditionalTextField additionalChatAddressTextField;
+    private AdditionalButton nextButton;
     private CheckBox checkBox;
 
     public ConnectToTheChatPage(Page prevoiusPage, VBox contentVbox, String title, boolean createStandardTile, User user) {
@@ -49,10 +50,12 @@ public class ConnectToTheChatPage extends Page{
 
     private void initButtons() {
         try{
-            AdditionalButton nextButton = new AdditionalButton(StringGetterWithCurrentLanguage.getString(StringsConstants.NEXT), 308d, 41d, new com.ds.darknesschat.utils.Color(164, 62, 62), WHITE_COLOR, getUser().getId());
+            nextButton = new AdditionalButton(StringGetterWithCurrentLanguage.getString(StringsConstants.NEXT), 308d, 41d, new com.ds.darknesschat.utils.Color(164, 62, 62), WHITE_COLOR, getUser().getId());
             nextButton.addAction(this::onConnectToTheChatButtonAction);
             VBox.setMargin(nextButton, new Insets(200d, 40d, 0, 40d));
             addNodeToTile(nextButton);
+
+            checkEnteredAddress(additionalChatAddressTextField.getText());
 
             AdditionalButton backButton = new AdditionalButton(StringGetterWithCurrentLanguage.getString(StringsConstants.BACK), 308d, 41d, WHITE_COLOR, BLACK_COLOR, getUser().getId());
             backButton.addAction(this::goToPreviousPage);
@@ -72,7 +75,7 @@ public class ConnectToTheChatPage extends Page{
                     DatabaseService.setNull(DatabaseConstants.REMEMBERED_CHAT_ADDRESS_ROW, getUser().getId());
 
                 ChatPage chatPage = new ChatPage(this, getContentVbox(), additionalChatAddressTextField.getText(), true, getUser(), null);
-                if(!chatPage.connectToServer(additionalChatAddressTextField.getText()))
+                if(!chatPage.tryConnectToServer(additionalChatAddressTextField.getText()))
                     return;
 
                 chatPage.open();
@@ -120,6 +123,10 @@ public class ConnectToTheChatPage extends Page{
     }
 
     private void checkEnteredAddress(String currentText) {
-        additionalChatAddressTextField.getTextField().setStyle("-fx-text-fill: " + (Utils.stringMeetsAtLeastOneRegex(SERVER_ADDRESS_REGEXES, currentText) ? "white; " : "red; "));
+        boolean serverAddressMeetsToRegexes = Utils.stringMeetsAtLeastOneRegex(SERVER_ADDRESS_REGEXES, currentText);
+
+        additionalChatAddressTextField.getTextField().setStyle("-fx-text-fill: " + (serverAddressMeetsToRegexes ? "white; " : "red; "));
+        if(nextButton != null)
+            nextButton.setDisable(!serverAddressMeetsToRegexes);
     }
 }

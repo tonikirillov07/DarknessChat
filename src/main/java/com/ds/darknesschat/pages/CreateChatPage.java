@@ -61,17 +61,21 @@ public class CreateChatPage extends Page{
 
     private void createServer() {
         try{
-            if(!Utils.isPortNormal(Integer.parseInt(chatPortTextField.getText()))) {
-                ErrorDialog.show(new Exception("Invalid port! Try write another port"));
+            if(!chatPortTextField.getText().isEmpty()) {
+                if (!Utils.isPortNormal(Integer.parseInt(chatPortTextField.getText()))) {
+                    ErrorDialog.show(new Exception("Invalid port! Try write another port"));
 
-                return;
+                    return;
+                }
+
+                Server server = new Server();
+                if (!server.create(Integer.parseInt(chatPortTextField.getText())))
+                    return;
+
+                openChatPage(server);
+            }else {
+                chatPortTextField.setError(getUser().getId());
             }
-
-            Server server = new Server();
-            if(!server.create(Integer.parseInt(chatPortTextField.getText())))
-                return;
-
-            openChatPage(server);
         }catch (Exception e){
             Log.error(e);
         }
@@ -82,7 +86,7 @@ public class CreateChatPage extends Page{
             if (Utils.isFieldsIsNotEmpty(new AdditionalTextField[]{chatPortTextField})) {
                 ChatPage chatPage = new ChatPage(this, getContentVbox(), Utils.getLocalIP4Address() + ":" + chatPortTextField.getText(), true, getUser(), server);
                 chatPage.open();
-                if(!chatPage.connectToServer(Utils.getLocalIP4Address() + ":" + chatPortTextField.getText()))
+                if(!chatPage.tryConnectToServer(Utils.getLocalIP4Address() + ":" + chatPortTextField.getText()))
                     chatPage.goToPreviousPage();
             } else
                 chatPortTextField.setError(getUser().getId());

@@ -76,7 +76,11 @@ public final class StringsConstants {
     public static final String IMAGES = "everything";
     public static final String YOUR_MESSAGE_IS_TOO_BIG = "your_message_is_too_big";
     public static final String YOUR_MESSAGE_SIZE = "you_message_size";
-    public static final String COPY_IMAGE = "copy_image";
+    public static final String IMAGE_SIZE = "image_size";
+    public static final String IMAGE_RESOLUTION = "image_resolution";
     public static final String OPEN_IN_FOLDER = "open_in_folder";
     public static final String USER_ALREADY_IN_CHAT = "user_already_in_chat";
+    public static final String SHOW_IMAGE_INFO = "show_image_info";
+    public static final String COPY = "copy";
+    public static final String DELETE_MESSAGE = "delete_message";
 }
