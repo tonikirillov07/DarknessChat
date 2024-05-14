@@ -182,15 +182,21 @@ public final class Utils {
         return stringBuilder.toString();
     }
 
-    public static @NotNull String extractMessageTextFromMessage(@NotNull String message){
-        int colonIndex = message.indexOf(":");
-        StringBuilder stringBuilder = new StringBuilder();
+    public static @Nullable String extractMessageTextFromMessage(@NotNull String message){
+        try {
+            int colonIndex = message.indexOf(":");
+            StringBuilder stringBuilder = new StringBuilder();
 
-        for (int i = colonIndex + 1; i < message.length(); i++) {
-            stringBuilder.append(message.charAt(i));
+            for (int i = colonIndex + 1; i < message.length(); i++) {
+                stringBuilder.append(message.charAt(i));
+            }
+
+            return stringBuilder.toString();
+        }catch (Exception e){
+            Log.error(e);
         }
 
-        return stringBuilder.toString();
+        return null;
     }
 
     @Contract("_ -> new")

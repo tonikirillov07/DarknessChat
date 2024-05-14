@@ -16,13 +16,11 @@ public class MessageContextMenu extends ContextMenu{
     private final Transferable transferable;
     private final Node node;
     private final Pane nodeParent;
-    private final long userId;
 
-    public MessageContextMenu(Transferable transferable, Node node, Pane nodeParent, long userId) {
+    public MessageContextMenu(Transferable transferable, Node node, Pane nodeParent) {
         this.transferable = transferable;
         this.node = node;
         this.nodeParent = nodeParent;
-        this.userId = userId;
 
         init();
     }

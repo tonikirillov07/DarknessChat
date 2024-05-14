@@ -1,5 +1,6 @@
 package com.ds.darknesschat.client;
 
+import com.ds.darknesschat.chat.messages.MessageUtils;
 import com.ds.darknesschat.chat.messages.MessagesGenerator;
 import com.ds.darknesschat.server.Server;
 import com.ds.darknesschat.utils.Utils;
@@ -12,6 +13,7 @@ import org.json.JSONObject;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.List;
 import java.util.Random;
 
 import static com.ds.darknesschat.Constants.CLIENT_AND_SERVER_UPDATE_DELAY_IN_MILLIS;
@@ -39,11 +41,14 @@ public class Client implements Runnable{
 
     private void createRandomNameColor() {
         Random random = new Random();
-        int red = random.nextInt(MIN_COLOR_VALUE, MAX_COLOR_VALUE);
-        int green = random.nextInt(MIN_COLOR_VALUE, MAX_COLOR_VALUE);
-        int blue = random.nextInt(MIN_COLOR_VALUE, MAX_COLOR_VALUE);
+        List<String> allColors = MessageUtils.getAvailableHexColorsForNicknames();
 
-        clientNameColor = Color.rgb(red, green, blue);
+        assert allColors != null;
+        String color = allColors.get(random.nextInt(allColors.size()));
+
+        Log.info("Selected color for user is " + color);
+
+        clientNameColor = Color.web(color);
     }
 
     public void sendStringMessage(String message){

@@ -37,6 +37,7 @@ import java.io.File;
 import java.io.UTFDataFormatException;
 import java.net.ConnectException;
 import java.net.Socket;
+import java.util.Arrays;
 import java.util.Objects;
 
 import static com.ds.darknesschat.Constants.*;
@@ -103,7 +104,7 @@ public class ChatPage extends Page{
             usersCountLabel.setFont(Font.loadFont(Main.class.getResourceAsStream(FONT_BOLD_ITALIC_PATH), 16d));
             usersCountLabel.setTextFill(javafx.scene.paint.Color.WHITE);
 
-            usersChatLabelTooltip = new Tooltip(StringGetterWithCurrentLanguage.getString(USERS_IN_CHAT) + " " + usersCountLabel.getText());
+            usersChatLabelTooltip = new Tooltip();
             usersChatLabelTooltip.setFont(Font.loadFont(Main.class.getResourceAsStream(FONT_BOLD_ITALIC_PATH), 15d));
             usersChatLabelTooltip.setWrapText(true);
             usersCountLabel.setTooltip(usersChatLabelTooltip);
@@ -146,20 +147,21 @@ public class ChatPage extends Page{
                     while (isClientCanAcceptRequestsFromServer) {
                         String message = in.readUTF();
 
-                        if (Utils.isStringAreJSON(message)) {
+                        if (isStringAreJSON(message)) {
                             JSONObject jsonObject = new JSONObject(message);
                             Platform.runLater(() -> {
-                                if(jsonObject.has(CLIENTS_COUNT))
-                                    usersCountLabel.setText(String.valueOf(jsonObject.getInt(CLIENTS_COUNT)));
+                                if(jsonObject.has(CLIENTS_COUNT)) {
+                                    displayUsersCount(jsonObject);
+                                }
 
                                 if (jsonObject.has(CLIENT_NAME_COLOR)){
-                                    int[] userColorComponents = Utils.parseColorRGBFromString(jsonObject.getString(CLIENT_NAME_COLOR));
+                                    int[] userColorComponents = parseColorRGBFromString(jsonObject.getString(CLIENT_NAME_COLOR));
 
                                     if(jsonObject.has(CLIENT_SENT_IMAGE)) {
                                         createMessageImageView(jsonObject.getJSONArray(CLIENT_SENT_IMAGE), jsonObject.getString(CLIENT_NAME), javafx.scene.paint.Color.rgb(userColorComponents[0], userColorComponents[1], userColorComponents[2]), jsonObject.getString(CLIENT_MESSAGE), messagesContent, messagesScrollPane, getUser().getId());
                                     }else {
                                         String currentMessage = jsonObject.getString(CLIENT_MESSAGE);
-                                        if (!Utils.isStringAreJSON(currentMessage)) {
+                                        if (!isStringAreJSON(currentMessage)) {
                                             createMessageLabel(currentMessage, javafx.scene.paint.Color.rgb(userColorComponents[0], userColorComponents[1], userColorComponents[2]), messagesScrollPane, messagesContent, getUser().getId());
                                         }
                                     }
@@ -185,6 +187,13 @@ public class ChatPage extends Page{
         Log.error(new ConnectException("Failed to connect to address " + address));
 
         return false;
+    }
+
+    private void displayUsersCount(@NotNull JSONObject jsonObject) {
+        int usersCount = jsonObject.getInt(CLIENTS_COUNT);
+
+        usersCountLabel.setText(String.valueOf(usersCount));
+        usersChatLabelTooltip.setText(StringGetterWithCurrentLanguage.getString(USERS_IN_CHAT) + " " + usersCount);
     }
 
     private boolean checkCanUserConnect() {
@@ -218,12 +227,15 @@ public class ChatPage extends Page{
 
     private void disconnect() {
         try {
-            out.writeUTF(DISCONNECT_COMMAND);
-            isClientCanAcceptRequestsFromServer = false;
+            if(!socket.isClosed()) {
+                out.writeUTF(DISCONNECT_COMMAND);
 
-            in.close();
-            out.close();
-            socket.close();
+                in.close();
+                out.close();
+                socket.close();
+            }
+
+            isClientCanAcceptRequestsFromServer = false;
         }catch (Exception e){
             Log.error(e);
         }
@@ -333,7 +345,7 @@ public class ChatPage extends Page{
                 boolean showSizeInMegaBytes = messageSizeInMegaBytes >= 1d;
 
                 ErrorDialog.show(new UTFDataFormatException(StringGetterWithCurrentLanguage.getString(StringsConstants.YOUR_MESSAGE_IS_TOO_BIG) + " "
-                        + convertBytesToKiloBytes(messageSize) + " kiloBytes. " + StringGetterWithCurrentLanguage.getString(StringsConstants.YOUR_MESSAGE_SIZE) + " "
+                        + convertBytesToKiloBytes(MESSAGE_SIZE_LIMIT_IN_BYTES) + " kiloBytes. " + StringGetterWithCurrentLanguage.getString(StringsConstants.YOUR_MESSAGE_SIZE) + " "
                         + (showSizeInMegaBytes ? messageSizeInMegaBytes : messageSize) + (showSizeInMegaBytes ? " megaBytes" : " bytes")));
                 return;
             }
@@ -360,6 +372,8 @@ public class ChatPage extends Page{
             messagesScrollPane = new ScrollPane();
             messagesScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
             messagesScrollPane.setPannable(true);
+            messagesScrollPane.setMaxWidth(756d);
+            messagesScrollPane.setMinWidth(756d);
             VBox.setMargin(messagesScrollPane, new Insets(10d));
             VBox.setVgrow(messagesScrollPane, Priority.ALWAYS);
 

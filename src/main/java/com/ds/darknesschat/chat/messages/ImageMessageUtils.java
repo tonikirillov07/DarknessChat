@@ -36,9 +36,9 @@ public class ImageMessageUtils {
 
             TextFlow textFlow = new TextFlow();
 
-            Label userNameLabel = MessageUtils.createLabel(userName + ": ", userNameColor);
-            Label userMessageLabel = MessageUtils.createLabel(message, Color.WHITE);
-            Label messageTimeLabel = MessageUtils.createLabel("(" + Utils.getCurrentTime() + ")", Color.WHITE);
+            Label userNameLabel = MessageUtils.createLabel(userName + ": ", userNameColor, true);
+            Label userMessageLabel = MessageUtils.createLabel(message, Color.WHITE, false);
+            Label messageTimeLabel = MessageUtils.createLabel("(" + Utils.getCurrentTime() + ")", Color.WHITE, false);
 
             textFlow.getChildren().add(userNameLabel);
             if(!message.isEmpty())
@@ -49,15 +49,16 @@ public class ImageMessageUtils {
 
             ContextMenu contextMenu = createImageContextMenu(imageInfo, messagesContent, vBox, userId, bytes);
 
+            assert contextMenu != null;
+            contextMenu.setOnShown(windowEvent -> vBox.setOpacity(0.5d));
+            contextMenu.setOnHidden(windowEvent -> vBox.setOpacity(1d));
+
             assert image != null;
             ImageView imageView = new ImageView(image);
             imageView.setFitHeight(image.getHeight());
             imageView.setFitWidth(image.getWidth());
             imageView.maxWidth(699d);
-            imageView.setOnContextMenuRequested(contextMenuEvent -> {
-                assert contextMenu != null;
-                contextMenu.show(imageView, contextMenuEvent.getScreenX(), contextMenuEvent.getScreenY());
-            });
+            imageView.setOnContextMenuRequested(contextMenuEvent -> contextMenu.show(imageView, contextMenuEvent.getScreenX(), contextMenuEvent.getScreenY()));
             vBox.getChildren().addAll(textFlow, imageView, messageTimeLabel);
             Animations.addFadeTransitionToNode(imageView, userId);
 
@@ -85,7 +86,7 @@ public class ImageMessageUtils {
 
             openInFolderMenuItem.setOnAction(actionEvent -> Utils.openFile(new File(imageInfo.path())));
 
-            MessageContextMenu messageContextMenu = new MessageContextMenu(new TransferableImage(ImageUtils.convertByteArrayToBufferedImage(imageInfo.imageBytes())), messageNode, messagesContent, userId);
+            MessageContextMenu messageContextMenu = new MessageContextMenu(new TransferableImage(ImageUtils.convertByteArrayToBufferedImage(imageInfo.imageBytes())), messageNode, messagesContent);
             messageContextMenu.getItems().addAll(openInFolderMenuItem, imageInfoMenuItem);
 
             return messageContextMenu;
