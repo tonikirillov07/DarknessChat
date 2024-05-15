@@ -6,6 +6,7 @@ module com.ds.darknesschat {
     requires java.desktop;
     requires java.sql;
     requires org.json;
+    requires me.xdrop.fuzzywuzzy;
 
     opens com.ds.darknesschat to javafx.fxml;
     exports com.ds.darknesschat;

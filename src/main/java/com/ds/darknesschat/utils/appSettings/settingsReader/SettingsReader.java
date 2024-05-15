@@ -9,6 +9,7 @@ import java.util.Objects;
 import java.util.Properties;
 
 import static com.ds.darknesschat.Constants.BUILT_IN_SETTINGS_PATH;
+import static com.ds.darknesschat.Constants.NULL;
 
 public final class SettingsReader {
     private static @Nullable Object getValue(String key){
@@ -17,7 +18,7 @@ public final class SettingsReader {
             InputStreamReader inputStreamReader = new InputStreamReader(Objects.requireNonNull(Main.class.getResourceAsStream(BUILT_IN_SETTINGS_PATH)));
 
             properties.load(inputStreamReader);
-            Object result = properties.get(key);
+            Object result = properties.getOrDefault(key, NULL);
 
             inputStreamReader.close();
 

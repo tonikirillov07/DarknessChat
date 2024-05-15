@@ -2,6 +2,7 @@ package com.ds.darknesschat.server;
 
 import com.ds.darknesschat.client.Client;
 import com.ds.darknesschat.chat.messages.MessagesGenerator;
+import com.ds.darknesschat.client.ClientNameMathWithOtherNamesFinder;
 import com.ds.darknesschat.utils.Utils;
 import com.ds.darknesschat.utils.languages.StringGetterWithCurrentLanguage;
 import com.ds.darknesschat.utils.languages.StringsConstants;
@@ -46,15 +47,17 @@ public class Server {
                                 String clientName = Utils.getStringFromJSON(sentClientJSON, CLIENT_NAME);
                                 newClient.setClientName(clientName);
 
-                                if (!isUserExists(clientName)) {
+                                ClientNameMathWithOtherNamesFinder clientNameMathWithOtherNamesFinder = new ClientNameMathWithOtherNamesFinder(clientName, clients);
+
+                                if (!clientNameMathWithOtherNamesFinder.isThisUserFound()) {
                                     clients.add(newClient);
                                     new Thread(newClient).start();
 
                                     sendCanConnectInfoToClient(newClient, TRUE, NONE_REASON);
                                     Log.info("New client " + client + " connected");
                                 } else {
-                                    sendCanConnectInfoToClient(newClient, FALSE, THIS_USER_ALREADY_IN_CHAT_REASON);
-                                    Log.error(new Exception(StringGetterWithCurrentLanguage.getString(USER_ALREADY_IN_CHAT)));
+                                    String reason = StringGetterWithCurrentLanguage.getString(USER_ALREADY_IN_CHAT) + " " + clientNameMathWithOtherNamesFinder.getMathPerCent() + "%";
+                                    sendCanConnectInfoToClient(newClient, FALSE, reason);
                                 }
                             }
                         }
@@ -86,19 +89,6 @@ public class Server {
         }catch (Exception e){
             Log.error(e);
         }
-    }
-
-    private boolean isUserExists(String checkingName){
-        boolean isExists = false;
-
-        for (Client currentClient : clients) {
-            if(currentClient.getClientName().equals(checkingName)){
-                isExists = true;
-                break;
-            }
-        }
-
-        return isExists;
     }
 
     public void close(){

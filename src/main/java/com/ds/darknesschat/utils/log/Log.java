@@ -1,5 +1,6 @@
 package com.ds.darknesschat.utils.log;
 
+import com.ds.darknesschat.utils.appSettings.settingsReader.SettingsReader;
 import com.ds.darknesschat.utils.dialogs.ErrorDialog;
 import org.jetbrains.annotations.NotNull;
 
@@ -7,21 +8,26 @@ import java.io.FileWriter;
 import java.util.logging.Logger;
 
 import static com.ds.darknesschat.Constants.LOGS_PATH;
+import static com.ds.darknesschat.utils.appSettings.settingsReader.SettingsKeys.DO_LOGS;
 
 public final class Log {
     private static final Logger logger = Logger.getLogger(Log.class.getName());
 
     public static void info(String message){
-        logger.info(message);
-        writeLogsIntoFile(message);
+        if(SettingsReader.getBooleanValue(DO_LOGS)) {
+            logger.info(message);
+            writeLogsIntoFile(message);
+        }
     }
 
     public static void error(@NotNull Exception e){
-        logger.severe(e.toString());
-        writeLogsIntoFile(e.toString());
+        if(SettingsReader.getBooleanValue(DO_LOGS)) {
+            logger.severe(e.toString());
+            writeLogsIntoFile(e.toString());
 
-        e.printStackTrace();
-        ErrorDialog.show(e);
+            e.printStackTrace();
+            ErrorDialog.show(e);
+        }
     }
 
     private static void writeLogsIntoFile(String log){

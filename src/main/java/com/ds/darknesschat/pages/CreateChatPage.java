@@ -97,7 +97,7 @@ public class CreateChatPage extends Page{
 
     private void initChatAddressLabel() {
         try {
-            currentChatIPLabel = new Label(StringGetterWithCurrentLanguage.getString(StringsConstants.CURRENT_CHAT_IP) + "192.168.0.102: 2020");
+            currentChatIPLabel = new Label(StringGetterWithCurrentLanguage.getString(StringsConstants.CURRENT_CHAT_IP));
             currentChatIPLabel.setTextFill(Color.web("#0500FF"));
             currentChatIPLabel.setFont(Font.loadFont(Main.class.getResourceAsStream(Constants.FONT_BOLD_ITALIC_PATH), 14d));
             addNodeToTile(currentChatIPLabel);
@@ -112,13 +112,24 @@ public class CreateChatPage extends Page{
             chatPortTextField.setInputType(InputTypes.NUMERIC);
             chatPortTextField.getTextField().setText(String.valueOf(new Random().nextInt(MIN_PORT_VALUE, MAX_PORT_VALUE)));
             chatPortTextField.addOnTextTyping(currentText -> {
-                chatPortTextField.getTextField().setStyle(chatPortTextField.getTextField().getStyle() + "; -fx-text-fill: " + (Utils.isPortNormal(Utils.stringCanBeConvertedToInt(currentText) ? Integer.parseInt(currentText): MIN_PORT_VALUE) ? "white; ": "red; "));
-                currentChatIPLabel.setText(Utils.getLocalIP4Address() + ":" + currentText);
+                boolean isPortIsNormal = false;
+                if(enteredPortHasAValidCharacters(chatPortTextField.getText()))
+                    if(Utils.isPortNormal(Integer.parseInt(chatPortTextField.getText())))
+                        isPortIsNormal = true;
+
+                chatPortTextField.getTextField().setStyle("-fx-text-fill: " + (isPortIsNormal ? "white; ": "red; "));
+
+                if(isPortIsNormal)
+                    currentChatIPLabel.setText(Utils.getLocalIP4Address() + ":" + currentText);
             });
             VBox.setMargin(chatPortTextField, new Insets(50d, 40d, 30d, 40d));
             addNodeToTile(chatPortTextField);
         }catch (Exception e){
             Log.error(e);
         }
+    }
+
+    private boolean enteredPortHasAValidCharacters(String enteredPort){
+        return Utils.stringCanBeConvertedToInt(enteredPort);
     }
 }

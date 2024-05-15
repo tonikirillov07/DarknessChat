@@ -11,9 +11,6 @@ public class ClientConstants {
     public static final String FALSE = "false";
     public static final String REASON = "reason";
 
-    public static final int MIN_COLOR_VALUE = 150;
-    public static final int MAX_COLOR_VALUE = 256;
-
-    public static final String THIS_USER_ALREADY_IN_CHAT_REASON = "Such a user is already in the chat";
+    public static final String THIS_USER_ALREADY_IN_CHAT_REASON = "Your name is too similar to the name of another chat participant. Similarity: ";
     public static final String NONE_REASON = "NONE";
 }

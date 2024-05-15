@@ -49,6 +49,7 @@ javafx {
 }
 
 dependencies {
+    implementation("me.xdrop:fuzzywuzzy:1.4.0")
     implementation("org.json:json:20240303")
     implementation(files("libs/sqlite-jdbc-3.40.0.0.jar"))
     implementation("org.jetbrains:annotations:24.0.0")
