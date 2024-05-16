@@ -1,10 +1,14 @@
 package com.ds.darknesschat.pages;
 
 import com.ds.darknesschat.Constants;
+import com.ds.darknesschat.Main;
 import com.ds.darknesschat.additionalNodes.DeveloperLabel;
 import com.ds.darknesschat.additionalNodes.SettingsOptionButton;
 import com.ds.darknesschat.additionalNodes.Tile;
+import com.ds.darknesschat.database.DatabaseConstants;
+import com.ds.darknesschat.database.DatabaseService;
 import com.ds.darknesschat.user.User;
+import com.ds.darknesschat.utils.Utils;
 import com.ds.darknesschat.utils.eventListeners.IOnAction;
 import com.ds.darknesschat.utils.log.Log;
 import javafx.geometry.Insets;
@@ -14,6 +18,12 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+import java.io.File;
+import java.io.FileInputStream;
+
+import static com.ds.darknesschat.Constants.DEFAULT_BACKGROUND_PATH;
+import static com.ds.darknesschat.Constants.DEFAULT_BACKGROUND_VALUE;
 
 public abstract class Page {
     private final Page prevoiusPage;
@@ -96,18 +106,21 @@ public abstract class Page {
         }
     }
 
-    private void addOptionButton(String text, Image image, IOnAction onAction, boolean isFirst){
+    public void updateBackground(long userId) {
         try {
-            SettingsOptionButton optionButton =
-                    new SettingsOptionButton(SettingsOptionButton.DEFAULT_WIDTH, SettingsOptionButton.DEFAULT_HEIGHT, text, image,
-                            SettingsOptionButton.DEFAULT_IMAGE_FIT_WIDTH, SettingsOptionButton.DEFAULT_IMAGE_FIT_HEIGHT, user.getId());
-            optionButton.setOnAction(onAction);
-            VBox.setMargin(optionButton, new Insets(isFirst ? 50d : 5d, 40d, 0, 40d));
-            addNodeToTile(optionButton);
+            String backgroundValueInDatabase = DatabaseService.getValue(DatabaseConstants.BACKGROUND_PATH_ROW, userId);
+
+            assert backgroundValueInDatabase != null;
+            if (!backgroundValueInDatabase.equals(DEFAULT_BACKGROUND_VALUE) & new File(backgroundValueInDatabase).exists())
+                Utils.changeMainBackground(getContentVbox(), new FileInputStream(backgroundValueInDatabase));
+            else
+                Utils.changeMainBackground(getContentVbox(), Main.class.getResourceAsStream(DEFAULT_BACKGROUND_PATH));
+
         }catch (Exception e){
             Log.error(e);
         }
     }
+
 
     public void createDeveloperLabelInBottom(){
         VBox developerLabelVbox = new DeveloperLabel().wrapInVbox();

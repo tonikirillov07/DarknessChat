@@ -2,15 +2,21 @@ package com.ds.darknesschat.utils;
 
 import com.ds.darknesschat.Main;
 import com.ds.darknesschat.additionalNodes.AdditionalTextField;
+import com.ds.darknesschat.database.DatabaseConstants;
+import com.ds.darknesschat.database.DatabaseService;
 import com.ds.darknesschat.utils.appSettings.outsideSettings.OutsideSettingsManager;
 import com.ds.darknesschat.utils.eventListeners.IOnAction;
+import com.ds.darknesschat.utils.languages.StringGetterWithCurrentLanguage;
+import com.ds.darknesschat.utils.languages.StringsConstants;
 import com.ds.darknesschat.utils.log.Log;
 import com.ds.darknesschat.utils.sounds.Sounds;
 import com.ds.darknesschat.utils.sounds.SoundsConstants;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseButton;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.*;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -23,6 +29,7 @@ import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.InputStream;
 import java.net.InetAddress;
 import java.nio.charset.StandardCharsets;
 import java.text.DecimalFormat;
@@ -328,5 +335,26 @@ public final class Utils {
 
     public static double convertBytesToMegaBytes(int byteValue){
         return Double.parseDouble(new DecimalFormat("#.###").format(byteValue * Math.pow(10, -6)));
+    }
+
+    public static void changeMainBackground(@NotNull VBox mainVbox, InputStream pathInputStream){
+        BackgroundImage backgroundImage = new BackgroundImage(new Image(pathInputStream),
+                BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
+        mainVbox.setBackground(new Background(backgroundImage));
+    }
+
+    public static File openFileDialog(String title, String lastPath, Stage stage, List<FileChooser.ExtensionFilter> extensionFilterList){
+        FileChooser fileChooserImage = new FileChooser();
+        fileChooserImage.setTitle(title);
+        fileChooserImage.getExtensionFilters().addAll(extensionFilterList);
+
+        if(lastPath != null){
+            File lastDirectoryPath = new File(lastPath);
+
+            if(lastDirectoryPath.exists())
+                fileChooserImage.setInitialDirectory(lastDirectoryPath);
+        }
+
+        return fileChooserImage.showOpenDialog(stage);
     }
 }

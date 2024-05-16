@@ -15,6 +15,7 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+import static com.ds.darknesschat.Constants.DEFAULT_BACKGROUND_PATH;
 import static com.ds.darknesschat.Constants.IGNORE_USER_AGREEMENT;
 
 public class MainController {
@@ -106,10 +107,7 @@ public class MainController {
 
     private void initBackground() {
         try{
-            BackgroundImage backgroundImage = new BackgroundImage(Utils.getImage("bitmaps/background/background.png"),
-                    BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
-            mainVbox.setBackground(new Background(backgroundImage));
-
+            Utils.changeMainBackground(mainVbox, Main.class.getResourceAsStream(DEFAULT_BACKGROUND_PATH));
             Log.info("Background was initialized!");
         }catch (Exception e){
             Log.error(e);

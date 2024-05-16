@@ -6,6 +6,8 @@ import com.ds.darknesschat.additionalNodes.AdditionalButton;
 import com.ds.darknesschat.additionalNodes.ChatTile;
 import com.ds.darknesschat.additionalNodes.DeveloperLabel;
 import com.ds.darknesschat.additionalNodes.ImageButton;
+import com.ds.darknesschat.database.DatabaseConstants;
+import com.ds.darknesschat.database.DatabaseService;
 import com.ds.darknesschat.pages.settingsPages.SettingsMainPage;
 import com.ds.darknesschat.user.User;
 import com.ds.darknesschat.user.UserRecentChats;
@@ -31,10 +33,11 @@ import javafx.scene.text.Font;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.List;
 
-import static com.ds.darknesschat.Constants.BLACK_COLOR;
-import static com.ds.darknesschat.Constants.TILE_COLOR;
+import static com.ds.darknesschat.Constants.*;
 
 public class ChatsPage extends Page{
     private HBox contentHbox;
@@ -51,6 +54,7 @@ public class ChatsPage extends Page{
         initContentHBox();
         createSidePanel();
         initDeveloperAndButtonsVbox();
+        updateBackground(getUser().getId());
     }
 
     private void initDeveloperAndButtonsVbox() {

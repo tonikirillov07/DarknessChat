@@ -82,5 +82,7 @@ public final class StringsConstants {
     public static final String USER_ALREADY_IN_CHAT = "user_already_in_chat";
     public static final String SHOW_IMAGE_INFO = "show_image_info";
     public static final String COPY = "copy";
+    public static final String SELECT_YOUR_BACKGROUND_FILE = "select_your_background_image";
     public static final String DELETE_MESSAGE = "delete_message";
+    public static final String CLICK_TO_COPY = "click_to_copy";
 }

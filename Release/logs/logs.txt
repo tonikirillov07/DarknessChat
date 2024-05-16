@@ -613,3 +613,150 @@ Defined value in row user_recent_chats is {"recent_chats_array":["26.147.233.12:
 java.net.ConnectException: Connection refused: connect
 java.net.ConnectException: Failed to connect to address 26.147.233.12:21959
 Stopping app...
+Opening window...
+Background was initialized!
+Window Title was initialized!
+Close and Minimize Buttons was initialized!
+Window Header Drug was initialized!
+Tile Tile@362eb6f9[styleClass=tile] was created for page Давайте войдем!
+Default padding to page were applied!
+Page Давайте войдем! was opened
+Welcome page was initialized!
+Window Header was initialized!
+Window was opened!
+Opening window...
+javafx.fxml.LoadException: 
+file:/C:/Users/toniw/IdeaProjects/DarknessChat/Release/DarknessChat.exe!/com/ds/darknesschat/main-view.fxml
+
+Opening window...
+Opening window...
+javafx.fxml.LoadException: 
+file:/C:/Users/toniw/IdeaProjects/DarknessChat/Release/DarknessChat.exe!/com/ds/darknesschat/main-view.fxml
+
+Opening window...
+javafx.fxml.LoadException: 
+file:/C:/Users/toniw/IdeaProjects/DarknessChat/Release/DarknessChat.exe!/com/ds/darknesschat/main-view.fxml
+
+Opening window...
+javafx.fxml.LoadException: 
+file:/C:/Users/toniw/IdeaProjects/DarknessChat/Release/DarknessChat.exe!/com/ds/darknesschat/main-view.fxml
+
+Opening window...
+javafx.fxml.LoadException: 
+file:/C:/Users/toniw/IdeaProjects/DarknessChat/Release/DarknessChat.exe!/com/ds/darknesschat/main-view.fxml
+
+Opening window...
+javafx.fxml.LoadException: 
+file:/C:/Users/toniw/IdeaProjects/DarknessChat/Release/DarknessChat.exe!/com/ds/darknesschat/main-view.fxml
+
+Opening window...
+javafx.fxml.LoadException: 
+file:/C:/Users/toniw/IdeaProjects/DarknessChat/Release/DarknessChat.exe!/com/ds/darknesschat/main-view.fxml
+
+Opening window...
+Opening window...
+Opening window...
+javafx.fxml.LoadException: 
+file:/C:/Users/toniw/IdeaProjects/DarknessChat/Release/DarknessChat.exe!/com/ds/darknesschat/main-view.fxml
+
+Opening window...
+javafx.fxml.LoadException: 
+file:/C:/Users/toniw/IdeaProjects/DarknessChat/Release/DarknessChat.exe!/com/ds/darknesschat/main-view.fxml
+
+Opening window...
+javafx.fxml.LoadException: 
+file:/C:/Users/toniw/IdeaProjects/DarknessChat/Release/DarknessChat.exe!/com/ds/darknesschat/main-view.fxml
+
+Opening window...
+javafx.fxml.LoadException: 
+file:/C:/Users/toniw/IdeaProjects/DarknessChat/Release/DarknessChat.exe!/com/ds/darknesschat/main-view.fxml
+
+Opening window...
+javafx.fxml.LoadException: 
+file:/C:/Users/toniw/IdeaProjects/DarknessChat/Release/DarknessChat.exe!/com/ds/darknesschat/main-view.fxml
+
+Opening window...
+javafx.fxml.LoadException: 
+file:/C:/Users/toniw/IdeaProjects/DarknessChat/Release/DarknessChat.exe!/com/ds/darknesschat/main-view.fxml
+
+Opening window...
+javafx.fxml.LoadException: 
+file:/C:/Users/toniw/IdeaProjects/DarknessChat/Release/DarknessChat.exe!/com/ds/darknesschat/main-view.fxml
+
+Opening window...
+javafx.fxml.LoadException: 
+file:/C:/Users/toniw/IdeaProjects/DarknessChat/Release/DarknessChat.exe!/com/ds/darknesschat/main-view.fxml
+
+Opening window...
+javafx.fxml.LoadException: 
+file:/C:/Users/toniw/IdeaProjects/DarknessChat/Release/DarknessChat.exe!/com/ds/darknesschat/main-view.fxml
+
+Opening window...
+javafx.fxml.LoadException: 
+file:/C:/Users/toniw/IdeaProjects/DarknessChat/Release/DarknessChat.exe!/com/ds/darknesschat/main-view.fxml
+
+Opening window...
+Opening window...
+javafx.fxml.LoadException: 
+file:/C:/Users/toniw/IdeaProjects/DarknessChat/Release/DarknessChat.exe!/com/ds/darknesschat/main-view.fxml
+
+Opening window...
+javafx.fxml.LoadException: 
+file:/C:/Users/toniw/IdeaProjects/DarknessChat/Release/DarknessChat.exe!/com/ds/darknesschat/main-view.fxml
+
+Opening window...
+javafx.fxml.LoadException: 
+file:/C:/Users/toniw/IdeaProjects/DarknessChat/Release/DarknessChat.exe!/com/ds/darknesschat/main-view.fxml
+
+Opening window...
+javafx.fxml.LoadException: 
+file:/C:/Users/toniw/IdeaProjects/DarknessChat/Release/DarknessChat.exe!/com/ds/darknesschat/main-view.fxml
+
+Opening window...
+javafx.fxml.LoadException: 
+file:/C:/Users/toniw/IdeaProjects/DarknessChat/Release/DarknessChat.exe!/com/ds/darknesschat/main-view.fxml
+
+Opening window...
+javafx.fxml.LoadException: 
+file:/C:/Users/toniw/IdeaProjects/DarknessChat/Release/DarknessChat.exe!/com/ds/darknesschat/main-view.fxml
+
+Opening window...
+javafx.fxml.LoadException: 
+file:/C:/Users/toniw/IdeaProjects/DarknessChat/Release/DarknessChat.exe!/com/ds/darknesschat/main-view.fxml
+
+Opening window...
+javafx.fxml.LoadException: 
+file:/C:/Users/toniw/IdeaProjects/DarknessChat/Release/DarknessChat.exe!/com/ds/darknesschat/main-view.fxml
+
+Opening window...
+Opening window...
+javafx.fxml.LoadException: 
+file:/C:/Users/toniw/IdeaProjects/DarknessChat/Release/DarknessChat.exe!/com/ds/darknesschat/main-view.fxml
+
+Opening window...
+javafx.fxml.LoadException: 
+file:/C:/Users/toniw/IdeaProjects/DarknessChat/Release/DarknessChat.exe!/com/ds/darknesschat/main-view.fxml
+
+Opening window...
+javafx.fxml.LoadException: 
+file:/C:/Users/toniw/IdeaProjects/DarknessChat/Release/DarknessChat.exe!/com/ds/darknesschat/main-view.fxml
+
+Opening window...
+javafx.fxml.LoadException: 
+file:/C:/Users/toniw/IdeaProjects/DarknessChat/Release/DarknessChat.exe!/com/ds/darknesschat/main-view.fxml
+
+Opening window...
+javafx.fxml.LoadException: 
+file:/C:/Users/toniw/IdeaProjects/DarknessChat/Release/DarknessChat.exe!/com/ds/darknesschat/main-view.fxml
+
+Opening window...
+Background was initialized!
+Window Title was initialized!
+Close and Minimize Buttons was initialized!
+Window Header Drug was initialized!
+Tile Tile@362a255f[styleClass=tile] was created for page Давайте войдем!
+Default padding to page were applied!
+Page Давайте войдем! was opened
+Welcome page was initialized!
+Window Header was initialized!
+Window was opened!

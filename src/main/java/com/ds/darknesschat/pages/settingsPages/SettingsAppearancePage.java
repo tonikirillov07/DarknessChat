@@ -5,21 +5,25 @@ import com.ds.darknesschat.additionalNodes.SettingsOptionSwitchButton;
 import com.ds.darknesschat.database.DatabaseService;
 import com.ds.darknesschat.pages.Page;
 import com.ds.darknesschat.user.User;
+import com.ds.darknesschat.utils.Utils;
 import com.ds.darknesschat.utils.eventListeners.IOnSwitch;
 import com.ds.darknesschat.utils.languages.StringGetterWithCurrentLanguage;
 import com.ds.darknesschat.utils.languages.StringsConstants;
 import com.ds.darknesschat.utils.log.Log;
 import javafx.geometry.Insets;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
+import org.apache.commons.io.FileUtils;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.File;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static com.ds.darknesschat.Constants.ON_OFF_OPTIONS_LIST;
+import static com.ds.darknesschat.Constants.*;
 import static com.ds.darknesschat.client.ClientConstants.TRUE;
 import static com.ds.darknesschat.database.DatabaseConstants.*;
 
@@ -50,10 +54,44 @@ public class SettingsAppearancePage extends Page {
     }
 
     private void createOptionsSwitchButtons() {
+        List<String> backgroundOptionsList = List.of(DEFAULT_BACKGROUND_VALUE, ANOTHER_BACKGROUND_VALUE);
+        int backgroundIndex = Objects.equals(DatabaseService.getValue(USER_LAST_BACKGROUND_PATH, getUser().getId()), DEFAULT_BACKGROUND_VALUE) ? 0 : 1;
+
         addOptionButton(StringGetterWithCurrentLanguage.getString(StringsConstants.ANIMATIONS), this::changeAnimations, ON_OFF_OPTIONS_LIST, getIndexValueForONAndOffList(DatabaseService.getBoolean(Objects.requireNonNull(DatabaseService.getValue(ANIMATIONS_USING_ROW, getUser().getId())))), true);
         addOptionButton(StringGetterWithCurrentLanguage.getString(StringsConstants.SOUNDS), this::changeSounds, ON_OFF_OPTIONS_LIST, getIndexValueForONAndOffList(DatabaseService.getBoolean(Objects.requireNonNull(DatabaseService.getValue(SOUNDS_USING_ROW, getUser().getId())))), false);
         addOptionButton(StringGetterWithCurrentLanguage.getString(StringsConstants.OPACITY), this::changeAlpha, findAppearanceValues(), findAppearanceValues().indexOf(DatabaseService.getValue(OPACITY_LEVEL_ROW, getUser().getId())), false);
-        addOptionButton(StringGetterWithCurrentLanguage.getString(StringsConstants.BACKGROUND), currentValue -> {}, ON_OFF_OPTIONS_LIST, 0, false);
+        addOptionButton(StringGetterWithCurrentLanguage.getString(StringsConstants.BACKGROUND), this::changeBackground, backgroundOptionsList, backgroundIndex, false);
+    }
+
+    private void changeBackground(@NotNull String currentValue) {
+        try {
+            switch (currentValue){
+                case DEFAULT_BACKGROUND_VALUE -> {
+                    DatabaseService.changeValue(BACKGROUND_PATH_ROW, DEFAULT_BACKGROUND_VALUE, getUser().getId());
+                    updateBackground(getUser().getId());
+                }
+                case ANOTHER_BACKGROUND_VALUE -> {
+                    File file = Utils.openFileDialog(StringGetterWithCurrentLanguage.getString(StringsConstants.SELECT_YOUR_BACKGROUND_FILE), DatabaseService.getValue(USER_LAST_BACKGROUND_PATH, getUser().getId()),
+                            getStage(), List.of(new FileChooser.ExtensionFilter(Objects.requireNonNull(StringGetterWithCurrentLanguage.getString(StringsConstants.IMAGES)), "*.png*", "*.jpg*", "*.jpeg*"),
+                                    new FileChooser.ExtensionFilter(Objects.requireNonNull(StringGetterWithCurrentLanguage.getString(StringsConstants.EVERYTHING)), "*.*")));
+
+                    File temporaryFolder = new File("temporary");
+
+                    if (file != null) {
+                        if(!temporaryFolder.exists())
+                            temporaryFolder.mkdir();
+
+                        FileUtils.copyFileToDirectory(file, temporaryFolder);
+
+                        DatabaseService.changeValue(USER_LAST_BACKGROUND_PATH, file.getParent(), getUser().getId());
+                        DatabaseService.changeValue(BACKGROUND_PATH_ROW, temporaryFolder.getName() + "/" + file.getName(), getUser().getId());
+                        updateBackground(getUser().getId());
+                    }
+                }
+            }
+        }catch (Exception e){
+            Log.error(e);
+        }
     }
 
     private int getIndexValueForONAndOffList(boolean value){

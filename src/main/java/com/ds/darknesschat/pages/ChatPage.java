@@ -1,5 +1,6 @@
 package com.ds.darknesschat.pages;
 
+import com.ds.darknesschat.Constants;
 import com.ds.darknesschat.Main;
 import com.ds.darknesschat.additionalNodes.AdditionalButton;
 import com.ds.darknesschat.additionalNodes.AdditionalTextField;
@@ -38,6 +39,7 @@ import java.io.UTFDataFormatException;
 import java.net.ConnectException;
 import java.net.Socket;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 import static com.ds.darknesschat.Constants.*;
@@ -74,7 +76,8 @@ public class ChatPage extends Page{
         createMessagesScrollPane();
         createMessageTextFieldTile();
         createDeveloperLabelInBottom();
-
+        loadAdditionalTitleSettings(getTile().getTitleLabel());
+        
         getTile().setMaxHeight(415d);
         getTile().applyAlphaWithUserSettings(getUser());
         Utils.addActionToNode(getTile().getTitleLabel(), () -> Utils.copyStringToClipboard(getTitle()), getUser().getId());
@@ -86,6 +89,21 @@ public class ChatPage extends Page{
             if(server != null)
                 server.close();
         });
+    }
+
+    private void loadAdditionalTitleSettings(@NotNull Label titleLabel) {
+        try {
+            titleLabel.setUnderline(true);
+
+            Tooltip tooltip = new Tooltip(StringGetterWithCurrentLanguage.getString(StringsConstants.CLICK_TO_COPY));
+            tooltip.setFont(Font.loadFont(Main.class.getResourceAsStream(FONT_BOLD_PATH), 14d));
+            titleLabel.setTooltip(tooltip);
+
+            titleLabel.setOnMouseEntered(mouseEvent -> titleLabel.setOpacity(0.5d));
+            titleLabel.setOnMouseExited(mouseEvent -> titleLabel.setOpacity(1d));
+        }catch (Exception e){
+            Log.error(e);
+        }
     }
 
     @Override
@@ -281,22 +299,9 @@ public class ChatPage extends Page{
 
     private void onAttachmentButton() {
         try{
-            FileChooser fileChooserImage = new FileChooser();
-            fileChooserImage.setTitle(StringGetterWithCurrentLanguage.getString(StringsConstants.SELECT_YOUR_IMAGE_FOR_SEND));
-            fileChooserImage.getExtensionFilters().addAll(
-                    new FileChooser.ExtensionFilter(Objects.requireNonNull(StringGetterWithCurrentLanguage.getString(StringsConstants.IMAGES)), "*.png*", "*.jpg*", "*.jpeg*"),
-                    new FileChooser.ExtensionFilter(Objects.requireNonNull(StringGetterWithCurrentLanguage.getString(StringsConstants.EVERYTHING)), "*.*")
-            );
-
-            String lastPathInDatabase = DatabaseService.getValue(DatabaseConstants.USER_LAST_PATH_IN_ATTACHMENTS, getUser().getId());
-            if(lastPathInDatabase != null){
-                File lastDirectoryPath = new File(lastPathInDatabase);
-
-                if(lastDirectoryPath.exists())
-                    fileChooserImage.setInitialDirectory(lastDirectoryPath);
-            }
-
-            File selectedFile = fileChooserImage.showOpenDialog(getStage());
+            File selectedFile = Utils.openFileDialog(StringGetterWithCurrentLanguage.getString(StringsConstants.SELECT_YOUR_IMAGE_FOR_SEND), DatabaseService.getValue(DatabaseConstants.USER_LAST_PATH_IN_ATTACHMENTS, getUser().getId()),
+                    getStage(), List.of(new FileChooser.ExtensionFilter(Objects.requireNonNull(StringGetterWithCurrentLanguage.getString(StringsConstants.IMAGES)), "*.png*", "*.jpg*", "*.jpeg*"),
+                            new FileChooser.ExtensionFilter(Objects.requireNonNull(StringGetterWithCurrentLanguage.getString(StringsConstants.EVERYTHING)), "*.*")));
 
             if(selectedFile != null){
                 DatabaseService.changeValue(DatabaseConstants.USER_LAST_PATH_IN_ATTACHMENTS, selectedFile.getParent(), getUser().getId());
