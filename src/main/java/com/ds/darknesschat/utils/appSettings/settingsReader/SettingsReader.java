@@ -21,6 +21,7 @@ public final class SettingsReader {
             Object result = properties.getOrDefault(key, NULL);
 
             inputStreamReader.close();
+            properties.clear();
 
             return result;
         }catch (Exception e){

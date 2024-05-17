@@ -1,6 +1,0 @@
-app_developer = Darkness
-app_version = 1.0
-app_name = Darkness Chat
-app_icon = bitmaps/icons/window/main_icon.png
-app_resizable = false
-app_language = languages/rus.properties

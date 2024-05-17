@@ -1,6 +1,5 @@
 package com.ds.darknesschat.pages;
 
-import com.ds.darknesschat.Constants;
 import com.ds.darknesschat.Main;
 import com.ds.darknesschat.additionalNodes.AdditionalButton;
 import com.ds.darknesschat.additionalNodes.AdditionalTextField;
@@ -14,6 +13,7 @@ import com.ds.darknesschat.user.UserRecentChats;
 import com.ds.darknesschat.utils.*;
 import com.ds.darknesschat.utils.dialogs.ConfirmDialog;
 import com.ds.darknesschat.utils.dialogs.ErrorDialog;
+import com.ds.darknesschat.utils.info.ChatAddress;
 import com.ds.darknesschat.utils.languages.StringGetterWithCurrentLanguage;
 import com.ds.darknesschat.utils.languages.StringsConstants;
 import com.ds.darknesschat.utils.log.Log;
@@ -38,7 +38,6 @@ import java.io.File;
 import java.io.UTFDataFormatException;
 import java.net.ConnectException;
 import java.net.Socket;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -158,7 +157,7 @@ public class ChatPage extends Page{
 
             sendNameToServer();
             if(!checkCanUserConnect())
-                return false;
+                return true;
 
             new Thread(() -> {
                 try {
@@ -197,14 +196,14 @@ public class ChatPage extends Page{
                 disconnect();
             }).start();
 
-            return true;
+            return false;
         }catch (Exception e){
             Log.error(e);
         }
 
         Log.error(new ConnectException("Failed to connect to address " + address));
 
-        return false;
+        return true;
     }
 
     private void displayUsersCount(@NotNull JSONObject jsonObject) {
@@ -376,6 +375,7 @@ public class ChatPage extends Page{
         try {
             messagesScrollPane = new ScrollPane();
             messagesScrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+            messagesScrollPane.setFitToHeight(true);
             messagesScrollPane.setPannable(true);
             messagesScrollPane.setMaxWidth(756d);
             messagesScrollPane.setMinWidth(756d);

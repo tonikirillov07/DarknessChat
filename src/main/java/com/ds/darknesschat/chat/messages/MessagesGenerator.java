@@ -33,6 +33,6 @@ public class MessagesGenerator {
     }
 
     public static @NotNull String generateUserStringMessage(String userName, String userMessage){
-        return userName + ": " + userMessage + " (" + Utils.getCurrentTime() + ")";
+        return userName + ": " + userMessage;
     }
 }

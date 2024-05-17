@@ -23,11 +23,11 @@ public final class Animations {
         }
     }
 
-    public static void addTranslateByLeftAnimationToNode(Node node, long userId){
+    public static void addTranslateByLeftAnimationToNode(Node node, boolean byLeft, long userId){
         try {
             if(UserSettings.getUserAnimationsUsing(userId)) {
                 TranslateTransition translateTransition = new TranslateTransition(Duration.millis(200), node);
-                translateTransition.setFromX(-200);
+                translateTransition.setFromX(-200 * (byLeft ? 1: -1));
                 translateTransition.setToX(0);
                 translateTransition.setAutoReverse(true);
                 translateTransition.setDelay(Duration.millis(30));

@@ -5,12 +5,14 @@ import com.ds.darknesschat.additionalNodes.SettingsOptionSwitchButton;
 import com.ds.darknesschat.database.DatabaseService;
 import com.ds.darknesschat.pages.Page;
 import com.ds.darknesschat.user.User;
+import com.ds.darknesschat.utils.Color;
 import com.ds.darknesschat.utils.Utils;
 import com.ds.darknesschat.utils.eventListeners.IOnSwitch;
 import com.ds.darknesschat.utils.languages.StringGetterWithCurrentLanguage;
 import com.ds.darknesschat.utils.languages.StringsConstants;
 import com.ds.darknesschat.utils.log.Log;
 import javafx.geometry.Insets;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import org.apache.commons.io.FileUtils;
@@ -24,6 +26,7 @@ import java.util.List;
 import java.util.Objects;
 
 import static com.ds.darknesschat.Constants.*;
+import static com.ds.darknesschat.client.ClientConstants.FALSE;
 import static com.ds.darknesschat.client.ClientConstants.TRUE;
 import static com.ds.darknesschat.database.DatabaseConstants.*;
 
@@ -55,7 +58,7 @@ public class SettingsAppearancePage extends Page {
 
     private void createOptionsSwitchButtons() {
         List<String> backgroundOptionsList = List.of(DEFAULT_BACKGROUND_VALUE, ANOTHER_BACKGROUND_VALUE);
-        int backgroundIndex = Objects.equals(DatabaseService.getValue(USER_LAST_BACKGROUND_PATH, getUser().getId()), DEFAULT_BACKGROUND_VALUE) ? 0 : 1;
+        int backgroundIndex = Objects.equals(DatabaseService.getValue(BACKGROUND_PATH_ROW, getUser().getId()), DEFAULT_BACKGROUND_VALUE) ? 0 : 1;
 
         addOptionButton(StringGetterWithCurrentLanguage.getString(StringsConstants.ANIMATIONS), this::changeAnimations, ON_OFF_OPTIONS_LIST, getIndexValueForONAndOffList(DatabaseService.getBoolean(Objects.requireNonNull(DatabaseService.getValue(ANIMATIONS_USING_ROW, getUser().getId())))), true);
         addOptionButton(StringGetterWithCurrentLanguage.getString(StringsConstants.SOUNDS), this::changeSounds, ON_OFF_OPTIONS_LIST, getIndexValueForONAndOffList(DatabaseService.getBoolean(Objects.requireNonNull(DatabaseService.getValue(SOUNDS_USING_ROW, getUser().getId())))), false);
@@ -100,16 +103,17 @@ public class SettingsAppearancePage extends Page {
 
     private void changeAnimations(String value) {
         int valueId = ON_OFF_OPTIONS_LIST.indexOf(value);
-        DatabaseService.changeValue(ANIMATIONS_USING_ROW, valueId == 0 ? "true": "false", getUser().getId());
+        DatabaseService.changeValue(ANIMATIONS_USING_ROW, valueId == 0 ? TRUE: FALSE, getUser().getId());
     }
 
     private void changeSounds(String value){
         int valueId = ON_OFF_OPTIONS_LIST.indexOf(value);
-        DatabaseService.changeValue(SOUNDS_USING_ROW, valueId == 0 ? "true": "false", getUser().getId());
+        DatabaseService.changeValue(SOUNDS_USING_ROW, valueId == 0 ? TRUE: FALSE, getUser().getId());
     }
 
     private void changeAlpha(String value){
         DatabaseService.changeValue(OPACITY_LEVEL_ROW, value, getUser().getId());
+        getTile().setColor(new Color(Float.parseFloat(value), TILE_COLOR.getRed(), TILE_COLOR.getGreen(), TILE_COLOR.getBlue()));
     }
 
     @Contract(pure = true)

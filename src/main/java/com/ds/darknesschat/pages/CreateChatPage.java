@@ -86,7 +86,7 @@ public class CreateChatPage extends Page{
             if (Utils.isFieldsIsNotEmpty(new AdditionalTextField[]{chatPortTextField})) {
                 ChatPage chatPage = new ChatPage(this, getContentVbox(), Utils.getLocalIP4Address() + ":" + chatPortTextField.getText(), true, getUser(), server);
                 chatPage.open();
-                if(!chatPage.tryConnectToServer(Utils.getLocalIP4Address() + ":" + chatPortTextField.getText()))
+                if(chatPage.tryConnectToServer(Utils.getLocalIP4Address() + ":" + chatPortTextField.getText()))
                     chatPage.goToPreviousPage();
             } else
                 chatPortTextField.setError(getUser().getId());

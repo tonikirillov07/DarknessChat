@@ -75,7 +75,7 @@ public class ConnectToTheChatPage extends Page{
                     DatabaseService.setNull(DatabaseConstants.REMEMBERED_CHAT_ADDRESS_ROW, getUser().getId());
 
                 ChatPage chatPage = new ChatPage(this, getContentVbox(), additionalChatAddressTextField.getText(), true, getUser(), null);
-                if(!chatPage.tryConnectToServer(additionalChatAddressTextField.getText()))
+                if(chatPage.tryConnectToServer(additionalChatAddressTextField.getText()))
                     return;
 
                 chatPage.open();

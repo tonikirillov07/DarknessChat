@@ -3,6 +3,7 @@ package com.ds.darknesschat.chat.messages;
 import com.ds.darknesschat.pages.ImageInfo;
 import com.ds.darknesschat.utils.*;
 import com.ds.darknesschat.utils.dialogs.InfoDialog;
+import com.ds.darknesschat.utils.info.FileSize;
 import com.ds.darknesschat.utils.languages.StringGetterWithCurrentLanguage;
 import com.ds.darknesschat.utils.languages.StringsConstants;
 import com.ds.darknesschat.utils.log.Log;
@@ -60,6 +61,7 @@ public class ImageMessageUtils {
             imageView.maxWidth(699d);
             imageView.setOnContextMenuRequested(contextMenuEvent -> contextMenu.show(imageView, contextMenuEvent.getScreenX(), contextMenuEvent.getScreenY()));
             vBox.getChildren().addAll(textFlow, imageView, messageTimeLabel);
+
             Animations.addFadeTransitionToNode(imageView, userId);
 
             messagesContent.getChildren().add(vBox);
@@ -78,13 +80,13 @@ public class ImageMessageUtils {
                 Image currentImage = Objects.requireNonNull(ImageUtils.getImageFromBytes(imageBytes)).image();
                 FileSize moreComfortableSize = getMoreComfortableImageSizeFromBytes(imageBytes.length);
 
-                String message = StringGetterWithCurrentLanguage.getString(StringsConstants.IMAGE_RESOLUTION) + " " + currentImage.getWidth() + "x" + currentImage.getHeight() + "\n" +
+                String message = StringGetterWithCurrentLanguage.getString(StringsConstants.IMAGE_RESOLUTION) + " " + (int) currentImage.getWidth() + "x" + (int) currentImage.getHeight() + "\n" +
                         StringGetterWithCurrentLanguage.getString(StringsConstants.IMAGE_SIZE) + " " + moreComfortableSize.size() + " " + moreComfortableSize.format();
 
                 InfoDialog.show(message);
             });
 
-            openInFolderMenuItem.setOnAction(actionEvent -> Utils.openFile(new File(imageInfo.path())));
+            openInFolderMenuItem.setOnAction(actionEvent -> Utils.openFile(new File(imageInfo.path()).getParentFile()));
 
             MessageContextMenu messageContextMenu = new MessageContextMenu(new TransferableImage(ImageUtils.convertByteArrayToBufferedImage(imageInfo.imageBytes())), messageNode, messagesContent);
             messageContextMenu.getItems().addAll(openInFolderMenuItem, imageInfoMenuItem);

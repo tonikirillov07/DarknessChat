@@ -760,3 +760,25 @@ Page Давайте войдем! was opened
 Welcome page was initialized!
 Window Header was initialized!
 Window was opened!
+Opening window...
+Background was initialized!
+Window Title was initialized!
+Close and Minimize Buttons was initialized!
+Window Header Drug was initialized!
+Tile Tile@46169b9[styleClass=tile] was created for page Давайте войдем!
+Default padding to page were applied!
+Page Давайте войдем! was opened
+Welcome page was initialized!
+Window Header was initialized!
+Window was opened!
+Opening window...
+Background was initialized!
+Window Title was initialized!
+Close and Minimize Buttons was initialized!
+Window Header Drug was initialized!
+Tile Tile@7057e750[styleClass=tile] was created for page Давайте войдем!
+Default padding to page were applied!
+Page Давайте войдем! was opened
+Welcome page was initialized!
+Window Header was initialized!
+Window was opened!

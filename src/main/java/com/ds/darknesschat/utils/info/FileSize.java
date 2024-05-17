@@ -1,4 +1,4 @@
-package com.ds.darknesschat.utils;
+package com.ds.darknesschat.utils.info;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;

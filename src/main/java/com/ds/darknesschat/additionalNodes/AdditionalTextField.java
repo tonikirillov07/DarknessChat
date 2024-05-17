@@ -2,6 +2,7 @@ package com.ds.darknesschat.additionalNodes;
 
 import com.ds.darknesschat.Constants;
 import com.ds.darknesschat.Main;
+import com.ds.darknesschat.user.UserSettings;
 import com.ds.darknesschat.utils.InputTypes;
 import com.ds.darknesschat.utils.eventListeners.IOnAction;
 import com.ds.darknesschat.utils.eventListeners.IOnTextTyping;
@@ -27,6 +28,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.ds.darknesschat.Constants.IGNORE_USER_AGREEMENT;
 
 public class AdditionalTextField extends HBox {
     private final double width, height;
@@ -67,15 +70,27 @@ public class AdditionalTextField extends HBox {
         try {
             addShadowEffect(Color.RED);
 
-            TranslateTransition translateTransition = new TranslateTransition(Duration.millis(100), this);
-            translateTransition.setFromX(0);
-            translateTransition.setByX(25);
-            translateTransition.setCycleCount(2);
-            translateTransition.setAutoReverse(true);
-            translateTransition.setOnFinished(actionEvent -> addShadowEffect(Color.BLACK));
-            translateTransition.play();
+            if(UserSettings.getUserAnimationsUsing(userId)) {
+                TranslateTransition translateTransition = new TranslateTransition(Duration.millis(100), this);
+                translateTransition.setFromX(0);
+                translateTransition.setByX(25);
+                translateTransition.setCycleCount(2);
+                translateTransition.setAutoReverse(true);
+                translateTransition.setOnFinished(actionEvent -> addShadowEffect(Color.BLACK));
+                translateTransition.play();
+            }else{
+                new Thread(() -> {
+                    try {
+                        Thread.sleep(150L);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
 
-            if(userId == -1)
+                    addShadowEffect(Color.BLACK);
+                }).start();
+            }
+
+            if(userId == IGNORE_USER_AGREEMENT)
                 Sounds.playWithIgnoreUserSettings(SoundsConstants.ERROR_SOUND);
             else
                 Sounds.playSound(SoundsConstants.ERROR_SOUND, userId);

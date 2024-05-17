@@ -9,7 +9,9 @@ import com.ds.darknesschat.utils.log.Log;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextFlow;
 import org.jetbrains.annotations.NotNull;
@@ -28,11 +30,17 @@ public class MessageUtils {
     public static void createMessageLabel(String text, javafx.scene.paint.Color userNameColor, ScrollPane messagesScrollPane, VBox messagesContent, long userId){
         try {
             Label userLabel = createLabel(Utils.extractUserNameFromMessage(text), userNameColor, true);
+
             Label messageLabel = createLabel(Utils.extractMessageTextFromMessage(text), javafx.scene.paint.Color.WHITE, false);
+            messageLabel.setMaxWidth(messagesScrollPane.getMaxWidth() - 10d);
+            messageLabel.setFont(Font.loadFont(Main.class.getResourceAsStream(Constants.FONT_BOLD_ITALIC_PATH), 14d));
+
+            Label timeLabel = createLabel(" (" + Utils.getCurrentTime() + ")", Color.DARKGRAY, false);
+            timeLabel.setFont(Font.loadFont(Main.class.getResourceAsStream(Constants.FONT_BOLD_ITALIC_PATH), 14d));
 
             TextFlow textFlow = new TextFlow();
             VBox.setMargin(textFlow, new Insets(10d, 0, 0, 0));
-            textFlow.getChildren().addAll(userLabel, messageLabel);
+            textFlow.getChildren().addAll(userLabel, messageLabel, timeLabel);
 
             Label label = getLabel(text, messagesContent, textFlow);
             messagesContent.getChildren().add(label);
@@ -42,7 +50,8 @@ public class MessageUtils {
 
             Animations.addFadeTransitionToNode(label, userId);
             Animations.addTextTypingAnimationToLabel(Utils.extractMessageTextFromMessage(text), messageLabel, userId);
-            messagesScrollPane.setVvalue(1);
+
+            messagesScrollPane.setVvalue(1d);
         }catch (Exception e){
             Log.error(e);
         }
@@ -53,7 +62,7 @@ public class MessageUtils {
         label.setWrapText(true);
         label.setGraphic(textFlow);
 
-        MessageContextMenu messageContextMenu = new MessageContextMenu(new StringSelection(text), label, messagesContent);
+        MessageContextMenu messageContextMenu = new MessageContextMenu(new StringSelection(text + " (" + Utils.getCurrentTime() + ")"), label, messagesContent);
         messageContextMenu.setOnShown(windowEvent -> label.setOpacity(0.5d));
         messageContextMenu.setOnHidden(windowEvent -> label.setOpacity(1d));
 

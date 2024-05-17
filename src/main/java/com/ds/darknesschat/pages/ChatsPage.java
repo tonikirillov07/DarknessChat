@@ -69,6 +69,8 @@ public class ChatsPage extends Page{
             secondPartHbox.getChildren().add(buttonsAndDeveloperLabelVbox);
 
             createDeveloperLabelArea(buttonsAndDeveloperLabelVbox);
+
+            Animations.addTranslateByLeftAnimationToNode(buttonsAndDeveloperLabelVbox, false, getUser().getId());
         }catch (Exception e){
             Log.error(e);
         }
@@ -134,7 +136,7 @@ public class ChatsPage extends Page{
             sidePanelVbox.getStyleClass().add("tile");
             sidePanelVbox.setStyle(sidePanelVbox.getStyle() + "-fx-background-color: rgba(" +
                     TILE_COLOR.getRed() + ", " + TILE_COLOR.getGreen() + ", " + TILE_COLOR.getBlue() + ", " + UserSettings.getUserAlphaLevel(getUser()) + ");");
-            Animations.addTranslateByLeftAnimationToNode(sidePanelVbox, getUser().getId());
+            Animations.addTranslateByLeftAnimationToNode(sidePanelVbox, true, getUser().getId());
             addToContentHbox(sidePanelVbox);
 
             createHeader(sidePanelVbox);

@@ -17,7 +17,7 @@ public final class Constants {
     public static final String ATTACHMENTS_FOLDER = "attachments";
     public static final String ATTACHMENT_PNG = "attachment.png";
 
-    public static final String DEFAULT_BACKGROUND_VALUE = "DEFAULT";
+    public static final String DEFAULT_BACKGROUND_VALUE = "DEFAULT_PATH";
     public static final String ANOTHER_BACKGROUND_VALUE = "ANOTHER";
 
     public static final Color WHITE_COLOR = new Color(255, 255, 255);

@@ -2,12 +2,9 @@ package com.ds.darknesschat.utils;
 
 import com.ds.darknesschat.Main;
 import com.ds.darknesschat.additionalNodes.AdditionalTextField;
-import com.ds.darknesschat.database.DatabaseConstants;
-import com.ds.darknesschat.database.DatabaseService;
 import com.ds.darknesschat.utils.appSettings.outsideSettings.OutsideSettingsManager;
 import com.ds.darknesschat.utils.eventListeners.IOnAction;
-import com.ds.darknesschat.utils.languages.StringGetterWithCurrentLanguage;
-import com.ds.darknesschat.utils.languages.StringsConstants;
+import com.ds.darknesschat.utils.info.ChatAddress;
 import com.ds.darknesschat.utils.log.Log;
 import com.ds.darknesschat.utils.sounds.Sounds;
 import com.ds.darknesschat.utils.sounds.SoundsConstants;
