@@ -9,7 +9,9 @@ import com.ds.darknesschat.utils.languages.StringsConstants;
 import com.ds.darknesschat.utils.log.Log;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
@@ -49,17 +51,38 @@ public class MainController {
 
     private void initHeader() {
         try {
-            windowIcon.setImage(Utils.getImage(SettingsReader.getStringValue(SettingsKeys.APP_ICON)));
-
+            initWindowIcon();
             initWindowTitle();
             initControlButtons();
             initDrag();
             initPages();
-            
+
             Log.info("Window Header was initialized!");
         }catch (Exception e){
             Log.error(e);
         }
+    }
+
+    private void initWindowIcon() {
+        windowIcon.setImage(Utils.getImage(SettingsReader.getStringValue(SettingsKeys.APP_ICON)));
+
+        MenuItem closeMenuItem = new MenuItem(StringGetterWithCurrentLanguage.getString(StringsConstants.CLOSE_WINDOW));
+        MenuItem minimizeMenuItem = new MenuItem(StringGetterWithCurrentLanguage.getString(StringsConstants.MINIMIZE_WINDOW));
+        MenuItem pinMenuItem = new MenuItem(StringGetterWithCurrentLanguage.getString(StringsConstants.PIN_WINDOW));
+
+        closeMenuItem.setOnAction(actionEvent -> close());
+        minimizeMenuItem.setOnAction(actionEvent -> minimize());
+        pinMenuItem.setOnAction(actionEvent -> {
+            boolean stageIsAlwaysOnTop = getStage().isAlwaysOnTop();
+            pinMenuItem.setText(stageIsAlwaysOnTop ? StringGetterWithCurrentLanguage.getString(StringsConstants.PIN_WINDOW) : StringGetterWithCurrentLanguage.getString(StringsConstants.UNPIN_WINDOW));
+
+            getStage().setAlwaysOnTop(!stageIsAlwaysOnTop);
+        });
+
+        ContextMenu contextMenu = new ContextMenu();
+        contextMenu.getItems().addAll(closeMenuItem, minimizeMenuItem, pinMenuItem);
+
+        windowIcon.setOnContextMenuRequested(contextMenuEvent -> contextMenu.show(windowIcon, contextMenuEvent.getScreenX(), contextMenuEvent.getScreenY()));
     }
 
     private void initWindowTitle() {

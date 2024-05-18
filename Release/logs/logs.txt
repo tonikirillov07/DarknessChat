@@ -782,3 +782,120 @@ Page Давайте войдем! was opened
 Welcome page was initialized!
 Window Header was initialized!
 Window was opened!
+Opening window...
+Background was initialized!
+Window Title was initialized!
+Close and Minimize Buttons was initialized!
+Window Header Drug was initialized!
+Tile Tile@991b923[styleClass=tile] was created for page Давайте войдем!
+Default padding to page were applied!
+Page Давайте войдем! was opened
+Welcome page was initialized!
+Window Header was initialized!
+Window was opened!
+Page Давайте войдем! was closed
+Tile Tile@6cf2c3bd[styleClass=tile] was created for page Давайте зарегистрируемся!
+Default padding to page were applied!
+Page Давайте зарегистрируемся! was opened
+Defined value in row date_of_registration is null
+User User{userName='Anton', userPassword='123456', userDateOfRegistration='null', id=-1} is exists: false
+Added user User{userName='Anton', userPassword='123456', userDateOfRegistration='19:54:54 2024-05-17', id=-1}
+Defined value in row user_id is 11
+Page Давайте зарегистрируемся! was closed
+Default padding to page were deleted!
+Defined value in row opacity_level is 0.75
+Defined value in row animations_using is 1
+Defined value in row user_recent_chats is null
+Defined value in row animations_using is 1
+Defined value in row background_path is DEFAULT_PATH
+Page Недавние чаты was opened
+Defined value in row sounds_using is 1
+Defined value in row animations_using is 1
+Page Недавние чаты was closed
+Defined value in row animations_using is 1
+Tile Tile@136f7556[styleClass=tile] was created for page Настройки
+Default padding to page were applied!
+Loaded default settings for tile
+Defined value in row opacity_level is 0.75
+Page Настройки was opened
+Defined value in row sounds_using is 1
+Page Давайте зарегистрируемся! was closed
+Default padding to page were deleted!
+Defined value in row opacity_level is 0.75
+Defined value in row animations_using is 1
+Defined value in row user_recent_chats is null
+Defined value in row animations_using is 1
+Defined value in row background_path is DEFAULT_PATH
+Page Недавние чаты was opened
+Opening window...
+Background was initialized!
+Window Title was initialized!
+Close and Minimize Buttons was initialized!
+Window Header Drug was initialized!
+Tile Tile@8fe7c4b[styleClass=tile] was created for page Давайте войдем!
+Default padding to page were applied!
+User User{userName='Anton', userPassword='123456', userDateOfRegistration='null', id=-1} is exists: true
+Defined value in row date_of_registration is 19:54:54 2024-05-17
+Defined value in row user_id is 11
+Page Давайте войдем! was closed
+Default padding to page were deleted!
+Defined value in row opacity_level is 0.75
+Defined value in row animations_using is 1
+Defined value in row user_recent_chats is null
+Defined value in row animations_using is 1
+Defined value in row background_path is DEFAULT_PATH
+Page Недавние чаты was opened
+Page Давайте войдем! was opened
+Welcome page was initialized!
+Window Header was initialized!
+Window was opened!
+Defined value in row sounds_using is 1
+Defined value in row animations_using is 1
+Page Недавние чаты was closed
+Defined value in row animations_using is 1
+Tile Tile@3aa32eb4[styleClass=tile] was created for page Настройки
+Default padding to page were applied!
+Loaded default settings for tile
+Defined value in row opacity_level is 0.75
+Page Настройки was opened
+Defined value in row sounds_using is 1
+Page Настройки was closed
+Defined value in row animations_using is 1
+Tile Tile@38f80245[styleClass=tile] was created for page Настройки->О программе
+Default padding to page were applied!
+Loaded default settings for tile
+Defined value in row opacity_level is 0.75
+Page Настройки->О программе was opened
+Defined value in row sounds_using is 1
+Page Недавние чаты was closed
+Defined value in row animations_using is 1
+Tile Tile@7c1e7583[styleClass=tile] was created for page Настройки
+Default padding to page were applied!
+Loaded default settings for tile
+Defined value in row opacity_level is 0.75
+Page Настройки was opened
+Defined value in row sounds_using is 1
+Page Давайте войдем! was closed
+Default padding to page were deleted!
+Defined value in row opacity_level is 0.75
+Defined value in row animations_using is 1
+Defined value in row user_recent_chats is null
+Defined value in row animations_using is 1
+Defined value in row background_path is DEFAULT_PATH
+Page Недавние чаты was opened
+Page Недавние чаты was closed
+Defined value in row animations_using is 1
+Tile Tile@20475d11[styleClass=tile] was created for page Создание чата
+Default padding to page were applied!
+Loaded default settings for tile
+Defined value in row opacity_level is 0.75
+Page Создание чата was opened
+Defined value in row sounds_using is 1
+Page Давайте войдем! was closed
+Default padding to page were deleted!
+Defined value in row opacity_level is 0.75
+Defined value in row animations_using is 1
+Defined value in row user_recent_chats is null
+Defined value in row animations_using is 1
+Defined value in row background_path is DEFAULT_PATH
+Page Недавние чаты was opened

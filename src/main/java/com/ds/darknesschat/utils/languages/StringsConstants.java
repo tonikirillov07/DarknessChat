@@ -85,4 +85,8 @@ public final class StringsConstants {
     public static final String SELECT_YOUR_BACKGROUND_FILE = "select_your_background_image";
     public static final String DELETE_MESSAGE = "delete_message";
     public static final String CLICK_TO_COPY = "click_to_copy";
+    public static final String CLOSE_WINDOW = "close_window";
+    public static final String MINIMIZE_WINDOW = "minimize_window";
+    public static final String PIN_WINDOW = "pin_window";
+    public static final String UNPIN_WINDOW = "unpin_window";
 }
