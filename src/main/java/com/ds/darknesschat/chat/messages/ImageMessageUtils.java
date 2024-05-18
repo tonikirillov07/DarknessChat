@@ -1,6 +1,6 @@
 package com.ds.darknesschat.chat.messages;
 
-import com.ds.darknesschat.pages.ImageInfo;
+import com.ds.darknesschat.utils.ImageInfo;
 import com.ds.darknesschat.utils.*;
 import com.ds.darknesschat.utils.dialogs.InfoDialog;
 import com.ds.darknesschat.utils.info.FileSize;
@@ -23,6 +23,8 @@ import org.json.JSONArray;
 
 import java.io.File;
 import java.util.Objects;
+
+import static com.ds.darknesschat.utils.info.FileSize.getMoreComfortableImageSizeFromBytes;
 
 public class ImageMessageUtils {
     public static void createMessageImageView(@NotNull JSONArray jsonArray, String userName, javafx.scene.paint.Color userNameColor, String message, VBox messagesContent, ScrollPane messagesScrollPane, long userId) {
@@ -97,15 +99,5 @@ public class ImageMessageUtils {
         }
 
         return null;
-    }
-
-    private static @NotNull FileSize getMoreComfortableImageSizeFromBytes(int bytesValue){
-        String format = Utils.convertBytesToMegaBytes(bytesValue) >= 1d ? "megaBytes" :
-                Utils.convertBytesToKiloBytes(bytesValue) >= 1d ? "kiloBytes" : "bytes";
-
-        double size = Utils.convertBytesToMegaBytes(bytesValue) >= 1d ? Utils.convertBytesToMegaBytes(bytesValue) :
-                Utils.convertBytesToKiloBytes(bytesValue) >= 1d ? Utils.convertBytesToKiloBytes(bytesValue) : bytesValue;
-
-        return new FileSize(format, size);
     }
 }

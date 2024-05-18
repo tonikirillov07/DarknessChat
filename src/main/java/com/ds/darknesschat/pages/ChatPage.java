@@ -11,6 +11,7 @@ import com.ds.darknesschat.server.Server;
 import com.ds.darknesschat.user.User;
 import com.ds.darknesschat.user.UserRecentChats;
 import com.ds.darknesschat.utils.*;
+import com.ds.darknesschat.utils.Color;
 import com.ds.darknesschat.utils.dialogs.ConfirmDialog;
 import com.ds.darknesschat.utils.dialogs.ErrorDialog;
 import com.ds.darknesschat.utils.info.ChatAddress;
@@ -21,6 +22,8 @@ import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -32,10 +35,8 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.UTFDataFormatException;
+import java.awt.*;
+import java.io.*;
 import java.net.ConnectException;
 import java.net.Socket;
 import java.util.List;
@@ -80,14 +81,23 @@ public class ChatPage extends Page{
         getTile().setMaxHeight(415d);
         getTile().applyAlphaWithUserSettings(getUser());
         Utils.addActionToNode(getTile().getTitleLabel(), () -> Utils.copyStringToClipboard(getTitle()), getUser().getId());
+        goToPreviousPageByKey(this::disconnect);
 
         getStage().setOnCloseRequest(windowEvent -> {
             onWindowClose();
-            disconnect();
 
-            if(server != null)
-                server.close();
+            if(isClientCanAcceptRequestsFromServer)
+                disconnect();
         });
+    }
+
+    @Override
+    public void onClose() {
+        super.onClose();
+
+        getStage().setOnCloseRequest(windowEvent -> Utils.onWindowClose());
+        if(isClientCanAcceptRequestsFromServer)
+            disconnect();
     }
 
     private void loadAdditionalTitleSettings(@NotNull Label titleLabel) {
@@ -103,16 +113,6 @@ public class ChatPage extends Page{
         }catch (Exception e){
             Log.error(e);
         }
-    }
-
-    @Override
-    public void onClose() {
-        super.onClose();
-
-        getStage().setOnCloseRequest(windowEvent -> {});
-
-        if(isClientCanAcceptRequestsFromServer)
-            disconnect();
     }
 
     private void createUserCountLabel() {
@@ -180,6 +180,9 @@ public class ChatPage extends Page{
                                         String currentMessage = jsonObject.getString(CLIENT_MESSAGE);
                                         if (!isStringAreJSON(currentMessage)) {
                                             createMessageLabel(currentMessage, javafx.scene.paint.Color.rgb(userColorComponents[0], userColorComponents[1], userColorComponents[2]), messagesScrollPane, messagesContent, getUser().getId());
+
+                                            if(getStage().isIconified() & DatabaseService.getBoolean(Objects.requireNonNull(DatabaseService.getValue(DatabaseConstants.USER_USING_NOTIFICATIONS_ROW, getUser().getId()))))
+                                                NotificationsSender.send(Utils.extractUserNameFromMessage(currentMessage), Utils.extractMessageTextFromMessage(currentMessage), TrayIcon.MessageType.INFO, () -> Platform.runLater(() -> getStage().setIconified(false)));
                                         }
                                     }
                                 }
@@ -251,6 +254,9 @@ public class ChatPage extends Page{
                 out.close();
                 socket.close();
             }
+
+            if(server != null)
+                server.close();
 
             isClientCanAcceptRequestsFromServer = false;
         }catch (Exception e){
@@ -362,13 +368,14 @@ public class ChatPage extends Page{
     }
 
     private void leaveTheChat(){
-        if(ConfirmDialog.show(StringGetterWithCurrentLanguage.getString(server == null ? StringsConstants.DO_YOU_REALLY_WANT_TO_LEAVE_IF_NO_HOST: StringsConstants.DO_YOU_REALLY_WANT_TO_LEAVE_IF_HOST))) {
+        if(askUserBeforeOut()) {
             disconnect();
             goToPreviousPage();
-
-            if(server != null)
-                server.close();
         }
+    }
+
+    private boolean askUserBeforeOut(){
+        return ConfirmDialog.show(StringGetterWithCurrentLanguage.getString(server == null ? StringsConstants.DO_YOU_REALLY_WANT_TO_LEAVE_IF_NO_HOST: StringsConstants.DO_YOU_REALLY_WANT_TO_LEAVE_IF_HOST));
     }
 
     private void createMessagesScrollPane() {

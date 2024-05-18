@@ -3,7 +3,6 @@ package com.ds.darknesschat.pages;
 import com.ds.darknesschat.Constants;
 import com.ds.darknesschat.Main;
 import com.ds.darknesschat.additionalNodes.DeveloperLabel;
-import com.ds.darknesschat.additionalNodes.SettingsOptionButton;
 import com.ds.darknesschat.additionalNodes.Tile;
 import com.ds.darknesschat.database.DatabaseConstants;
 import com.ds.darknesschat.database.DatabaseService;
@@ -14,7 +13,7 @@ import com.ds.darknesschat.utils.log.Log;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.image.Image;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -89,10 +88,28 @@ public abstract class Page {
         if(isCreateStandardTile())
             createTile();
 
+        getContentVbox().setOnKeyPressed(keyEvent -> {});
+
         onOpen();
         isOpen = true;
 
         Log.info("Page " + getTitle() + " was opened");
+    }
+
+    public void goToPreviousPageByKey(boolean condition){
+        getContentVbox().setOnKeyPressed(keyEvent -> {
+            if(keyEvent.getCode() == KeyCode.ESCAPE & getPrevoiusPage() != null & condition)
+                goToPreviousPage();
+        });
+    }
+
+    public void goToPreviousPageByKey(IOnAction action){
+        getContentVbox().setOnKeyPressed(keyEvent -> {
+            if(keyEvent.getCode() == KeyCode.ESCAPE & getPrevoiusPage() != null) {
+                action.onAction();
+                goToPreviousPage();
+            }
+        });
     }
 
     public void loadDefaultTileSettings(){
@@ -112,9 +129,9 @@ public abstract class Page {
 
             assert backgroundValueInDatabase != null;
             if (!backgroundValueInDatabase.equals(DEFAULT_BACKGROUND_VALUE) & new File(backgroundValueInDatabase).exists())
-                Utils.changeMainBackground(getContentVbox(), new FileInputStream(backgroundValueInDatabase));
+                Utils.changeMainBackground(getContentVbox(), new FileInputStream(backgroundValueInDatabase), getStage());
             else
-                Utils.changeMainBackground(getContentVbox(), Main.class.getResourceAsStream(DEFAULT_BACKGROUND_PATH));
+                Utils.changeMainBackground(getContentVbox(), Main.class.getResourceAsStream(DEFAULT_BACKGROUND_PATH), getStage());
 
         }catch (Exception e){
             Log.error(e);
@@ -150,7 +167,7 @@ public abstract class Page {
     }
 
     public Stage getStage(){
-        return (Stage) getContentVbox().getScene().getWindow();
+        return getContentVbox().getScene() != null ? ((Stage) getContentVbox().getScene().getWindow()) : null;
     }
 
     public boolean isOpen() {

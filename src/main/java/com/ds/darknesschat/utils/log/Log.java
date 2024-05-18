@@ -2,6 +2,7 @@ package com.ds.darknesschat.utils.log;
 
 import com.ds.darknesschat.utils.appSettings.settingsReader.SettingsReader;
 import com.ds.darknesschat.utils.dialogs.ErrorDialog;
+import com.ds.darknesschat.utils.info.FileSize;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.FileWriter;
@@ -15,7 +16,9 @@ public final class Log {
 
     public static void info(String message){
         if(SettingsReader.getBooleanValue(DO_LOGS)) {
-            logger.info(message);
+            FileSize freeMemory = FileSize.getMoreComfortableImageSizeFromBytes(Runtime.getRuntime().freeMemory());
+
+            logger.info(message + " (" + freeMemory.size() + " " + freeMemory.format() + " free)");
             writeLogsIntoFile(message);
         }
     }

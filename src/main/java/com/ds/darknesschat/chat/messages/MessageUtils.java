@@ -78,25 +78,4 @@ public class MessageUtils {
 
         return label;
     }
-
-    public static @Nullable List<String> getAvailableHexColorsForNicknames(){
-        try {
-            List<String> allHexColors = new ArrayList<>();
-
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(Objects.requireNonNull(Main.class.getResourceAsStream("settings/nicknames_colors.txt"))));
-
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                allHexColors.add(line);
-            }
-
-            bufferedReader.close();
-
-            return allHexColors;
-        }catch (Exception e){
-            Log.error(e);
-        }
-
-        return null;
-    }
 }

@@ -31,6 +31,4 @@ public class DeveloperLabel extends Label {
 
         return vBox;
     }
-
-
 }

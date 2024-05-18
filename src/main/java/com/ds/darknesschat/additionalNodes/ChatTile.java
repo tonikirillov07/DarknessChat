@@ -2,6 +2,7 @@ package com.ds.darknesschat.additionalNodes;
 
 import com.ds.darknesschat.Constants;
 import com.ds.darknesschat.Main;
+import com.ds.darknesschat.pages.ChatsPage;
 import com.ds.darknesschat.pages.ConnectToTheChatPage;
 import com.ds.darknesschat.pages.Page;
 import com.ds.darknesschat.user.UserRecentChats;
@@ -15,6 +16,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
@@ -23,15 +25,17 @@ public class ChatTile extends HBox {
     private final String text;
     private final Pane parent;
     private final Page page;
+    private final ChatsPage chatsPage;
     public static final double DEFAULT_WIDTH = 300d;
     public static final double DEFAULT_HEIGHT = 54d;
 
-    public ChatTile(double width, double height, String text, Pane parent, Page page) {
+    public ChatTile(double width, double height, String text, Pane parent, Page page, ChatsPage chatsPage) {
         this.width = width;
         this.height = height;
         this.text = text;
         this.parent = parent;
         this.page = page;
+        this.chatsPage = chatsPage;
         
         init(page);
         animate();
@@ -65,6 +69,9 @@ public class ChatTile extends HBox {
         try {
             parent.getChildren().remove(this);
             UserRecentChats.deleteOneRecentChat(text, page.getUser().getId());
+
+            if(parent.getChildren().isEmpty())
+                chatsPage.createNoChatsHereLabel((VBox) parent);
         }catch (Exception e){
             Log.error(e);
         }

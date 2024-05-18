@@ -25,7 +25,7 @@ public class Main extends Application {
                 System.exit(-1);
 
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("main-view.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 906, 957);
+            Scene scene = new Scene(fxmlLoader.load(), SettingsReader.getDoubleValue(SettingsKeys.START_WINDOW_WIDTH), SettingsReader.getDoubleValue(SettingsKeys.START_WINDOW_HEIGHT));
             scene.setFill(Color.TRANSPARENT);
             scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("styles/style.css")).toExternalForm());
             stage.setTitle(SettingsReader.getStringValue(SettingsKeys.APP_NAME));

@@ -31,7 +31,7 @@
                   <Label fx:id="appNameLabel" styleClass="app-name-label" text="Label" />
                </children>
             </HBox>
-            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" spacing="10.0">
+            <HBox fx:id="windowControlsButtonsHbox" alignment="CENTER_RIGHT" prefHeight="100.0" spacing="10.0">
                <children>
                   <ImageView fx:id="minimizeButtonImageView" fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" styleClass="controls-buttons">
                      <image>

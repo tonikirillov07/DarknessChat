@@ -1,4 +1,4 @@
-package com.ds.darknesschat.pages;
+package com.ds.darknesschat.utils;
 
 import javafx.scene.image.Image;
 import org.jetbrains.annotations.Contract;

@@ -89,4 +89,12 @@ public final class StringsConstants {
     public static final String MINIMIZE_WINDOW = "minimize_window";
     public static final String PIN_WINDOW = "pin_window";
     public static final String UNPIN_WINDOW = "unpin_window";
+    public static final String JAVA_VERSION = "java_version";
+    public static final String MAXIMIZE_WINDOW = "maximize_window";
+    public static final String CREATE_SCREENSHOT = "create_screenshot";
+    public static final String SCREENSHOTS_MAKER_NOTIFICATION_CAPTION = "screenshots_maker_notification_caption";
+    public static final String SCREENSHOTS_MAKER_NOTIFICATION_SCREENSHOT_SAVED_TO_TEXT = "screenshots_maker_notification_screenshot_saved_to_text";
+    public static final String SCREENSHOTS_MAKER_NOTIFICATION_CLICK_HERE_TO_OPEN_TEXT = "screenshots_maker_notification_click_here_to_open_text";
+    public static final String OTHER_SETTINGS = "other_settings";
+    public static final String NOTIFICATIONS = "notifications";
 }

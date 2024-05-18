@@ -44,6 +44,7 @@ public class SettingsAccountPage extends Page {
         SettingsPage.initBackButton(this);
 
         getTile().applyAlphaWithUserSettings(getUser());
+        goToPreviousPageByKey(true);
     }
 
     private void createDeleteAccountButtonAndLogOut() {

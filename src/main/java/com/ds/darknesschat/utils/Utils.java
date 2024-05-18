@@ -3,11 +3,17 @@ package com.ds.darknesschat.utils;
 import com.ds.darknesschat.Main;
 import com.ds.darknesschat.additionalNodes.AdditionalTextField;
 import com.ds.darknesschat.utils.appSettings.outsideSettings.OutsideSettingsManager;
+import com.ds.darknesschat.utils.appSettings.settingsReader.SettingsKeys;
+import com.ds.darknesschat.utils.appSettings.settingsReader.SettingsReader;
 import com.ds.darknesschat.utils.eventListeners.IOnAction;
 import com.ds.darknesschat.utils.info.ChatAddress;
 import com.ds.darknesschat.utils.log.Log;
 import com.ds.darknesschat.utils.sounds.Sounds;
 import com.ds.darknesschat.utils.sounds.SoundsConstants;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseButton;
@@ -25,8 +31,10 @@ import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.InetAddress;
 import java.nio.charset.StandardCharsets;
 import java.text.DecimalFormat;
@@ -326,17 +334,24 @@ public final class Utils {
         Log.info("Windows closed");
     }
 
-    public static double convertBytesToKiloBytes(int byteValue){
+    public static double convertBytesToKiloBytes(long byteValue){
         return Double.parseDouble(new DecimalFormat("#.###").format(byteValue / 1024));
     }
 
-    public static double convertBytesToMegaBytes(int byteValue){
-        return Double.parseDouble(new DecimalFormat("#.###").format(byteValue * Math.pow(10, -6)));
+    public static double convertBytesToMegaBytes(long byteValue){
+        return Double.parseDouble(new DecimalFormat("#.###").format(byteValue * (9.53674316 * Math.pow(10, -7))));
     }
 
-    public static void changeMainBackground(@NotNull VBox mainVbox, InputStream pathInputStream){
+    public static double convertBytesToGigaBytes(long byteValue){
+        return Double.parseDouble(new DecimalFormat("#.###").format(byteValue / 1073741824d));
+    }
+
+    public static void changeMainBackground(@NotNull VBox mainVbox, InputStream pathInputStream, Stage stage){
+        double backgroundWidth = stage != null ? stage.getWidth() : SettingsReader.getDoubleValue(SettingsKeys.START_WINDOW_WIDTH);
+        double backgroundHeight = stage != null ? stage.getHeight() : SettingsReader.getDoubleValue(SettingsKeys.START_WINDOW_HEIGHT);
+
         BackgroundImage backgroundImage = new BackgroundImage(new Image(pathInputStream),
-                BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
+                BackgroundRepeat.REPEAT, BackgroundRepeat.ROUND, BackgroundPosition.DEFAULT, new BackgroundSize(backgroundWidth, backgroundHeight, false, false, true, true));
         mainVbox.setBackground(new Background(backgroundImage));
     }
 
@@ -353,5 +368,26 @@ public final class Utils {
         }
 
         return fileChooserImage.showOpenDialog(stage);
+    }
+
+    public static @Nullable String getRandomStringFromFile(InputStream file){
+        try {
+            List<String> allLines = new ArrayList<>();
+
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(file));
+
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                allLines.add(line);
+            }
+
+            bufferedReader.close();
+
+            return allLines.get(new Random().nextInt(allLines.size()));
+        }catch (Exception e){
+            Log.error(e);
+        }
+
+        return null;
     }
 }

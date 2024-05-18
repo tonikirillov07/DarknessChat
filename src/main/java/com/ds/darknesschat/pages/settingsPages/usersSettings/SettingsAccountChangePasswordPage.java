@@ -36,6 +36,7 @@ public class SettingsAccountChangePasswordPage extends Page {
         createDeveloperLabelInBottom();
 
         getTile().applyAlphaWithUserSettings(getUser());
+        goToPreviousPageByKey(true);
     }
 
     private void createTextFields() {

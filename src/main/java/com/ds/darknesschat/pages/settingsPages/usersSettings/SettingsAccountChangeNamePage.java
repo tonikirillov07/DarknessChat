@@ -32,6 +32,7 @@ public class SettingsAccountChangeNamePage extends Page {
         createDeveloperLabelInBottom();
 
         getTile().applyAlphaWithUserSettings(getUser());
+        goToPreviousPageByKey(true);
     }
 
     private void createTextField() {

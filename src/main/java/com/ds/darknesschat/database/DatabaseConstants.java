@@ -14,4 +14,5 @@ public class DatabaseConstants {
     public static final String USER_RECENT_CHATS_ROW = "user_recent_chats";
     public static final String USER_LAST_PATH_IN_ATTACHMENTS = "user_last_attachment_path";
     public static final String USER_LAST_BACKGROUND_PATH = "user_last_background_path";
+    public static final String USER_USING_NOTIFICATIONS_ROW = "notifications_using";
 }

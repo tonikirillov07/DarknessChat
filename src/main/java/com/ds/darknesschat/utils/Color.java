@@ -32,7 +32,7 @@ public class Color{
         return component;
     }
 
-    public float checkAlpha(float alpha){
+    private float checkAlpha(float alpha){
         if(alpha < 0f)
             alpha = 0f;
 

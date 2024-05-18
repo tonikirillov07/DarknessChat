@@ -33,10 +33,15 @@ public class SettingsOptionSwitchButton extends SettingsOption {
                 currentOptionId = 0;
 
             currentValue = currentOptionId;
-            valueLabel.setText(switchValues.get(currentValue));
 
+            valueLabel.setText(switchValues.get(currentValue));
             onSwitch.onSwitch(switchValues.get(currentValue));
         }, userId);
+    }
+
+    public void setCurrentValue(int index){
+        currentValue = index;
+        valueLabel.setText(switchValues.get(index));
     }
 
     private void createSwitchValueLabel() {

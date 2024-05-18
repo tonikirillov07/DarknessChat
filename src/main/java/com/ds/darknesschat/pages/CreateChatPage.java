@@ -39,6 +39,7 @@ public class CreateChatPage extends Page{
         initButtons();
         createDeveloperLabelInBottom();
         getTile().applyAlphaWithUserSettings(getUser());
+        goToPreviousPageByKey(true);
 
         currentChatIPLabel.setText(Utils.getLocalIP4Address() + ":" + chatPortTextField.getText());
     }

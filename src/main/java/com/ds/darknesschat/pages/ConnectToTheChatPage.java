@@ -39,6 +39,7 @@ public class ConnectToTheChatPage extends Page{
         initButtons();
         createDeveloperLabelInBottom();
         getTile().applyAlphaWithUserSettings(getUser());
+        goToPreviousPageByKey(true);
     }
 
     public void setAddressValue(String addressValue){

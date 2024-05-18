@@ -1,7 +1,6 @@
 package com.ds.darknesschat.utils;
 
 import com.ds.darknesschat.Constants;
-import com.ds.darknesschat.pages.ImageInfo;
 import com.ds.darknesschat.utils.log.Log;
 import javafx.scene.image.Image;
 import org.jetbrains.annotations.Nullable;

@@ -17,6 +17,7 @@ import javafx.stage.FileChooser;
 import org.apache.commons.io.FileUtils;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.text.DecimalFormat;
@@ -44,12 +45,13 @@ public class SettingsAppearancePage extends Page {
         createDeveloperLabelInBottom();
 
         getTile().applyAlphaWithUserSettings(getUser());
+        goToPreviousPageByKey(true);
     }
 
     private void resetAppearanceSettings(){
         DatabaseService.changeValue(ANIMATIONS_USING_ROW, TRUE, getUser().getId());
         DatabaseService.changeValue(SOUNDS_USING_ROW, TRUE, getUser().getId());
-        DatabaseService.changeValue(OPACITY_LEVEL_ROW, "0.8", getUser().getId());
+        DatabaseService.changeValue(OPACITY_LEVEL_ROW, DEFAULT_OPACITY_LEVEL, getUser().getId());
 
         Log.info("Appearance settings rested");
         reopen();
@@ -62,10 +64,13 @@ public class SettingsAppearancePage extends Page {
         addOptionButton(StringGetterWithCurrentLanguage.getString(StringsConstants.ANIMATIONS), this::changeAnimations, ON_OFF_OPTIONS_LIST, getIndexValueForONAndOffList(DatabaseService.getBoolean(Objects.requireNonNull(DatabaseService.getValue(ANIMATIONS_USING_ROW, getUser().getId())))), true);
         addOptionButton(StringGetterWithCurrentLanguage.getString(StringsConstants.SOUNDS), this::changeSounds, ON_OFF_OPTIONS_LIST, getIndexValueForONAndOffList(DatabaseService.getBoolean(Objects.requireNonNull(DatabaseService.getValue(SOUNDS_USING_ROW, getUser().getId())))), false);
         addOptionButton(StringGetterWithCurrentLanguage.getString(StringsConstants.OPACITY), this::changeAlpha, findAppearanceValues(), findAppearanceValues().indexOf(DatabaseService.getValue(OPACITY_LEVEL_ROW, getUser().getId())), false);
-        addOptionButton(StringGetterWithCurrentLanguage.getString(StringsConstants.BACKGROUND), this::changeBackground, backgroundOptionsList, backgroundIndex, false);
+
+        SettingsOptionSwitchButton backgroundSwitchButton = addOptionButton(StringGetterWithCurrentLanguage.getString(StringsConstants.BACKGROUND), null, backgroundOptionsList, backgroundIndex, false);
+        assert backgroundSwitchButton != null;
+        backgroundSwitchButton.setOnClick(currentValue -> changeBackground(currentValue, backgroundSwitchButton, backgroundOptionsList));
     }
 
-    private void changeBackground(@NotNull String currentValue) {
+    private void changeBackground(@NotNull String currentValue, SettingsOptionSwitchButton backgroundButtonSwitch, List<String> backgroundOptionsList) {
         try {
             File temporaryFolder = new File(TEMPORARY_FOLDER);
 
@@ -101,7 +106,8 @@ public class SettingsAppearancePage extends Page {
                         DatabaseService.changeValue(USER_LAST_BACKGROUND_PATH, file.getParent(), getUser().getId());
                         DatabaseService.changeValue(BACKGROUND_PATH_ROW, temporaryFolder.getName() + "/" + file.getName(), getUser().getId());
                         updateBackground(getUser().getId());
-                    }
+                    }else
+                        backgroundButtonSwitch.setCurrentValue(0);
                 }
             }
         }catch (Exception e){
@@ -142,15 +148,20 @@ public class SettingsAppearancePage extends Page {
         return appearanceValuesList;
     }
 
-    private void addOptionButton(String text, IOnSwitch onSwitch, List<String> switchValues, int startValue, boolean isFirst){
+    private @Nullable SettingsOptionSwitchButton addOptionButton(String text, IOnSwitch onSwitch, List<String> switchValues, int startValue, boolean isFirst){
         try {
             SettingsOptionSwitchButton optionButton = new SettingsOptionSwitchButton(SettingsOption.DEFAULT_WIDTH, SettingsOption.DEFAULT_HEIGHT, text, switchValues, startValue, getUser().getId());
-            optionButton.setOnClick(onSwitch);
+
+            if(onSwitch != null)
+                optionButton.setOnClick(onSwitch);
             VBox.setMargin(optionButton, new Insets(isFirst ? 50d : 5d, 40d, 0, 40d));
             addNodeToTile(optionButton);
+
+            return optionButton;
         }catch (Exception e){
             Log.error(e);
         }
 
+        return null;
     }
 }

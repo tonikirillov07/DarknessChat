@@ -6,8 +6,6 @@ import com.ds.darknesschat.additionalNodes.AdditionalButton;
 import com.ds.darknesschat.additionalNodes.ChatTile;
 import com.ds.darknesschat.additionalNodes.DeveloperLabel;
 import com.ds.darknesschat.additionalNodes.ImageButton;
-import com.ds.darknesschat.database.DatabaseConstants;
-import com.ds.darknesschat.database.DatabaseService;
 import com.ds.darknesschat.pages.settingsPages.SettingsMainPage;
 import com.ds.darknesschat.user.User;
 import com.ds.darknesschat.user.UserRecentChats;
@@ -33,14 +31,13 @@ import javafx.scene.text.Font;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.util.List;
 
 import static com.ds.darknesschat.Constants.*;
 
 public class ChatsPage extends Page{
     private HBox contentHbox;
+    private AdditionalButton clearButton;
 
     protected ChatsPage(Page prevoiusPage, VBox contentVbox, String title, boolean createStandardTile, User user) {
         super(prevoiusPage, contentVbox, title, createStandardTile, user);
@@ -89,7 +86,9 @@ public class ChatsPage extends Page{
             });
             VBox.setMargin(settingsImageButton, new Insets(10d));
 
-            VBox developerLabelArea = new DeveloperLabel().wrapInVbox();
+            DeveloperLabel developerLabel = new DeveloperLabel();
+            VBox developerLabelArea = developerLabel.wrapInVbox();
+
             developerLabelArea.setPadding(new Insets(15d));
             buttonsAndDeveloperLabelVbox.getChildren().addAll(chatsImageButton, settingsImageButton, developerLabelArea);
         }catch (Exception e){
@@ -147,7 +146,7 @@ public class ChatsPage extends Page{
             List<String> recentChatsList = UserRecentChats.getRecentChats(getUser().getId());
 
             if(!recentChatsList.isEmpty())
-                recentChatsList.forEach(address -> scrollPaneContentVbox.getChildren().add(new ChatTile(ChatTile.DEFAULT_WIDTH, ChatTile.DEFAULT_HEIGHT, address, scrollPaneContentVbox, this)));
+                recentChatsList.forEach(address -> scrollPaneContentVbox.getChildren().add(new ChatTile(ChatTile.DEFAULT_WIDTH, ChatTile.DEFAULT_HEIGHT, address, scrollPaneContentVbox, this, (ChatsPage) this)));
             else
                 createNoChatsHereLabel(scrollPaneContentVbox);
 
@@ -159,7 +158,7 @@ public class ChatsPage extends Page{
 
     private void createClearButton(@NotNull VBox sidePanelVbox, VBox scrollPane, boolean listIsEmpty, VBox scrollPaneContentVbox) {
         try {
-            AdditionalButton clearButton = new AdditionalButton(StringGetterWithCurrentLanguage.getString(StringsConstants.CLEAR_ALL), 308d, 58d, new Color(217, 217, 217), BLACK_COLOR, getUser().getId());
+            clearButton = new AdditionalButton(StringGetterWithCurrentLanguage.getString(StringsConstants.CLEAR_ALL), 308d, 58d, new Color(217, 217, 217), BLACK_COLOR, getUser().getId());
             clearButton.setDisable(listIsEmpty);
             VBox.setMargin(clearButton, new Insets(20));
             sidePanelVbox.getChildren().add(clearButton);
@@ -169,7 +168,6 @@ public class ChatsPage extends Page{
                 UserRecentChats.clearRecentChats(getUser().getId());
 
                 createNoChatsHereLabel(scrollPaneContentVbox);
-                clearButton.setDisable(true);
             });
         }catch (Exception e){
             Log.error(e);
@@ -215,7 +213,7 @@ public class ChatsPage extends Page{
         return null;
     }
 
-    private void createNoChatsHereLabel(@NotNull VBox sidePanelVbox){
+    public void createNoChatsHereLabel(@NotNull VBox sidePanelVbox){
         try {
             Label label = new Label(StringGetterWithCurrentLanguage.getString(StringsConstants.NO_RECENT_CHATS_YET_IN_HERE));
             label.setTextFill(javafx.scene.paint.Color.LIGHTGRAY);
@@ -223,6 +221,9 @@ public class ChatsPage extends Page{
             label.setFont(Font.loadFont(Main.class.getResourceAsStream(Constants.FONT_BOLD_ITALIC_PATH), 14d));
 
             sidePanelVbox.getChildren().add(label);
+
+            if(clearButton != null)
+                clearButton.setDisable(true);
         }catch (Exception e){
             Log.error(e);
         }

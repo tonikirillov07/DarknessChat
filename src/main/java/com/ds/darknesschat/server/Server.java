@@ -94,13 +94,13 @@ public class Server {
     public void close(){
         try {
             sendStringMessageToAll(MessagesGenerator.generateUserTextMessage(StringGetterWithCurrentLanguage.getString(StringsConstants.SERVER_WILL_BE_CLOSED_RIGHT_NOW), true, Color.WHITE, getClientsCount()));
-            disconnectAll();
-            clients.clear();
+
+            serverIsWorking = false;
 
             serverSocket.close();
             client.close();
 
-            serverIsWorking = false;
+            disconnectAll();
 
             Log.info("Server closed");
         }catch (Exception e){

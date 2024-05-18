@@ -1,5 +1,6 @@
 package com.ds.darknesschat.client;
 
+import com.ds.darknesschat.Main;
 import com.ds.darknesschat.chat.messages.MessageUtils;
 import com.ds.darknesschat.chat.messages.MessagesGenerator;
 import com.ds.darknesschat.server.Server;
@@ -40,11 +41,7 @@ public class Client implements Runnable{
     }
 
     private void createRandomNameColor() {
-        Random random = new Random();
-        List<String> allColors = MessageUtils.getAvailableHexColorsForNicknames();
-
-        assert allColors != null;
-        String color = allColors.get(random.nextInt(allColors.size()));
+        String color = Utils.getRandomStringFromFile(Main.class.getResourceAsStream("settings/nicknames_colors.txt"));
 
         Log.info("Selected color for user is " + color);
 

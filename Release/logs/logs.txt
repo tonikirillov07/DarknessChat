@@ -899,3 +899,773 @@ Defined value in row user_recent_chats is null
 Defined value in row animations_using is 1
 Defined value in row background_path is DEFAULT_PATH
 Page Недавние чаты was opened
+Opening window...
+Background was initialized!
+Window Title was initialized!
+Close and Minimize Buttons was initialized!
+Window Header Drug was initialized!
+Tile Tile@7a36e9b[styleClass=tile] was created for page Давайте войдем!
+Default padding to page were applied!
+User User{userName='Anton', userPassword='123456', userDateOfRegistration='null', id=-1} is exists: true
+Defined value in row date_of_registration is 19:54:54 2024-05-17
+Defined value in row user_id is 11
+Page Давайте войдем! was closed
+Default padding to page were deleted!
+Defined value in row opacity_level is 0.75
+Defined value in row animations_using is 1
+Defined value in row user_recent_chats is {"recent_chats_array":["26.147.233.12:7503"]}
+Defined value in row user_recent_chats is {"recent_chats_array":["26.147.233.12:7503"]}
+Defined value in row user_recent_chats is {"recent_chats_array":["26.147.233.12:7503"]}
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+Defined value in row background_path is DEFAULT_PATH
+Page Недавние чаты was opened
+Page Давайте войдем! was opened
+Welcome page was initialized!
+Window Header was initialized!
+Window was opened!
+Defined value in row sounds_using is 1
+Defined value in row animations_using is 1
+Page Недавние чаты was closed
+Defined value in row animations_using is 1
+Tile Tile@6d319596[styleClass=tile] was created for page Настройки
+Default padding to page were applied!
+Loaded default settings for tile
+Defined value in row opacity_level is 0.75
+Page Настройки was opened
+Defined value in row sounds_using is 1
+Page Настройки was closed
+Defined value in row animations_using is 1
+Tile Tile@74bd2821[styleClass=tile] was created for page Настройки->О программе
+Default padding to page were applied!
+Loaded default settings for tile
+Defined value in row opacity_level is 0.75
+Page Настройки->О программе was opened
+Defined value in row sounds_using is 1
+Page Недавние чаты was closed
+Defined value in row animations_using is 1
+Tile Tile@380aa5b1[styleClass=tile] was created for page Настройки
+Default padding to page were applied!
+Loaded default settings for tile
+Defined value in row opacity_level is 0.75
+Page Настройки was opened
+Defined value in row sounds_using is 1
+Page Давайте войдем! was closed
+Default padding to page were deleted!
+Defined value in row opacity_level is 0.75
+Defined value in row animations_using is 1
+Defined value in row user_recent_chats is {"recent_chats_array":["26.147.233.12:7503"]}
+Defined value in row user_recent_chats is {"recent_chats_array":["26.147.233.12:7503"]}
+Defined value in row user_recent_chats is {"recent_chats_array":["26.147.233.12:7503"]}
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+Defined value in row background_path is DEFAULT_PATH
+Page Недавние чаты was opened
+Opening window...
+Background was initialized!
+Window Title was initialized!
+Close and Minimize Buttons was initialized!
+Window Header Drug was initialized!
+Tile Tile@5c35333a[styleClass=tile] was created for page Давайте войдем!
+Default padding to page were applied!
+User User{userName='Anton', userPassword='123456', userDateOfRegistration='null', id=-1} is exists: true
+Defined value in row date_of_registration is 19:54:54 2024-05-17
+Defined value in row user_id is 11
+Page Давайте войдем! was closed
+Default padding to page were deleted!
+Defined value in row opacity_level is 0.75
+Defined value in row animations_using is 1
+Defined value in row user_recent_chats is {"recent_chats_array":["26.147.233.12:7503"]}
+Defined value in row user_recent_chats is {"recent_chats_array":["26.147.233.12:7503"]}
+Defined value in row user_recent_chats is {"recent_chats_array":["26.147.233.12:7503"]}
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+Defined value in row background_path is DEFAULT_PATH
+Page Недавние чаты was opened
+Page Давайте войдем! was opened
+Welcome page was initialized!
+Window Header was initialized!
+Window was opened!
+Defined value in row sounds_using is 1
+Defined value in row animations_using is 1
+Page Недавние чаты was closed
+Defined value in row animations_using is 1
+Tile Tile@7d2fd350[styleClass=tile] was created for page Настройки
+Default padding to page were applied!
+Loaded default settings for tile
+Defined value in row opacity_level is 0.75
+Page Настройки was opened
+Defined value in row sounds_using is 1
+Page Настройки was closed
+Defined value in row animations_using is 1
+Tile Tile@5408d518[styleClass=tile] was created for page Настройки->Оформление
+Default padding to page were applied!
+Loaded default settings for tile
+Defined value in row background_path is DEFAULT_PATH
+Defined value in row animations_using is 1
+Defined value in row sounds_using is 1
+Defined value in row opacity_level is 0.75
+Defined value in row opacity_level is 0.75
+Page Настройки->Оформление was opened
+Defined value in row sounds_using is 1
+Page Недавние чаты was closed
+Defined value in row animations_using is 1
+Tile Tile@1e9b5195[styleClass=tile] was created for page Настройки
+Default padding to page were applied!
+Loaded default settings for tile
+Defined value in row opacity_level is 0.75
+Page Настройки was opened
+Defined value in row sounds_using is 1
+Page Давайте войдем! was closed
+Default padding to page were deleted!
+Defined value in row opacity_level is 0.75
+Defined value in row animations_using is 1
+Defined value in row user_recent_chats is {"recent_chats_array":["26.147.233.12:7503"]}
+Defined value in row user_recent_chats is {"recent_chats_array":["26.147.233.12:7503"]}
+Defined value in row user_recent_chats is {"recent_chats_array":["26.147.233.12:7503"]}
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+Defined value in row background_path is DEFAULT_PATH
+Page Недавние чаты was opened
+Page Недавние чаты was closed
+Defined value in row animations_using is 1
+Tile Tile@623dd2ce[styleClass=tile] was created for page Создание чата
+Default padding to page were applied!
+Loaded default settings for tile
+Defined value in row opacity_level is 0.75
+Page Создание чата was opened
+Defined value in row sounds_using is 1
+Created server with address 26.147.233.12:36536
+Page Создание чата was closed
+Defined value in row animations_using is 1
+Tile Tile@328da89e[styleClass=tile] was created for page 26.147.233.12:36536
+Default padding to page were deleted!
+Loaded default settings for tile
+Defined value in row opacity_level is 0.75
+Defined value in row animations_using is 1
+Defined value in row opacity_level is 0.75
+Page 26.147.233.12:36536 was opened
+Trying to connect to the server to address: 26.147.233.12:36536
+Defined value in row user_recent_chats is {"recent_chats_array":["26.147.233.12:7503"]}
+Defined value in row user_recent_chats is {"recent_chats_array":["26.147.233.12:7503"]}
+Selected color for user is #8A88FF
+New client Socket[addr=/26.147.233.12,port=56172,localport=36536] connected
+{"client_color":"1, 1, 1","clients_count":1,"client_message":"Пользователь Anton подключился к чату"}
+{"clients_count":1}
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+{"client_color":"0.541, 0.533, 1","clients_count":1,"client_message":"Anton: Hello!"}
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+Stopping app...
+Opening window...
+Background was initialized!
+Window Title was initialized!
+Close and Minimize Buttons was initialized!
+Window Header Drug was initialized!
+Tile Tile@6df2fa70[styleClass=tile] was created for page Давайте войдем!
+Default padding to page were applied!
+User User{userName='Anton', userPassword='123456', userDateOfRegistration='null', id=-1} is exists: true
+Defined value in row date_of_registration is 19:54:54 2024-05-17
+Defined value in row user_id is 11
+Page Давайте войдем! was closed
+Default padding to page were deleted!
+Defined value in row opacity_level is 0.75
+Defined value in row animations_using is 1
+Defined value in row user_recent_chats is {"recent_chats_array":["26.147.233.12:7503","26.147.233.12:36536"]}
+Defined value in row user_recent_chats is {"recent_chats_array":["26.147.233.12:7503","26.147.233.12:36536"]}
+Defined value in row user_recent_chats is {"recent_chats_array":["26.147.233.12:7503","26.147.233.12:36536"]}
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+Defined value in row background_path is DEFAULT_PATH
+Page Недавние чаты was opened
+Page Давайте войдем! was opened
+Welcome page was initialized!
+Window Header was initialized!
+Window was opened!
+Page Недавние чаты was closed
+Defined value in row animations_using is 1
+Tile Tile@7776f4fe[styleClass=tile] was created for page Создание чата
+Default padding to page were applied!
+Loaded default settings for tile
+Defined value in row opacity_level is 0.75
+Page Создание чата was opened
+Defined value in row sounds_using is 1
+Created server with address 26.147.233.12:48389
+Page Создание чата was closed
+Defined value in row animations_using is 1
+Tile Tile@48974685[styleClass=tile] was created for page 26.147.233.12:48389
+Default padding to page were deleted!
+Loaded default settings for tile
+Defined value in row opacity_level is 0.75
+Defined value in row animations_using is 1
+Defined value in row opacity_level is 0.75
+Page 26.147.233.12:48389 was opened
+Trying to connect to the server to address: 26.147.233.12:48389
+Defined value in row user_recent_chats is {"recent_chats_array":["26.147.233.12:7503","26.147.233.12:36536"]}
+Defined value in row user_recent_chats is {"recent_chats_array":["26.147.233.12:7503","26.147.233.12:36536"]}
+Selected color for user is #d40000
+New client Socket[addr=/26.147.233.12,port=60382,localport=48389] connected
+{"client_color":"1, 1, 1","clients_count":1,"client_message":"Пользователь Anton подключился к чату"}
+{"clients_count":1}
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+{"client_color":"0.831, 0, 0","clients_count":1,"client_message":"Anton: I KNOOOOOOOOOOOOOOOOW"}
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+Defined value in row sounds_using is 1
+{"client_color":"0.831, 0, 0","clients_count":1,"client_message":"Anton: dfdfdfd"}
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+Defined value in row sounds_using is 1
+{"client_color":"0.831, 0, 0","clients_count":1,"client_message":"Anton: dddddddddddddddddddddddddddd"}
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+Defined value in row sounds_using is 1
+{"client_color":"0.831, 0, 0","clients_count":1,"client_message":"Anton: fdfdf"}
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+Defined value in row sounds_using is 1
+{"client_color":"0.831, 0, 0","clients_count":1,"client_message":"Anton: ddddddddddddddddddddddddddd"}
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+Defined value in row sounds_using is 1
+{"client_color":"0.831, 0, 0","clients_count":1,"client_message":"Anton: dfdfddddddddddddddddd"}
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+Defined value in row sounds_using is 1
+{"client_color":"0.831, 0, 0","clients_count":1,"client_message":"Anton: animations_using is 1 (2.564 megaBytes free of 27.263 mega"}
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+Opening window...
+Background was initialized!
+Window Title was initialized!
+Close and Minimize Buttons was initialized!
+Window Header Drug was initialized!
+Tile Tile@7caea583[styleClass=tile] was created for page Давайте войдем!
+Default padding to page were applied!
+User User{userName='Anton', userPassword='123456', userDateOfRegistration='null', id=-1} is exists: true
+Defined value in row date_of_registration is 19:54:54 2024-05-17
+Defined value in row user_id is 11
+Page Давайте войдем! was closed
+Default padding to page were deleted!
+Defined value in row opacity_level is 0.75
+Defined value in row animations_using is 1
+Defined value in row user_recent_chats is {"recent_chats_array":["26.147.233.12:7503","26.147.233.12:36536","26.147.233.12:48389"]}
+Defined value in row user_recent_chats is {"recent_chats_array":["26.147.233.12:7503","26.147.233.12:36536","26.147.233.12:48389"]}
+Defined value in row user_recent_chats is {"recent_chats_array":["26.147.233.12:7503","26.147.233.12:36536","26.147.233.12:48389"]}
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+Defined value in row background_path is DEFAULT_PATH
+Page Недавние чаты was opened
+Page Давайте войдем! was opened
+Welcome page was initialized!
+Window Header was initialized!
+Window was opened!
+Defined value in row sounds_using is 1
+Setting row user_recent_chats to null ended with result 1
+Defined value in row sounds_using is 1
+Defined value in row animations_using is 1
+Page Недавние чаты was closed
+Defined value in row animations_using is 1
+Tile Tile@7588dc5d[styleClass=tile] was created for page Настройки
+Default padding to page were applied!
+Loaded default settings for tile
+Defined value in row opacity_level is 0.75
+Page Настройки was opened
+Defined value in row sounds_using is 1
+Page Давайте войдем! was closed
+Default padding to page were deleted!
+Defined value in row opacity_level is 0.75
+Defined value in row animations_using is 1
+Defined value in row user_recent_chats is null
+Defined value in row animations_using is 1
+Defined value in row background_path is DEFAULT_PATH
+Page Недавние чаты was opened
+Opening window...
+Background was initialized!
+Window Title was initialized!
+Close and Minimize Buttons was initialized!
+Window Header Drug was initialized!
+Tile Tile@2e0069fe[styleClass=tile] was created for page Давайте войдем!
+Default padding to page were applied!
+User User{userName='Anton', userPassword='123456', userDateOfRegistration='null', id=-1} is exists: true
+Defined value in row date_of_registration is 19:54:54 2024-05-17
+Defined value in row user_id is 11
+Page Давайте войдем! was closed
+Default padding to page were deleted!
+Defined value in row opacity_level is 0.75
+Defined value in row animations_using is 1
+Defined value in row user_recent_chats is null
+Defined value in row animations_using is 1
+Defined value in row background_path is DEFAULT_PATH
+Page Недавние чаты was opened
+Page Давайте войдем! was opened
+Welcome page was initialized!
+Window Header was initialized!
+Window was opened!
+Page Недавние чаты was closed
+Defined value in row animations_using is 1
+Tile Tile@5a6cbc72[styleClass=tile] was created for page Подключение
+Default padding to page were applied!
+Loaded default settings for tile
+Defined value in row remembered_chat_address is null
+Defined value in row remembered_chat_address is null
+Defined value in row opacity_level is 0.75
+Page Подключение was opened
+Defined value in row sounds_using is 1
+Trying to connect to the server to address: 26.147.233.12:9588
+Defined value in row user_recent_chats is null
+Page Подключение was closed
+Defined value in row animations_using is 1
+Tile Tile@d8010dd[styleClass=tile] was created for page 26.147.233.12:9588
+Default padding to page were deleted!
+Loaded default settings for tile
+Defined value in row opacity_level is 0.75
+Defined value in row animations_using is 1
+Defined value in row opacity_level is 0.75
+Page 26.147.233.12:9588 was opened
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+java.net.SocketException: Connection reset
+java.net.SocketException: Connection reset by peer
+java.net.SocketException: Connection reset by peer
+Defined value in row sounds_using is 1
+java.net.SocketException: Connection reset by peer
+Page Недавние чаты was closed
+Defined value in row animations_using is 1
+Tile Tile@1e7ebb9[styleClass=tile] was created for page Подключение
+Default padding to page were applied!
+Loaded default settings for tile
+Defined value in row remembered_chat_address is 26.147.233.12:9588
+Defined value in row remembered_chat_address is 26.147.233.12:9588
+Defined value in row opacity_level is 0.75
+Page Подключение was opened
+Defined value in row sounds_using is 1
+Trying to connect to the server to address: 26.147.233.12:6501
+Defined value in row user_recent_chats is {"recent_chats_array":["26.147.233.12:9588"]}
+Defined value in row user_recent_chats is {"recent_chats_array":["26.147.233.12:9588"]}
+Page Подключение was closed
+Defined value in row animations_using is 1
+Tile Tile@77793e11[styleClass=tile] was created for page 26.147.233.12:6501
+Default padding to page were deleted!
+Loaded default settings for tile
+Defined value in row opacity_level is 0.75
+Defined value in row animations_using is 1
+Defined value in row opacity_level is 0.75
+Page 26.147.233.12:6501 was opened
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+Defined value in row sounds_using is 1
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+Defined value in row sounds_using is 1
+Page Недавние чаты was closed
+java.net.SocketException: Socket closed
+Defined value in row animations_using is 1
+Tile Tile@7528bf2f[styleClass=tile] was created for page Подключение
+Default padding to page were applied!
+Loaded default settings for tile
+Defined value in row remembered_chat_address is 26.147.233.12:6501
+Defined value in row remembered_chat_address is 26.147.233.12:6501
+Defined value in row opacity_level is 0.75
+Page Подключение was opened
+Defined value in row sounds_using is 1
+Page Давайте войдем! was closed
+Default padding to page were deleted!
+Defined value in row opacity_level is 0.75
+Defined value in row animations_using is 1
+Defined value in row user_recent_chats is {"recent_chats_array":["26.147.233.12:9588","26.147.233.12:6501"]}
+Defined value in row user_recent_chats is {"recent_chats_array":["26.147.233.12:9588","26.147.233.12:6501"]}
+Defined value in row user_recent_chats is {"recent_chats_array":["26.147.233.12:9588","26.147.233.12:6501"]}
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+Defined value in row background_path is DEFAULT_PATH
+Page Недавние чаты was opened
+Stopping app...
+Opening window...
+Background was initialized!
+Window Title was initialized!
+Close and Minimize Buttons was initialized!
+Window Header Drug was initialized!
+Tile Tile@31d72fad[styleClass=tile] was created for page Давайте войдем!
+Default padding to page were applied!
+User User{userName='Anton', userPassword='123456', userDateOfRegistration='null', id=-1} is exists: true
+Defined value in row date_of_registration is 19:54:54 2024-05-17
+Defined value in row user_id is 11
+Page Давайте войдем! was closed
+Default padding to page were deleted!
+Defined value in row opacity_level is 0.75
+Defined value in row animations_using is 1
+Defined value in row user_recent_chats is {"recent_chats_array":["26.147.233.12:9588","26.147.233.12:6501"]}
+Defined value in row user_recent_chats is {"recent_chats_array":["26.147.233.12:9588","26.147.233.12:6501"]}
+Defined value in row user_recent_chats is {"recent_chats_array":["26.147.233.12:9588","26.147.233.12:6501"]}
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+Defined value in row background_path is DEFAULT_PATH
+Page Недавние чаты was opened
+Page Давайте войдем! was opened
+Welcome page was initialized!
+Window Header was initialized!
+Window was opened!
+Page Недавние чаты was closed
+Defined value in row animations_using is 1
+Tile Tile@32f480db[styleClass=tile] was created for page Подключение
+Default padding to page were applied!
+Loaded default settings for tile
+Defined value in row remembered_chat_address is 26.147.233.12:6501
+Defined value in row remembered_chat_address is 26.147.233.12:6501
+Defined value in row opacity_level is 0.75
+Page Подключение was opened
+Defined value in row sounds_using is 1
+Trying to connect to the server to address: 26.147.233.12:6501
+Defined value in row user_recent_chats is {"recent_chats_array":["26.147.233.12:9588","26.147.233.12:6501"]}
+Defined value in row user_recent_chats is {"recent_chats_array":["26.147.233.12:9588","26.147.233.12:6501"]}
+java.net.ConnectException: Connection refused: connect
+java.net.ConnectException: Failed to connect to address 26.147.233.12:6501
+Defined value in row sounds_using is 1
+Trying to connect to the server to address: 26.147.233.12:52954
+Defined value in row user_recent_chats is {"recent_chats_array":["26.147.233.12:9588","26.147.233.12:6501","26.147.233.12:6501"]}
+Defined value in row user_recent_chats is {"recent_chats_array":["26.147.233.12:9588","26.147.233.12:6501","26.147.233.12:6501"]}
+Page Подключение was closed
+Defined value in row animations_using is 1
+Tile Tile@6ac1161b[styleClass=tile] was created for page 26.147.233.12:52954
+Default padding to page were deleted!
+Loaded default settings for tile
+Defined value in row opacity_level is 0.75
+Defined value in row animations_using is 1
+Defined value in row opacity_level is 0.75
+Page 26.147.233.12:52954 was opened
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+Defined value in row sounds_using is 1
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+java.io.EOFException
+Defined value in row animations_using is 1
+Defined value in row sounds_using is 1
+String 26.147.233.12:52954 copied in clipboard
+Defined value in row sounds_using is 1
+Page Недавние чаты was closed
+Defined value in row animations_using is 1
+Tile Tile@5c3e7a5f[styleClass=tile] was created for page Подключение
+Default padding to page were applied!
+Loaded default settings for tile
+Defined value in row remembered_chat_address is 26.147.233.12:52954
+Defined value in row remembered_chat_address is 26.147.233.12:52954
+Defined value in row opacity_level is 0.75
+Page Подключение was opened
+Defined value in row sounds_using is 1
+Trying to connect to the server to address: 26.147.233.12:52954
+Defined value in row user_recent_chats is {"recent_chats_array":["26.147.233.12:9588","26.147.233.12:6501","26.147.233.12:6501","26.147.233.12:52954"]}
+Defined value in row user_recent_chats is {"recent_chats_array":["26.147.233.12:9588","26.147.233.12:6501","26.147.233.12:6501","26.147.233.12:52954"]}
+Page Подключение was closed
+Defined value in row animations_using is 1
+Tile Tile@3929801e[styleClass=tile] was created for page 26.147.233.12:52954
+Default padding to page were deleted!
+Loaded default settings for tile
+Defined value in row opacity_level is 0.75
+Defined value in row animations_using is 1
+Defined value in row opacity_level is 0.75
+Page 26.147.233.12:52954 was opened
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+Defined value in row sounds_using is 1
+Page Недавние чаты was closed
+java.net.SocketException: Socket closed
+Defined value in row animations_using is 1
+Tile Tile@6b7aa3[styleClass=tile] was created for page Подключение
+Default padding to page were applied!
+Loaded default settings for tile
+Defined value in row remembered_chat_address is 26.147.233.12:52954
+Defined value in row remembered_chat_address is 26.147.233.12:52954
+Defined value in row opacity_level is 0.75
+Page Подключение was opened
+Defined value in row sounds_using is 1
+Page Давайте войдем! was closed
+Default padding to page were deleted!
+Defined value in row opacity_level is 0.75
+Defined value in row animations_using is 1
+Defined value in row user_recent_chats is {"recent_chats_array":["26.147.233.12:9588","26.147.233.12:6501","26.147.233.12:6501","26.147.233.12:52954","26.147.233.12:52954"]}
+Defined value in row user_recent_chats is {"recent_chats_array":["26.147.233.12:9588","26.147.233.12:6501","26.147.233.12:6501","26.147.233.12:52954","26.147.233.12:52954"]}
+Defined value in row user_recent_chats is {"recent_chats_array":["26.147.233.12:9588","26.147.233.12:6501","26.147.233.12:6501","26.147.233.12:52954","26.147.233.12:52954"]}
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+Defined value in row background_path is DEFAULT_PATH
+Page Недавние чаты was opened
+Defined value in row sounds_using is 1
+Setting row user_recent_chats to null ended with result 1
+Page Недавние чаты was closed
+Defined value in row animations_using is 1
+Tile Tile@1b8a20[styleClass=tile] was created for page Подключение
+Default padding to page were applied!
+Loaded default settings for tile
+Defined value in row remembered_chat_address is 26.147.233.12:52954
+Defined value in row remembered_chat_address is 26.147.233.12:52954
+Defined value in row opacity_level is 0.75
+Page Подключение was opened
+Defined value in row sounds_using is 1
+Trying to connect to the server to address: 26.147.233.12:8277
+Defined value in row user_recent_chats is null
+Page Подключение was closed
+Defined value in row animations_using is 1
+Tile Tile@357eab05[styleClass=tile] was created for page 26.147.233.12:8277
+Default padding to page were deleted!
+Loaded default settings for tile
+Defined value in row opacity_level is 0.75
+Defined value in row animations_using is 1
+Defined value in row opacity_level is 0.75
+Page 26.147.233.12:8277 was opened
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+Stopping app...
+Opening window...
+Background was initialized!
+Window Title was initialized!
+Close and Minimize Buttons was initialized!
+Window Header Drug was initialized!
+Tile Tile@31d72fad[styleClass=tile] was created for page Давайте войдем!
+Default padding to page were applied!
+User User{userName='Anton', userPassword='123456', userDateOfRegistration='null', id=-1} is exists: true
+Defined value in row date_of_registration is 19:54:54 2024-05-17
+Defined value in row user_id is 11
+Page Давайте войдем! was closed
+Default padding to page were deleted!
+Defined value in row opacity_level is 0.75
+Defined value in row animations_using is 1
+Defined value in row user_recent_chats is {"recent_chats_array":["26.147.233.12:8277"]}
+Defined value in row user_recent_chats is {"recent_chats_array":["26.147.233.12:8277"]}
+Defined value in row user_recent_chats is {"recent_chats_array":["26.147.233.12:8277"]}
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+Defined value in row background_path is DEFAULT_PATH
+Page Недавние чаты was opened
+Page Давайте войдем! was opened
+Welcome page was initialized!
+Window Header was initialized!
+Window was opened!
+Defined value in row sounds_using is 1
+Defined value in row animations_using is 1
+Page Недавние чаты was closed
+Defined value in row animations_using is 1
+Tile Tile@5b16c133[styleClass=tile] was created for page Настройки
+Default padding to page were applied!
+Loaded default settings for tile
+Defined value in row opacity_level is 0.75
+Page Настройки was opened
+Defined value in row sounds_using is 1
+Page Настройки was closed
+Defined value in row animations_using is 1
+Tile Tile@44d9c7aa[styleClass=tile] was created for page Настройки->null
+Loaded default settings for tile
+Default padding to page were applied!
+org.sqlite.SQLiteException: [SQLITE_ERROR] SQL error or missing database (no such column: notifications_using)
+Opening window...
+Background was initialized!
+Window Title was initialized!
+Close and Minimize Buttons was initialized!
+Window Header Drug was initialized!
+Tile Tile@2e0069fe[styleClass=tile] was created for page Давайте войдем!
+Default padding to page were applied!
+User User{userName='Anton', userPassword='123456', userDateOfRegistration='null', id=-1} is exists: true
+Defined value in row date_of_registration is 19:54:54 2024-05-17
+Defined value in row user_id is 11
+Page Давайте войдем! was closed
+Default padding to page were deleted!
+Defined value in row opacity_level is 0.75
+Defined value in row animations_using is 1
+Defined value in row user_recent_chats is {"recent_chats_array":["26.147.233.12:8277"]}
+Defined value in row user_recent_chats is {"recent_chats_array":["26.147.233.12:8277"]}
+Defined value in row user_recent_chats is {"recent_chats_array":["26.147.233.12:8277"]}
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+Defined value in row background_path is DEFAULT_PATH
+Page Недавние чаты was opened
+Page Давайте войдем! was opened
+Welcome page was initialized!
+Window Header was initialized!
+Window was opened!
+Page Недавние чаты was closed
+Defined value in row animations_using is 1
+Tile Tile@5952121d[styleClass=tile] was created for page Создание чата
+Default padding to page were applied!
+Loaded default settings for tile
+Defined value in row opacity_level is 0.75
+Page Создание чата was opened
+Defined value in row sounds_using is 1
+Page Давайте войдем! was closed
+Default padding to page were deleted!
+Defined value in row opacity_level is 0.75
+Defined value in row animations_using is 1
+Defined value in row user_recent_chats is {"recent_chats_array":["26.147.233.12:8277"]}
+Defined value in row user_recent_chats is {"recent_chats_array":["26.147.233.12:8277"]}
+Defined value in row user_recent_chats is {"recent_chats_array":["26.147.233.12:8277"]}
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+Defined value in row background_path is DEFAULT_PATH
+Page Недавние чаты was opened
+Defined value in row sounds_using is 1
+Defined value in row animations_using is 1
+Page Недавние чаты was closed
+Defined value in row animations_using is 1
+Tile Tile@14c53209[styleClass=tile] was created for page Настройки
+Default padding to page were applied!
+Loaded default settings for tile
+Defined value in row opacity_level is 0.75
+Page Настройки was opened
+Defined value in row sounds_using is 1
+Page Давайте войдем! was closed
+Default padding to page were deleted!
+Defined value in row opacity_level is 0.75
+Defined value in row animations_using is 1
+Defined value in row user_recent_chats is {"recent_chats_array":["26.147.233.12:8277"]}
+Defined value in row user_recent_chats is {"recent_chats_array":["26.147.233.12:8277"]}
+Defined value in row user_recent_chats is {"recent_chats_array":["26.147.233.12:8277"]}
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+Defined value in row background_path is DEFAULT_PATH
+Page Недавние чаты was opened
+Page Недавние чаты was closed
+Defined value in row animations_using is 1
+Tile Tile@139737e[styleClass=tile] was created for page Подключение
+Default padding to page were applied!
+Loaded default settings for tile
+Defined value in row remembered_chat_address is 26.147.233.12:8277
+Defined value in row remembered_chat_address is 26.147.233.12:8277
+Defined value in row opacity_level is 0.75
+Page Подключение was opened
+Defined value in row sounds_using is 1
+Trying to connect to the server to address: 26.147.233.12:43906
+Defined value in row user_recent_chats is {"recent_chats_array":["26.147.233.12:8277"]}
+Defined value in row user_recent_chats is {"recent_chats_array":["26.147.233.12:8277"]}
+Page Подключение was closed
+Defined value in row animations_using is 1
+Tile Tile@19c9dacd[styleClass=tile] was created for page 26.147.233.12:43906
+Default padding to page were deleted!
+Loaded default settings for tile
+Defined value in row opacity_level is 0.75
+Defined value in row animations_using is 1
+Defined value in row opacity_level is 0.75
+Page 26.147.233.12:43906 was opened
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+org.sqlite.SQLiteException: [SQLITE_ERROR] SQL error or missing database (no such column: notifications_using)
+Opening window...
+Background was initialized!
+Window Title was initialized!
+Close and Minimize Buttons was initialized!
+Window Header Drug was initialized!
+Tile Tile@31d72fad[styleClass=tile] was created for page Давайте войдем!
+Default padding to page were applied!
+User User{userName='Anton', userPassword='123456', userDateOfRegistration='null', id=-1} is exists: true
+Defined value in row date_of_registration is 19:54:54 2024-05-17
+Defined value in row user_id is 11
+Page Давайте войдем! was closed
+Default padding to page were deleted!
+Defined value in row opacity_level is 0.75
+Defined value in row animations_using is 1
+Defined value in row user_recent_chats is {"recent_chats_array":["26.147.233.12:8277","26.147.233.12:43906"]}
+Defined value in row user_recent_chats is {"recent_chats_array":["26.147.233.12:8277","26.147.233.12:43906"]}
+Defined value in row user_recent_chats is {"recent_chats_array":["26.147.233.12:8277","26.147.233.12:43906"]}
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+Defined value in row background_path is DEFAULT_PATH
+Page Недавние чаты was opened
+Page Давайте войдем! was opened
+Welcome page was initialized!
+Window Header was initialized!
+Window was opened!
+Page Недавние чаты was closed
+Defined value in row animations_using is 1
+Tile Tile@5704ec89[styleClass=tile] was created for page Подключение
+Default padding to page were applied!
+Loaded default settings for tile
+Defined value in row remembered_chat_address is 26.147.233.12:43906
+Defined value in row remembered_chat_address is 26.147.233.12:43906
+Defined value in row opacity_level is 0.75
+Page Подключение was opened
+Defined value in row sounds_using is 1
+Trying to connect to the server to address: 26.147.233.12:61212
+Defined value in row user_recent_chats is {"recent_chats_array":["26.147.233.12:8277","26.147.233.12:43906"]}
+Defined value in row user_recent_chats is {"recent_chats_array":["26.147.233.12:8277","26.147.233.12:43906"]}
+Page Подключение was closed
+Defined value in row animations_using is 1
+Tile Tile@640e422e[styleClass=tile] was created for page 26.147.233.12:61212
+Default padding to page were deleted!
+Loaded default settings for tile
+Defined value in row opacity_level is 0.75
+Defined value in row animations_using is 1
+Defined value in row opacity_level is 0.75
+Page 26.147.233.12:61212 was opened
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+org.sqlite.SQLiteException: [SQLITE_ERROR] SQL error or missing database (no such column: notifications_using)
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+org.sqlite.SQLiteException: [SQLITE_ERROR] SQL error or missing database (no such column: notifications_using)
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+org.sqlite.SQLiteException: [SQLITE_ERROR] SQL error or missing database (no such column: notifications_using)
+java.net.SocketException: Socket closed
+Page Недавние чаты was closed
+Defined value in row animations_using is 1
+Tile Tile@46e56dbb[styleClass=tile] was created for page Подключение
+Default padding to page were applied!
+Loaded default settings for tile
+Defined value in row remembered_chat_address is 26.147.233.12:61212
+Defined value in row remembered_chat_address is 26.147.233.12:61212
+Defined value in row opacity_level is 0.75
+Page Подключение was opened
+Page Давайте войдем! was closed
+Default padding to page were deleted!
+Defined value in row opacity_level is 0.75
+Defined value in row animations_using is 1
+Defined value in row user_recent_chats is {"recent_chats_array":["26.147.233.12:8277","26.147.233.12:43906","26.147.233.12:61212"]}
+Defined value in row user_recent_chats is {"recent_chats_array":["26.147.233.12:8277","26.147.233.12:43906","26.147.233.12:61212"]}
+Defined value in row user_recent_chats is {"recent_chats_array":["26.147.233.12:8277","26.147.233.12:43906","26.147.233.12:61212"]}
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+Defined value in row animations_using is 1
+Defined value in row background_path is DEFAULT_PATH
+Page Недавние чаты was opened
+Stopping app...
