@@ -8,36 +8,28 @@ import java.io.*;
 import java.util.Properties;
 
 public class OutsideSettingsManager {
-    public static @Nullable String getValue(String key){
-        try {
-            Properties properties = new Properties();
+    private static final Properties properties = new Properties();
+
+    static {
+        try{
             FileInputStream fileInputStream = new FileInputStream(Constants.OUTSIDE_SETTINGS_PATH);
             properties.load(fileInputStream);
-
-            String result = (String) properties.get(key);
-
             fileInputStream.close();
-
-            return result;
         }catch (Exception e){
             Log.error(e);
         }
+    }
 
-        return null;
+    public static @Nullable String getValue(String key){
+        return (String) properties.get(key);
     }
 
     public static void changeValue(String key, String newValue){
         try {
-            Properties properties = new Properties();
-            FileInputStream fileInputStream = new FileInputStream(Constants.OUTSIDE_SETTINGS_PATH);
-            properties.load(fileInputStream);
-
             properties.setProperty(key, newValue);
 
             FileWriter fileOutputStream =new FileWriter(Constants.OUTSIDE_SETTINGS_PATH);
             properties.store(fileOutputStream, null);
-
-            fileInputStream.close();
             fileOutputStream.close();
         }catch (Exception e){
             Log.error(e);

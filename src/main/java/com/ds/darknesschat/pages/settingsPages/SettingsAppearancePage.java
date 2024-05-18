@@ -12,7 +12,6 @@ import com.ds.darknesschat.utils.languages.StringGetterWithCurrentLanguage;
 import com.ds.darknesschat.utils.languages.StringsConstants;
 import com.ds.darknesschat.utils.log.Log;
 import javafx.geometry.Insets;
-import javafx.scene.input.MouseButton;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import org.apache.commons.io.FileUtils;
@@ -68,17 +67,30 @@ public class SettingsAppearancePage extends Page {
 
     private void changeBackground(@NotNull String currentValue) {
         try {
+            File temporaryFolder = new File(TEMPORARY_FOLDER);
+
             switch (currentValue){
                 case DEFAULT_BACKGROUND_VALUE -> {
                     DatabaseService.changeValue(BACKGROUND_PATH_ROW, DEFAULT_BACKGROUND_VALUE, getUser().getId());
                     updateBackground(getUser().getId());
+
+                    if(temporaryFolder.exists()) {
+                        String[] temporaryFilesList = temporaryFolder.list();
+
+                        assert temporaryFilesList != null;
+                        for (String fileName : temporaryFilesList) {
+                            File currentFile = new File(TEMPORARY_FOLDER + "/" + fileName);
+
+                            if(currentFile.canWrite()){
+                                Log.info("File " + currentFile + " deleted with result " + currentFile.delete());
+                            }
+                        }
+                    }
                 }
                 case ANOTHER_BACKGROUND_VALUE -> {
                     File file = Utils.openFileDialog(StringGetterWithCurrentLanguage.getString(StringsConstants.SELECT_YOUR_BACKGROUND_FILE), DatabaseService.getValue(USER_LAST_BACKGROUND_PATH, getUser().getId()),
                             getStage(), List.of(new FileChooser.ExtensionFilter(Objects.requireNonNull(StringGetterWithCurrentLanguage.getString(StringsConstants.IMAGES)), "*.png*", "*.jpg*", "*.jpeg*"),
                                     new FileChooser.ExtensionFilter(Objects.requireNonNull(StringGetterWithCurrentLanguage.getString(StringsConstants.EVERYTHING)), "*.*")));
-
-                    File temporaryFolder = new File("temporary");
 
                     if (file != null) {
                         if(!temporaryFolder.exists())

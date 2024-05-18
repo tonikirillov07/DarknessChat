@@ -16,6 +16,7 @@ public final class Constants {
     public static final String FONT_BOLD_ITALIC_PATH = "fonts/Inter-BoldItalic.otf";
     public static final String ATTACHMENTS_FOLDER = "attachments";
     public static final String ATTACHMENT_PNG = "attachment.png";
+    public static final String TEMPORARY_FOLDER = "temporary";
 
     public static final String DEFAULT_BACKGROUND_VALUE = "DEFAULT_PATH";
     public static final String ANOTHER_BACKGROUND_VALUE = "ANOTHER";
@@ -34,7 +35,7 @@ public final class Constants {
     public static final int MESSAGE_SIZE_LIMIT_IN_BYTES = 65535;
     public static final long CLIENT_AND_SERVER_UPDATE_DELAY_IN_MILLIS = 100L;
 
-    public static final String[] SERVER_ADDRESS_REGEXES = {"\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}:\\d{3,5}", "localhost:\\d{3,5}"};
+    public static final String[] SERVER_ADDRESS_REGEXES = {"\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}:\\d{1,5}", "localhost:\\d{1,5}"};
 
     public static final List<String> ON_OFF_OPTIONS_LIST = List.of(Objects.requireNonNull(StringGetterWithCurrentLanguage.getString(StringsConstants.ON)), Objects.requireNonNull(StringGetterWithCurrentLanguage.getString(StringsConstants.OFF)));
 }

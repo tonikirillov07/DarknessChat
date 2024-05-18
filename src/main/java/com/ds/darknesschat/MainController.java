@@ -16,6 +16,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import org.jetbrains.annotations.NotNull;
 
 import static com.ds.darknesschat.Constants.DEFAULT_BACKGROUND_PATH;
 import static com.ds.darknesschat.Constants.IGNORE_USER_AGREEMENT;
@@ -64,25 +65,35 @@ public class MainController {
     }
 
     private void initWindowIcon() {
-        windowIcon.setImage(Utils.getImage(SettingsReader.getStringValue(SettingsKeys.APP_ICON)));
+        try {
+            windowIcon.setImage(Utils.getImage(SettingsReader.getStringValue(SettingsKeys.APP_ICON)));
 
-        MenuItem closeMenuItem = new MenuItem(StringGetterWithCurrentLanguage.getString(StringsConstants.CLOSE_WINDOW));
-        MenuItem minimizeMenuItem = new MenuItem(StringGetterWithCurrentLanguage.getString(StringsConstants.MINIMIZE_WINDOW));
-        MenuItem pinMenuItem = new MenuItem(StringGetterWithCurrentLanguage.getString(StringsConstants.PIN_WINDOW));
+            MenuItem closeMenuItem = new MenuItem(StringGetterWithCurrentLanguage.getString(StringsConstants.CLOSE_WINDOW));
+            MenuItem minimizeMenuItem = new MenuItem(StringGetterWithCurrentLanguage.getString(StringsConstants.MINIMIZE_WINDOW));
+            MenuItem pinMenuItem = new MenuItem(StringGetterWithCurrentLanguage.getString(StringsConstants.PIN_WINDOW));
 
-        closeMenuItem.setOnAction(actionEvent -> close());
-        minimizeMenuItem.setOnAction(actionEvent -> minimize());
-        pinMenuItem.setOnAction(actionEvent -> {
+            closeMenuItem.setOnAction(actionEvent -> close());
+            minimizeMenuItem.setOnAction(actionEvent -> minimize());
+            pinMenuItem.setOnAction(actionEvent -> changeOnTop(pinMenuItem));
+
+            ContextMenu contextMenu = new ContextMenu();
+            contextMenu.getItems().addAll(closeMenuItem, minimizeMenuItem, pinMenuItem);
+
+            windowIcon.setOnContextMenuRequested(contextMenuEvent -> contextMenu.show(windowIcon, contextMenuEvent.getScreenX(), contextMenuEvent.getScreenY()));
+        }catch (Exception e){
+            Log.error(e);
+        }
+    }
+
+    private void changeOnTop(@NotNull MenuItem pinMenuItem) {
+        try {
             boolean stageIsAlwaysOnTop = getStage().isAlwaysOnTop();
             pinMenuItem.setText(stageIsAlwaysOnTop ? StringGetterWithCurrentLanguage.getString(StringsConstants.PIN_WINDOW) : StringGetterWithCurrentLanguage.getString(StringsConstants.UNPIN_WINDOW));
 
             getStage().setAlwaysOnTop(!stageIsAlwaysOnTop);
-        });
-
-        ContextMenu contextMenu = new ContextMenu();
-        contextMenu.getItems().addAll(closeMenuItem, minimizeMenuItem, pinMenuItem);
-
-        windowIcon.setOnContextMenuRequested(contextMenuEvent -> contextMenu.show(windowIcon, contextMenuEvent.getScreenX(), contextMenuEvent.getScreenY()));
+        }catch (Exception e){
+            Log.error(e);
+        }
     }
 
     private void initWindowTitle() {
@@ -97,10 +108,14 @@ public class MainController {
     }
 
     private void initPages() {
-        WelcomePage welcomePage = new WelcomePage(null, contentVbox, StringGetterWithCurrentLanguage.getString(StringsConstants.LETS_LOG_IN), true,false);
-        welcomePage.open();
+        try {
+            WelcomePage welcomePage = new WelcomePage(null, contentVbox, StringGetterWithCurrentLanguage.getString(StringsConstants.LETS_LOG_IN), true, false);
+            welcomePage.open();
 
-        Log.info("Welcome page was initialized!");
+            Log.info("Welcome page was initialized!");
+        }catch (Exception e){
+            Log.error(e);
+        }
     }
 
     private void initDrag() {
@@ -122,10 +137,14 @@ public class MainController {
     }
 
     private void initControlButtons() {
-        Utils.addActionToNode(closeButtonImageView, this::close, IGNORE_USER_AGREEMENT);
-        Utils.addActionToNode(minimizeButtonImageView, this::minimize, IGNORE_USER_AGREEMENT);
+        try {
+            Utils.addActionToNode(closeButtonImageView, this::close, IGNORE_USER_AGREEMENT);
+            Utils.addActionToNode(minimizeButtonImageView, this::minimize, IGNORE_USER_AGREEMENT);
 
-        Log.info("Close and Minimize Buttons was initialized!");
+            Log.info("Close and Minimize Buttons was initialized!");
+        }catch (Exception e){
+            Log.error(e);
+        }
     }
 
     private void initBackground() {
@@ -142,7 +161,11 @@ public class MainController {
     }
 
     private void minimize(){
-        getStage().setIconified(true);
+        try{
+            getStage().setIconified(true);
+        }catch (Exception e){
+            Log.error(e);
+        }
     }
 
     private void close(){

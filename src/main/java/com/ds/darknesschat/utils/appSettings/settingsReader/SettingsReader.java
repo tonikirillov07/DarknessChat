@@ -4,6 +4,7 @@ import com.ds.darknesschat.Main;
 import com.ds.darknesschat.utils.log.Log;
 import org.jetbrains.annotations.Nullable;
 
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Objects;
 import java.util.Properties;
@@ -12,23 +13,20 @@ import static com.ds.darknesschat.Constants.BUILT_IN_SETTINGS_PATH;
 import static com.ds.darknesschat.Constants.NULL;
 
 public final class SettingsReader {
-    private static @Nullable Object getValue(String key){
+    private static final Properties properties = new Properties();
+
+    static {
         try {
-            Properties properties = new Properties();
             InputStreamReader inputStreamReader = new InputStreamReader(Objects.requireNonNull(Main.class.getResourceAsStream(BUILT_IN_SETTINGS_PATH)));
-
             properties.load(inputStreamReader);
-            Object result = properties.getOrDefault(key, NULL);
-
             inputStreamReader.close();
-            properties.clear();
-
-            return result;
-        }catch (Exception e){
+        } catch (IOException e) {
             Log.error(e);
         }
+    }
 
-        return null;
+    private static @Nullable Object getValue(String key) {
+        return properties.getOrDefault(key, NULL);
     }
 
     public static String getStringValue(String key){
