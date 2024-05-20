@@ -8,6 +8,21 @@ import javafx.scene.control.Label;
 import javafx.util.Duration;
 
 public final class Animations {
+    public static void setScaleTransitionToNode(Node node, double fromXScale, double toXScale, double fromYScale, double toYScale, long userId){
+        try {
+            if (UserSettings.getUserAnimationsUsing(userId)) {
+                ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(100d), node);
+                scaleTransition.setFromX(fromXScale);
+                scaleTransition.setToX(toXScale);
+                scaleTransition.setFromY(fromYScale);
+                scaleTransition.setToY(toYScale);
+                scaleTransition.play();
+            }
+        }catch (Exception e){
+            Log.error(e);
+        }
+    }
+
     public static void addTranslateByUpAnimationToNode(Node node, boolean byUp, long userId){
         try {
             if(UserSettings.getUserAnimationsUsing(userId)) {

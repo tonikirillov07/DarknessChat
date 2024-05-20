@@ -1,0 +1,41 @@
+{"all_emojis": [
+  {
+    "path":"emojis/images/chill.png",
+    "name":"Chill"
+  },
+
+  {
+    "path":"emojis/images/close.png",
+    "name":"Close"
+  },
+
+  {
+    "path":"emojis/images/cry.png",
+    "name":"Cry"
+  },
+
+  {
+    "path":"emojis/images/in_love.png",
+    "name":"In love"
+  },
+
+  {
+    "path":"emojis/images/laughing_out_loud.png",
+    "name":"Laughing out loud"
+  },
+
+  {
+    "path":"emojis/images/mockery.png",
+    "name":"Mockery"
+  },
+
+  {
+    "path":"emojis/images/smirk.png",
+    "name":"Smirk"
+  },
+
+  {
+    "path":"emojis/images/thinking.png",
+    "name":"Thinking"
+  }
+]}

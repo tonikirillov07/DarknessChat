@@ -77,7 +77,7 @@ public final class ImageUtils {
 
             return compressedImageFile;
         }catch (Exception e){
-            Log.error(e);
+            Log.error(new Exception("Failed to compress image. Exception: " + e));
         }
 
         return null;

@@ -70,7 +70,7 @@ public class ChatTile extends HBox {
             parent.getChildren().remove(this);
             UserRecentChats.deleteOneRecentChat(text, page.getUser().getId());
 
-            if(parent.getChildren().isEmpty())
+            if(parent.getChildren().isEmpty() & chatsPage != null)
                 chatsPage.createNoChatsHereLabel((VBox) parent);
         }catch (Exception e){
             Log.error(e);

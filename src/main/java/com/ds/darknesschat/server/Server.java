@@ -64,7 +64,7 @@ public class Server {
 
                         Thread.sleep(CLIENT_AND_SERVER_UPDATE_DELAY_IN_MILLIS);
                     } catch (Exception e) {
-                        Log.error(e);
+                        break;
                     }
                 }
             }).start();
@@ -97,10 +97,10 @@ public class Server {
 
             serverIsWorking = false;
 
-            serverSocket.close();
-            client.close();
-
             disconnectAll();
+
+            client.close();
+            serverSocket.close();
 
             Log.info("Server closed");
         }catch (Exception e){
@@ -124,10 +124,6 @@ public class Server {
         }catch (Exception e){
             Log.error(e);
         }
-    }
-
-    public boolean isClosed(){
-        return serverSocket.isClosed();
     }
 
     public int getClientsCount(){

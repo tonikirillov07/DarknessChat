@@ -1,10 +1,9 @@
 package com.ds.darknesschat.pages;
 
 import com.ds.darknesschat.Main;
-import com.ds.darknesschat.additionalNodes.AdditionalButton;
-import com.ds.darknesschat.additionalNodes.AdditionalTextField;
-import com.ds.darknesschat.additionalNodes.ImageButton;
-import com.ds.darknesschat.additionalNodes.Tile;
+import com.ds.darknesschat.additionalNodes.*;
+import com.ds.darknesschat.additionalNodes.EmojisView;
+import com.ds.darknesschat.chat.messages.emojis.EmojiInfo;
 import com.ds.darknesschat.database.DatabaseConstants;
 import com.ds.darknesschat.database.DatabaseService;
 import com.ds.darknesschat.server.Server;
@@ -14,13 +13,16 @@ import com.ds.darknesschat.utils.*;
 import com.ds.darknesschat.utils.Color;
 import com.ds.darknesschat.utils.dialogs.ConfirmDialog;
 import com.ds.darknesschat.utils.dialogs.ErrorDialog;
+import com.ds.darknesschat.utils.eventListeners.IOnEmojiSelect;
 import com.ds.darknesschat.utils.info.ChatAddress;
 import com.ds.darknesschat.utils.languages.StringGetterWithCurrentLanguage;
 import com.ds.darknesschat.utils.languages.StringsConstants;
 import com.ds.darknesschat.utils.log.Log;
+import javafx.animation.ScaleTransition;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.control.*;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -31,6 +33,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
+import javafx.util.Duration;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
@@ -80,7 +83,7 @@ public class ChatPage extends Page{
         
         getTile().setMaxHeight(415d);
         getTile().applyAlphaWithUserSettings(getUser());
-        Utils.addActionToNode(getTile().getTitleLabel(), () -> Utils.copyStringToClipboard(getTitle()), getUser().getId());
+        addActionToNode(getTile().getTitleLabel(), () -> copyStringToClipboard(getTitle()), getUser().getId());
         goToPreviousPageByKey(this::disconnect);
 
         getStage().setOnCloseRequest(windowEvent -> {
@@ -95,7 +98,7 @@ public class ChatPage extends Page{
     public void onClose() {
         super.onClose();
 
-        getStage().setOnCloseRequest(windowEvent -> Utils.onWindowClose());
+        getStage().setOnCloseRequest(windowEvent -> onWindowClose());
         if(isClientCanAcceptRequestsFromServer)
             disconnect();
     }
@@ -126,7 +129,7 @@ public class ChatPage extends Page{
             usersChatLabelTooltip.setWrapText(true);
             usersCountLabel.setTooltip(usersChatLabelTooltip);
 
-            ImageView imageView = new ImageView(Utils.getImage("bitmaps/icons/others/users.png"));
+            ImageView imageView = new ImageView(getImage("bitmaps/icons/others/users.png"));
             imageView.setFitWidth(32d);
             imageView.setFitHeight(32d);
             imageView.setEffect(new DropShadow());
@@ -160,29 +163,29 @@ public class ChatPage extends Page{
                 return true;
 
             new Thread(() -> {
-                try {
-                    while (isClientCanAcceptRequestsFromServer) {
+                while (isClientCanAcceptRequestsFromServer) {
+                    try {
                         String message = in.readUTF();
 
                         if (isStringAreJSON(message)) {
                             JSONObject jsonObject = new JSONObject(message);
                             Platform.runLater(() -> {
-                                if(jsonObject.has(CLIENTS_COUNT)) {
+                                if (jsonObject.has(CLIENTS_COUNT)) {
                                     displayUsersCount(jsonObject);
                                 }
 
-                                if (jsonObject.has(CLIENT_NAME_COLOR)){
+                                if (jsonObject.has(CLIENT_NAME_COLOR)) {
                                     int[] userColorComponents = parseColorRGBFromString(jsonObject.getString(CLIENT_NAME_COLOR));
 
-                                    if(jsonObject.has(CLIENT_SENT_IMAGE)) {
+                                    if (jsonObject.has(CLIENT_SENT_IMAGE)) {
                                         createMessageImageView(jsonObject.getJSONArray(CLIENT_SENT_IMAGE), jsonObject.getString(CLIENT_NAME), javafx.scene.paint.Color.rgb(userColorComponents[0], userColorComponents[1], userColorComponents[2]), jsonObject.getString(CLIENT_MESSAGE), messagesContent, messagesScrollPane, getUser().getId());
-                                    }else {
+                                    } else {
                                         String currentMessage = jsonObject.getString(CLIENT_MESSAGE);
                                         if (!isStringAreJSON(currentMessage)) {
                                             createMessageLabel(currentMessage, javafx.scene.paint.Color.rgb(userColorComponents[0], userColorComponents[1], userColorComponents[2]), messagesScrollPane, messagesContent, getUser().getId());
 
-                                            if(getStage().isIconified() & DatabaseService.getBoolean(Objects.requireNonNull(DatabaseService.getValue(DatabaseConstants.USER_USING_NOTIFICATIONS_ROW, getUser().getId()))))
-                                                NotificationsSender.send(Utils.extractUserNameFromMessage(currentMessage), Utils.extractMessageTextFromMessage(currentMessage), TrayIcon.MessageType.INFO, () -> Platform.runLater(() -> getStage().setIconified(false)));
+                                            if (getStage().isIconified() & DatabaseService.getBoolean(Objects.requireNonNull(DatabaseService.getValue(DatabaseConstants.USER_USING_NOTIFICATIONS_ROW, getUser().getId()))))
+                                                NotificationsSender.send(extractUserNameFromMessage(currentMessage), extractMessageTextFromMessage(currentMessage), TrayIcon.MessageType.INFO, () -> Platform.runLater(() -> getStage().setIconified(false)));
                                         }
                                     }
                                 }
@@ -191,9 +194,9 @@ public class ChatPage extends Page{
                         }
 
                         Thread.sleep(CLIENT_AND_SERVER_UPDATE_DELAY_IN_MILLIS);
+                    }catch (Exception e){
+                        break;
                     }
-                }catch (Exception e){
-                    Log.error(e);
                 }
 
                 disconnect();
@@ -219,9 +222,9 @@ public class ChatPage extends Page{
     private boolean checkCanUserConnect() {
         try {
             String canConnectJSON = in.readUTF();
-            if (Utils.isStringAreJSON(canConnectJSON)) {
-                if (!Boolean.parseBoolean(Utils.getStringFromJSON(canConnectJSON, CAN_CONNECT))) {
-                    ErrorDialog.show(new ConnectException(Utils.getStringFromJSON(canConnectJSON, REASON)));
+            if (isStringAreJSON(canConnectJSON)) {
+                if (!Boolean.parseBoolean(getStringFromJSON(canConnectJSON, CAN_CONNECT))) {
+                    ErrorDialog.show(new ConnectException(getStringFromJSON(canConnectJSON, REASON)));
 
                     return false;
                 }
@@ -247,12 +250,16 @@ public class ChatPage extends Page{
 
     private void disconnect() {
         try {
-            if(!socket.isClosed()) {
-                out.writeUTF(DISCONNECT_COMMAND);
+            Log.info("Preparing to close streams and socket");
 
-                in.close();
+            if(!socket.isClosed()) {
+                sendMessageToServer(DISCONNECT_COMMAND);
+
                 out.close();
+                in.close();
                 socket.close();
+
+                Log.info("Streams and socket closed");
             }
 
             if(server != null)
@@ -268,7 +275,6 @@ public class ChatPage extends Page{
         try{
             Tile tile = new Tile(756d, 81d, 0.43f);
             tile.setPadding(new Insets(20d));
-            tile.setMaxHeight(480d);
             tile.setAlignment(Pos.CENTER_LEFT);
             tile.applyAlphaWithUserSettings(getUser());
             tile.animate(getUser().getId());
@@ -279,11 +285,21 @@ public class ChatPage extends Page{
             hBox.setSpacing(15d);
 
             messageAdditionalTextField = new AdditionalTextField(374d, 49d, StringGetterWithCurrentLanguage.getString(StringsConstants.WRITE_YOUR_MESSAGE),
-                    Utils.getImage("bitmaps/icons/others/message.png"), false);
+                    getImage("bitmaps/icons/others/message.png"), false);
             messageAdditionalTextField.addOnEnterKeyPressed(() -> sendMessage(messageAdditionalTextField.getText()));
+
+            ImageView emojiButtonImageView = new ImageView(getImage("bitmaps/icons/others/emoji.png"));
+            emojiButtonImageView.setFitHeight(32d);
+            emojiButtonImageView.setFitWidth(32d);
+            emojiButtonImageView.setCursor(Cursor.HAND);
+            emojiButtonImageView.getStyleClass().add("image-button");
+            addActionToNode(emojiButtonImageView, () -> onEmojiButtonAction(tile), getUser().getId());
+
+            messageAdditionalTextField.getChildren().add(1, emojiButtonImageView);
             hBox.getChildren().add(messageAdditionalTextField);
 
-            ImageButton attachmentButton = new ImageButton(52d, 50d, Utils.getImage("bitmaps/icons/others/attachment.png"), getUser().getId());
+            ImageButton attachmentButton = new ImageButton(52d, 50d, getImage("bitmaps/icons/others/attachment.png"), getUser().getId());
+            Tooltip.install(attachmentButton, createTooltip(StringGetterWithCurrentLanguage.getString(StringsConstants.PIN_THE_IMAGE)));
             attachmentButton.setOnAction(this::onAttachmentButton);
 
             AdditionalButton sendButton = new AdditionalButton(StringGetterWithCurrentLanguage.getString(StringsConstants.SEND), 137d, 49d, new Color(164, 62, 62), WHITE_COLOR, getUser().getId());
@@ -302,15 +318,39 @@ public class ChatPage extends Page{
         }
     }
 
+    private void onEmojiButtonAction(@NotNull Tile tile) {
+        try {
+            if (!paneHasObjectWithId(EmojisView.EMOJIS_VIEW_ID, tile)) {
+                EmojisView emojisView = new EmojisView(getUser().getId(), emojiInfo -> sendImageToServer(ImageUtils.convertImageFileToBytes(emojiInfo.imageFile()), messageAdditionalTextField.getText()));
+                tile.addChild(emojisView);
+
+                Animations.setScaleTransitionToNode(tile, 1, 1, 0, 1, getUser().getId());
+            } else {
+                tile.getChildren().removeIf(node -> {
+                    boolean condition = false;
+
+                    if (node.getId() != null)
+                        condition = (node.getId().equals(EmojisView.EMOJIS_VIEW_ID));
+
+                    return condition;
+                });
+
+                Animations.setScaleTransitionToNode(tile, 1, 1, 1.5f, 1, getUser().getId());
+            }
+        }catch (Exception e){
+            Log.error(e);
+        }
+    }
+
     private void onAttachmentButton() {
         try{
-            File selectedFile = Utils.openFileDialog(StringGetterWithCurrentLanguage.getString(StringsConstants.SELECT_YOUR_IMAGE_FOR_SEND), DatabaseService.getValue(DatabaseConstants.USER_LAST_PATH_IN_ATTACHMENTS, getUser().getId()),
+            File selectedFile = openFileDialog(StringGetterWithCurrentLanguage.getString(StringsConstants.SELECT_YOUR_IMAGE_FOR_SEND), DatabaseService.getValue(DatabaseConstants.USER_LAST_PATH_IN_ATTACHMENTS, getUser().getId()),
                     getStage(), List.of(new FileChooser.ExtensionFilter(Objects.requireNonNull(StringGetterWithCurrentLanguage.getString(StringsConstants.IMAGES)), "*.png*", "*.jpg*", "*.jpeg*"),
                             new FileChooser.ExtensionFilter(Objects.requireNonNull(StringGetterWithCurrentLanguage.getString(StringsConstants.EVERYTHING)), "*.*")));
 
             if(selectedFile != null){
                 DatabaseService.changeValue(DatabaseConstants.USER_LAST_PATH_IN_ATTACHMENTS, selectedFile.getParent(), getUser().getId());
-                sendImageToServer(ImageUtils.convertImageFileToBytes(ImageUtils.compressImage(selectedFile, Utils.getFileFormat(selectedFile.getName()))), messageAdditionalTextField.getText());
+                sendImageToServer(ImageUtils.convertImageFileToBytes(ImageUtils.compressImage(selectedFile, getFileFormat(selectedFile.getName()))), messageAdditionalTextField.getText());
             }
         }catch (Exception e){
             Log.error(e);
@@ -343,6 +383,8 @@ public class ChatPage extends Page{
 
     private void sendImageToServer(byte[] image, String message) {
         try {
+            Log.info("Trying to send image to server...");
+
             JSONObject jsonObject = new JSONObject();
             jsonObject.put(CLIENT_MESSAGE, message);
             jsonObject.put(CLIENT_NAME, getUser().getUserName());
@@ -362,6 +404,8 @@ public class ChatPage extends Page{
 
             messageAdditionalTextField.getTextField().clear();
             sendMessageToServer(jsonObject.toString());
+
+            Log.info("Sent image");
         }catch (Exception e){
             Log.error(e);
         }

@@ -146,7 +146,7 @@ public class ChatsPage extends Page{
             List<String> recentChatsList = UserRecentChats.getRecentChats(getUser().getId());
 
             if(!recentChatsList.isEmpty())
-                recentChatsList.forEach(address -> scrollPaneContentVbox.getChildren().add(new ChatTile(ChatTile.DEFAULT_WIDTH, ChatTile.DEFAULT_HEIGHT, address, scrollPaneContentVbox, this, (ChatsPage) this)));
+                recentChatsList.forEach(address -> scrollPaneContentVbox.getChildren().add(new ChatTile(ChatTile.DEFAULT_WIDTH, ChatTile.DEFAULT_HEIGHT, address, scrollPaneContentVbox, this, this)));
             else
                 createNoChatsHereLabel(scrollPaneContentVbox);
 

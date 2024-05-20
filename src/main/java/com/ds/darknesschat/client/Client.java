@@ -1,7 +1,6 @@
 package com.ds.darknesschat.client;
 
 import com.ds.darknesschat.Main;
-import com.ds.darknesschat.chat.messages.MessageUtils;
 import com.ds.darknesschat.chat.messages.MessagesGenerator;
 import com.ds.darknesschat.server.Server;
 import com.ds.darknesschat.utils.Utils;
@@ -14,8 +13,6 @@ import org.json.JSONObject;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.List;
-import java.util.Random;
 
 import static com.ds.darknesschat.Constants.CLIENT_AND_SERVER_UPDATE_DELAY_IN_MILLIS;
 import static com.ds.darknesschat.Constants.DISCONNECT_COMMAND;
@@ -45,6 +42,7 @@ public class Client implements Runnable{
 
         Log.info("Selected color for user is " + color);
 
+        assert color != null;
         clientNameColor = Color.web(color);
     }
 
@@ -103,8 +101,8 @@ public class Client implements Runnable{
         try {
             canClientAcceptRequestsFromServer = false;
 
-            socket.close();
             server.deleteClient(this);
+            socket.close();
 
             server.sendStringMessageToAll(MessagesGenerator.generateUserTextMessage(clientName + " " + StringGetterWithCurrentLanguage.getString(StringsConstants.USER_DISCONNECTED), true, clientNameColor, server.getClientsCount()));
         }catch (Exception e){

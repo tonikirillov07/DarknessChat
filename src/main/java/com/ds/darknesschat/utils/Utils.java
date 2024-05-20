@@ -1,5 +1,6 @@
 package com.ds.darknesschat.utils;
 
+import com.ds.darknesschat.Constants;
 import com.ds.darknesschat.Main;
 import com.ds.darknesschat.additionalNodes.AdditionalTextField;
 import com.ds.darknesschat.utils.appSettings.outsideSettings.OutsideSettingsManager;
@@ -15,9 +16,11 @@ import javafx.beans.Observable;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Node;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.*;
+import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.jetbrains.annotations.Contract;
@@ -389,5 +392,27 @@ public final class Utils {
         }
 
         return null;
+    }
+
+    public static boolean paneHasObjectWithId(String id, @NotNull Pane pane){
+        boolean isFound = false;
+
+        for (Node child : pane.getChildren()) {
+            if(child.getId() != null) {
+                if (child.getId().equals(id)) {
+                    isFound = true;
+                    break;
+                }
+            }
+        }
+
+        return isFound;
+    }
+
+    public static @NotNull Tooltip createTooltip(String text){
+        Tooltip tooltip = new Tooltip(text);
+        tooltip.setFont(Font.loadFont(Main.class.getResourceAsStream(Constants.FONT_BOLD_PATH), 14d));
+
+        return tooltip;
     }
 }

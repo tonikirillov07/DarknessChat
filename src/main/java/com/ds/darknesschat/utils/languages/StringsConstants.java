@@ -97,4 +97,5 @@ public final class StringsConstants {
     public static final String SCREENSHOTS_MAKER_NOTIFICATION_CLICK_HERE_TO_OPEN_TEXT = "screenshots_maker_notification_click_here_to_open_text";
     public static final String OTHER_SETTINGS = "other_settings";
     public static final String NOTIFICATIONS = "notifications";
+    public static final String PIN_THE_IMAGE = "pin_the_image";
 }
